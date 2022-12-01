@@ -35,14 +35,14 @@ for my $n(2..16) {
 
     my $args = join ", ", map { "v$_ T$_" } 1..$n;
     my $values = join ", ", map { "v$_" } 1..$n;
-    say $fh "// New${n} returns a new $n-tuple.";
-    say $fh "func New${n}[$types any]($args) Tuple${n}[$types] {";
+    say $fh "// NewTuple${n} returns a new $n-tuple.";
+    say $fh "func NewTuple${n}[$types any]($args) Tuple${n}[$types] {";
     say $fh "	return Tuple${n}[$types]{$values}";
     say $fh "}";
     say $fh "";
 
     my $fields = join ", ", map { "t.V$_" } 1..$n;
-    say $fh "// New${n} returns a new $n-tuple.";
+    say $fh "// Get returns elements of the tuple.";
     if ($n == 1) {
         say $fh "func (t Tuple${n}[$types]) Get() $types {";
     } else {
