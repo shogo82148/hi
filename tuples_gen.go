@@ -14,7 +14,7 @@ func NewTuple2[T1, T2 any](v1 T1, v2 T2) Tuple2[T1, T2] {
 	return Tuple2[T1, T2]{v1, v2}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple2[T1, T2]) Get() (T1, T2) {
 	return t.V1, t.V2
 }
@@ -35,7 +35,7 @@ func NewTuple3[T1, T2, T3 any](v1 T1, v2 T2, v3 T3) Tuple3[T1, T2, T3] {
 	return Tuple3[T1, T2, T3]{v1, v2, v3}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple3[T1, T2, T3]) Get() (T1, T2, T3) {
 	return t.V1, t.V2, t.V3
 }
@@ -57,7 +57,7 @@ func NewTuple4[T1, T2, T3, T4 any](v1 T1, v2 T2, v3 T3, v4 T4) Tuple4[T1, T2, T3
 	return Tuple4[T1, T2, T3, T4]{v1, v2, v3, v4}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple4[T1, T2, T3, T4]) Get() (T1, T2, T3, T4) {
 	return t.V1, t.V2, t.V3, t.V4
 }
@@ -80,7 +80,7 @@ func NewTuple5[T1, T2, T3, T4, T5 any](v1 T1, v2 T2, v3 T3, v4 T4, v5 T5) Tuple5
 	return Tuple5[T1, T2, T3, T4, T5]{v1, v2, v3, v4, v5}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple5[T1, T2, T3, T4, T5]) Get() (T1, T2, T3, T4, T5) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5
 }
@@ -104,7 +104,7 @@ func NewTuple6[T1, T2, T3, T4, T5, T6 any](v1 T1, v2 T2, v3 T3, v4 T4, v5 T5, v6
 	return Tuple6[T1, T2, T3, T4, T5, T6]{v1, v2, v3, v4, v5, v6}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple6[T1, T2, T3, T4, T5, T6]) Get() (T1, T2, T3, T4, T5, T6) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6
 }
@@ -129,7 +129,7 @@ func NewTuple7[T1, T2, T3, T4, T5, T6, T7 any](v1 T1, v2 T2, v3 T3, v4 T4, v5 T5
 	return Tuple7[T1, T2, T3, T4, T5, T6, T7]{v1, v2, v3, v4, v5, v6, v7}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple7[T1, T2, T3, T4, T5, T6, T7]) Get() (T1, T2, T3, T4, T5, T6, T7) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7
 }
@@ -155,7 +155,7 @@ func NewTuple8[T1, T2, T3, T4, T5, T6, T7, T8 any](v1 T1, v2 T2, v3 T3, v4 T4, v
 	return Tuple8[T1, T2, T3, T4, T5, T6, T7, T8]{v1, v2, v3, v4, v5, v6, v7, v8}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple8[T1, T2, T3, T4, T5, T6, T7, T8]) Get() (T1, T2, T3, T4, T5, T6, T7, T8) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8
 }
@@ -182,7 +182,7 @@ func NewTuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9 any](v1 T1, v2 T2, v3 T3, v4 T
 	return Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9]{v1, v2, v3, v4, v5, v6, v7, v8, v9}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9
 }
@@ -210,7 +210,7 @@ func NewTuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10 any](v1 T1, v2 T2, v3 T3
 	return Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]{v1, v2, v3, v4, v5, v6, v7, v8, v9, v10}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9, t.V10
 }
@@ -239,7 +239,7 @@ func NewTuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11 any](v1 T1, v2 T2, 
 	return Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]{v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9, t.V10, t.V11
 }
@@ -269,7 +269,7 @@ func NewTuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12 any](v1 T1, v2
 	return Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]{v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9, t.V10, t.V11, t.V12
 }
@@ -300,7 +300,7 @@ func NewTuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13 any](v1 T
 	return Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]{v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9, t.V10, t.V11, t.V12, t.V13
 }
@@ -332,7 +332,7 @@ func NewTuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14 any]
 	return Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]{v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9, t.V10, t.V11, t.V12, t.V13, t.V14
 }
@@ -365,7 +365,7 @@ func NewTuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
 	return Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]{v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9, t.V10, t.V11, t.V12, t.V13, t.V14, t.V15
 }
@@ -399,7 +399,7 @@ func NewTuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15
 	return Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]{v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16}
 }
 
-// Get returns elements of the tuple
+// Get returns elements of the tuple.
 func (t Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]) Get() (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16) {
 	return t.V1, t.V2, t.V3, t.V4, t.V5, t.V6, t.V7, t.V8, t.V9, t.V10, t.V11, t.V12, t.V13, t.V14, t.V15, t.V16
 }
