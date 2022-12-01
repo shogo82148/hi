@@ -49,3 +49,19 @@ func ExampleUnzip2() {
 	// four
 	// five
 }
+
+func ExampleMap() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.Map(input, func(_, s int) string {
+		return fmt.Sprintf("(%d)", s)
+	})
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// (1)
+	// (2)
+	// (3)
+	// (4)
+	// (5)
+}
