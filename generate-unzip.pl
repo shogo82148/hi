@@ -16,15 +16,14 @@ END
 for my $n(2..16) {
     say $fh "";
     my $types = join ", ", map { "T$_" } 1..$n;
-    my $slice_types = join ", ", map { "S$_ []T$_" } 1..$n;
-    my $ret_types = join ", ", map { "S$_" } 1..$n;
+    my $ret_types = join ", ", map { "[]T$_" } 1..$n;
     if ($n > 1) {
         $ret_types = "($ret_types)"
     }
     say $fh "// Unzip$n converts a slice of $n-tuple to slices of each elements.";
-    say $fh "func Unzip${n}[$slice_types, $types any](s []tuple.Tuple${n}[$types]) $ret_types {";
+    say $fh "func Unzip${n}[$types any](s []tuple.Tuple${n}[$types]) $ret_types {";
     for my $i(1..$n) {
-        say $fh "	s$i := make(S$i, len(s))";
+        say $fh "	s$i := make([]T$i, len(s))";
     }
     say $fh "	for i, t := range s {";
     for my $i(1..$n) {

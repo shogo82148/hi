@@ -6,9 +6,9 @@ import (
 )
 
 // Unzip2 converts a slice of 2-tuple to slices of each elements.
-func Unzip2[S1 []T1, S2 []T2, T1, T2 any](s []tuple.Tuple2[T1, T2]) (S1, S2) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
+func Unzip2[T1, T2 any](s []tuple.Tuple2[T1, T2]) ([]T1, []T2) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -17,10 +17,10 @@ func Unzip2[S1 []T1, S2 []T2, T1, T2 any](s []tuple.Tuple2[T1, T2]) (S1, S2) {
 }
 
 // Unzip3 converts a slice of 3-tuple to slices of each elements.
-func Unzip3[S1 []T1, S2 []T2, S3 []T3, T1, T2, T3 any](s []tuple.Tuple3[T1, T2, T3]) (S1, S2, S3) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
+func Unzip3[T1, T2, T3 any](s []tuple.Tuple3[T1, T2, T3]) ([]T1, []T2, []T3) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -30,11 +30,11 @@ func Unzip3[S1 []T1, S2 []T2, S3 []T3, T1, T2, T3 any](s []tuple.Tuple3[T1, T2, 
 }
 
 // Unzip4 converts a slice of 4-tuple to slices of each elements.
-func Unzip4[S1 []T1, S2 []T2, S3 []T3, S4 []T4, T1, T2, T3, T4 any](s []tuple.Tuple4[T1, T2, T3, T4]) (S1, S2, S3, S4) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
+func Unzip4[T1, T2, T3, T4 any](s []tuple.Tuple4[T1, T2, T3, T4]) ([]T1, []T2, []T3, []T4) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -45,12 +45,12 @@ func Unzip4[S1 []T1, S2 []T2, S3 []T3, S4 []T4, T1, T2, T3, T4 any](s []tuple.Tu
 }
 
 // Unzip5 converts a slice of 5-tuple to slices of each elements.
-func Unzip5[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, T1, T2, T3, T4, T5 any](s []tuple.Tuple5[T1, T2, T3, T4, T5]) (S1, S2, S3, S4, S5) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
+func Unzip5[T1, T2, T3, T4, T5 any](s []tuple.Tuple5[T1, T2, T3, T4, T5]) ([]T1, []T2, []T3, []T4, []T5) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -62,13 +62,13 @@ func Unzip5[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, T1, T2, T3, T4, T5 any]
 }
 
 // Unzip6 converts a slice of 6-tuple to slices of each elements.
-func Unzip6[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, T1, T2, T3, T4, T5, T6 any](s []tuple.Tuple6[T1, T2, T3, T4, T5, T6]) (S1, S2, S3, S4, S5, S6) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
+func Unzip6[T1, T2, T3, T4, T5, T6 any](s []tuple.Tuple6[T1, T2, T3, T4, T5, T6]) ([]T1, []T2, []T3, []T4, []T5, []T6) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -81,14 +81,14 @@ func Unzip6[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, T1, T2, T3, T4
 }
 
 // Unzip7 converts a slice of 7-tuple to slices of each elements.
-func Unzip7[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, T1, T2, T3, T4, T5, T6, T7 any](s []tuple.Tuple7[T1, T2, T3, T4, T5, T6, T7]) (S1, S2, S3, S4, S5, S6, S7) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
+func Unzip7[T1, T2, T3, T4, T5, T6, T7 any](s []tuple.Tuple7[T1, T2, T3, T4, T5, T6, T7]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -102,15 +102,15 @@ func Unzip7[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, T1, T
 }
 
 // Unzip8 converts a slice of 8-tuple to slices of each elements.
-func Unzip8[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, T1, T2, T3, T4, T5, T6, T7, T8 any](s []tuple.Tuple8[T1, T2, T3, T4, T5, T6, T7, T8]) (S1, S2, S3, S4, S5, S6, S7, S8) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
+func Unzip8[T1, T2, T3, T4, T5, T6, T7, T8 any](s []tuple.Tuple8[T1, T2, T3, T4, T5, T6, T7, T8]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -125,16 +125,16 @@ func Unzip8[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []
 }
 
 // Unzip9 converts a slice of 9-tuple to slices of each elements.
-func Unzip9[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, T1, T2, T3, T4, T5, T6, T7, T8, T9 any](s []tuple.Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9]) (S1, S2, S3, S4, S5, S6, S7, S8, S9) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
+func Unzip9[T1, T2, T3, T4, T5, T6, T7, T8, T9 any](s []tuple.Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -150,17 +150,17 @@ func Unzip9[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []
 }
 
 // Unzip10 converts a slice of 10-tuple to slices of each elements.
-func Unzip10[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, S10 []T10, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10 any](s []tuple.Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]) (S1, S2, S3, S4, S5, S6, S7, S8, S9, S10) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
-	s10 := make(S10, len(s))
+func Unzip10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10 any](s []tuple.Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9, []T10) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
+	s10 := make([]T10, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -177,18 +177,18 @@ func Unzip10[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 [
 }
 
 // Unzip11 converts a slice of 11-tuple to slices of each elements.
-func Unzip11[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, S10 []T10, S11 []T11, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11 any](s []tuple.Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]) (S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
-	s10 := make(S10, len(s))
-	s11 := make(S11, len(s))
+func Unzip11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11 any](s []tuple.Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9, []T10, []T11) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
+	s10 := make([]T10, len(s))
+	s11 := make([]T11, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -206,19 +206,19 @@ func Unzip11[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 [
 }
 
 // Unzip12 converts a slice of 12-tuple to slices of each elements.
-func Unzip12[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, S10 []T10, S11 []T11, S12 []T12, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12 any](s []tuple.Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]) (S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
-	s10 := make(S10, len(s))
-	s11 := make(S11, len(s))
-	s12 := make(S12, len(s))
+func Unzip12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12 any](s []tuple.Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9, []T10, []T11, []T12) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
+	s10 := make([]T10, len(s))
+	s11 := make([]T11, len(s))
+	s12 := make([]T12, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -237,20 +237,20 @@ func Unzip12[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 [
 }
 
 // Unzip13 converts a slice of 13-tuple to slices of each elements.
-func Unzip13[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, S10 []T10, S11 []T11, S12 []T12, S13 []T13, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13 any](s []tuple.Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]) (S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
-	s10 := make(S10, len(s))
-	s11 := make(S11, len(s))
-	s12 := make(S12, len(s))
-	s13 := make(S13, len(s))
+func Unzip13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13 any](s []tuple.Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9, []T10, []T11, []T12, []T13) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
+	s10 := make([]T10, len(s))
+	s11 := make([]T11, len(s))
+	s12 := make([]T12, len(s))
+	s13 := make([]T13, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -270,21 +270,21 @@ func Unzip13[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 [
 }
 
 // Unzip14 converts a slice of 14-tuple to slices of each elements.
-func Unzip14[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, S10 []T10, S11 []T11, S12 []T12, S13 []T13, S14 []T14, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14 any](s []tuple.Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]) (S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
-	s10 := make(S10, len(s))
-	s11 := make(S11, len(s))
-	s12 := make(S12, len(s))
-	s13 := make(S13, len(s))
-	s14 := make(S14, len(s))
+func Unzip14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14 any](s []tuple.Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9, []T10, []T11, []T12, []T13, []T14) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
+	s10 := make([]T10, len(s))
+	s11 := make([]T11, len(s))
+	s12 := make([]T12, len(s))
+	s13 := make([]T13, len(s))
+	s14 := make([]T14, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -305,22 +305,22 @@ func Unzip14[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 [
 }
 
 // Unzip15 converts a slice of 15-tuple to slices of each elements.
-func Unzip15[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, S10 []T10, S11 []T11, S12 []T12, S13 []T13, S14 []T14, S15 []T15, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15 any](s []tuple.Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]) (S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
-	s10 := make(S10, len(s))
-	s11 := make(S11, len(s))
-	s12 := make(S12, len(s))
-	s13 := make(S13, len(s))
-	s14 := make(S14, len(s))
-	s15 := make(S15, len(s))
+func Unzip15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15 any](s []tuple.Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9, []T10, []T11, []T12, []T13, []T14, []T15) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
+	s10 := make([]T10, len(s))
+	s11 := make([]T11, len(s))
+	s12 := make([]T12, len(s))
+	s13 := make([]T13, len(s))
+	s14 := make([]T14, len(s))
+	s15 := make([]T15, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
@@ -342,23 +342,23 @@ func Unzip15[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 [
 }
 
 // Unzip16 converts a slice of 16-tuple to slices of each elements.
-func Unzip16[S1 []T1, S2 []T2, S3 []T3, S4 []T4, S5 []T5, S6 []T6, S7 []T7, S8 []T8, S9 []T9, S10 []T10, S11 []T11, S12 []T12, S13 []T13, S14 []T14, S15 []T15, S16 []T16, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16 any](s []tuple.Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]) (S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16) {
-	s1 := make(S1, len(s))
-	s2 := make(S2, len(s))
-	s3 := make(S3, len(s))
-	s4 := make(S4, len(s))
-	s5 := make(S5, len(s))
-	s6 := make(S6, len(s))
-	s7 := make(S7, len(s))
-	s8 := make(S8, len(s))
-	s9 := make(S9, len(s))
-	s10 := make(S10, len(s))
-	s11 := make(S11, len(s))
-	s12 := make(S12, len(s))
-	s13 := make(S13, len(s))
-	s14 := make(S14, len(s))
-	s15 := make(S15, len(s))
-	s16 := make(S16, len(s))
+func Unzip16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16 any](s []tuple.Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]) ([]T1, []T2, []T3, []T4, []T5, []T6, []T7, []T8, []T9, []T10, []T11, []T12, []T13, []T14, []T15, []T16) {
+	s1 := make([]T1, len(s))
+	s2 := make([]T2, len(s))
+	s3 := make([]T3, len(s))
+	s4 := make([]T4, len(s))
+	s5 := make([]T5, len(s))
+	s6 := make([]T6, len(s))
+	s7 := make([]T7, len(s))
+	s8 := make([]T8, len(s))
+	s9 := make([]T9, len(s))
+	s10 := make([]T10, len(s))
+	s11 := make([]T11, len(s))
+	s12 := make([]T12, len(s))
+	s13 := make([]T13, len(s))
+	s14 := make([]T14, len(s))
+	s15 := make([]T15, len(s))
+	s16 := make([]T16, len(s))
 	for i, t := range s {
 		s1[i] = t.V1
 		s2[i] = t.V2
