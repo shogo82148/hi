@@ -78,3 +78,21 @@ func ExampleFilter() {
 	// 2
 	// 4
 }
+
+func ExampleAny() {
+	input := []int{1, 2, 3, 4, 5}
+	fmt.Println(hi.Any(input, 5))
+	fmt.Println(hi.Any(input, 6))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAnyBy() {
+	input := []int{1, 2, 3, 4, 5}
+	fmt.Println(hi.AnyBy(input, func(_, v int) bool { return v > 3 }))
+	fmt.Println(hi.AnyBy(input, func(_, v int) bool { return v > 10 }))
+	// Output:
+	// true
+	// false
+}
