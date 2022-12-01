@@ -11,3 +11,14 @@ func Map[T, U any](a []T, mapper func(int, T) U) []U {
 	}
 	return ret
 }
+
+// Filter iterates over elements of collection, returning a slice of all elements predicate returns true for.
+func Filter[T any](a []T, filter func(int, T) bool) []T {
+	ret := make([]T, 0, len(a))
+	for i, v := range a {
+		if filter(i, v) {
+			ret = append(ret, v)
+		}
+	}
+	return ret
+}

@@ -52,8 +52,8 @@ func ExampleUnzip2() {
 
 func ExampleMap() {
 	input := []int{1, 2, 3, 4, 5}
-	output := hi.Map(input, func(_, s int) string {
-		return fmt.Sprintf("(%d)", s)
+	output := hi.Map(input, func(_, v int) string {
+		return fmt.Sprintf("(%d)", v)
 	})
 	for _, v := range output {
 		fmt.Println(v)
@@ -64,4 +64,17 @@ func ExampleMap() {
 	// (3)
 	// (4)
 	// (5)
+}
+
+func ExampleFilter() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.Filter(input, func(_, v int) bool {
+		return v%2 == 0
+	})
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// 2
+	// 4
 }
