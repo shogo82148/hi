@@ -62,3 +62,21 @@ func AnyBy[T any](a []T, f func(int, T) bool) bool {
 	}
 	return false
 }
+
+func All[T comparable](a []T, value T) bool {
+	for _, v := range a {
+		if v != value {
+			return false
+		}
+	}
+	return true
+}
+
+func AllBy[T any](a []T, f func(int, T) bool) bool {
+	for i, v := range a {
+		if !f(i, v) {
+			return false
+		}
+	}
+	return true
+}
