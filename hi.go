@@ -23,7 +23,19 @@ func Filter[T any](a []T, filter func(int, T) bool) []T {
 	return ret
 }
 
-func Count[T any](a []T, counter func(int, T) bool) int {
+// Count counts the number of elements in the collection that compare equal to value.
+func Count[T comparable](a []T, value T) int {
+	var count int
+	for _, v := range a {
+		if v == value {
+			count++
+		}
+	}
+	return count
+}
+
+// Count counts the number of elements that counter returns true.
+func CountBy[T any](a []T, counter func(int, T) bool) int {
 	var count int
 	for i, v := range a {
 		if counter(i, v) {
@@ -31,4 +43,22 @@ func Count[T any](a []T, counter func(int, T) bool) int {
 		}
 	}
 	return count
+}
+
+func Any[T comparable](a []T, value T) bool {
+	for _, v := range a {
+		if v == value {
+			return true
+		}
+	}
+	return false
+}
+
+func AnyBy[T any](a []T, f func(int, T) bool) bool {
+	for i, v := range a {
+		if f(i, v) {
+			return true
+		}
+	}
+	return false
 }
