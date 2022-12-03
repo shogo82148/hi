@@ -3,8 +3,10 @@
 // license that can be found in the LICENSE file.
 
 // Package list implements a generic doubly linked list.
-// It is re-implementation of https://pkg.go.dev/container/list with generics.
+// It is re-implementation of [container/list] with generics.
 package list
+
+//go:generate ./generate-zip.pl
 
 type Element[T any] struct {
 	Value T
