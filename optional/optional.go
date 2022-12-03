@@ -1,6 +1,7 @@
 package optional
 
 // Optional is an optional of T.
+// Zero value equals None[T]()
 type Optional[T any] struct {
 	value T
 	valid bool
@@ -41,6 +42,17 @@ func (v Optional[T]) GetOr(defaults T) T {
 		return v.value
 	} else {
 		return defaults
+	}
+}
+
+// Get returns the value of v if v is valid.
+// Otherwise it returns zero value.
+func (v Optional[T]) GetOrZero() T {
+	if v.valid {
+		return v.value
+	} else {
+		var zero T
+		return zero
 	}
 }
 
