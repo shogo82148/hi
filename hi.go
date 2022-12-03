@@ -1,5 +1,10 @@
 package hi
 
+import (
+	"github.com/shogo82148/hi/optional"
+	"golang.org/x/exp/constraints"
+)
+
 //go:generate ./generate-zip.pl
 //go:generate ./generate-unzip.pl
 
@@ -79,4 +84,138 @@ func AllBy[T any](a []T, f func(int, T) bool) bool {
 		}
 	}
 	return true
+}
+
+// Max returns the maximum element of s.
+func Max[T constraints.Ordered](s ...T) optional.Optional[T] {
+	if len(s) == 0 {
+		return optional.None[T]()
+	}
+	max := s[0]
+	for _, v := range s[1:] {
+		if v > max {
+			max = v
+		}
+	}
+	return optional.New(max)
+}
+
+// MaxBy returns the maximum element of s.
+func MaxBy[T any](less func(T, T) bool, s ...T) optional.Optional[T] {
+	if len(s) == 0 {
+		return optional.None[T]()
+	}
+	max := s[0]
+	for _, v := range s[1:] {
+		if less(max, v) {
+			max = v
+		}
+	}
+	return optional.New(max)
+}
+
+// Min returns the minimum element in s.
+func Min[T constraints.Ordered](s ...T) optional.Optional[T] {
+	if len(s) == 0 {
+		return optional.None[T]()
+	}
+	min := s[0]
+	for _, v := range s[1:] {
+		if v < min {
+			min = v
+		}
+	}
+	return optional.New(min)
+}
+
+// MinBy returns the minimum element of s.
+func MinBy[T any](less func(T, T) bool, s ...T) optional.Optional[T] {
+	if len(s) == 0 {
+		return optional.None[T]()
+	}
+	min := s[0]
+	for _, v := range s[1:] {
+		if less(v, min) {
+			min = v
+		}
+	}
+	return optional.New(min)
+}
+
+// MinMax returns the minimum element and the maximum element of s.
+func MinMax[T constraints.Ordered](s ...T) (min optional.Optional[T], max optional.Optional[T]) {
+	if len(s) == 0 {
+		return
+	}
+	var i int
+	var myMin, myMax T
+	if len(s)%2 == 0 {
+		x := s[0]
+		y := s[1]
+		if x > y {
+			x, y = y, x
+		}
+		myMin = x
+		myMax = y
+		i = 2
+	} else {
+		myMin = s[0]
+		myMax = s[0]
+		i = 1
+	}
+	for ; i+1 < len(s); i += 2 {
+		x := s[i+0]
+		y := s[i+1]
+		if x > y {
+			x, y = y, x
+		}
+		if x < myMin {
+			myMin = x
+		}
+		if y > myMax {
+			myMax = y
+		}
+	}
+	min = optional.New(myMin)
+	max = optional.New(myMax)
+	return
+}
+
+// MinMaxBy returns the minimum element and the maximum element of s.
+func MinMaxBy[T any](less func(T, T) bool, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
+	if len(s) == 0 {
+		return
+	}
+	var i int
+	var myMin, myMax T
+	if len(s)%2 == 0 {
+		x := s[0]
+		y := s[1]
+		if less(y, x) {
+			x, y = y, x
+		}
+		myMin = x
+		myMax = y
+		i = 2
+	} else {
+		myMin = s[0]
+		myMax = s[0]
+		i = 1
+	}
+	for ; i+1 < len(s); i += 2 {
+		x := s[i+0]
+		y := s[i+1]
+		if less(y, x) {
+			x, y = y, x
+		}
+		if less(x, myMin) {
+			myMin = x
+		}
+		if less(myMax, y) {
+			myMax = y
+		}
+	}
+	min = optional.New(myMin)
+	max = optional.New(myMax)
+	return
 }
