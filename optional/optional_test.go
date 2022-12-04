@@ -16,15 +16,15 @@ func TestOptional(t *testing.T) {
 		t.Error("want invalid, but valid")
 	}
 
-	paniced := false
+	panicked := false
 	func() {
 		defer func() {
 			v := recover()
-			paniced = v != nil
+			panicked = v != nil
 		}()
 		invalid.Get()
 	}()
-	if !paniced {
+	if !panicked {
 		t.Error("should panic, but not")
 	}
 }
