@@ -48,3 +48,20 @@ func ExampleUnzip2() {
 	// two
 	// three
 }
+
+func ExampleList_Filter() {
+	var l list.List[int]
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+	l.PushBack(4)
+	l.PushBack(5)
+
+	m := l.Filter(func(_, v int) bool { return v > 3 })
+	for e := m.Front(); e != nil; e = e.Next() {
+		fmt.Println(e.Value)
+	}
+	// Output:
+	// 4
+	// 5
+}

@@ -233,6 +233,16 @@ func (l *List[T]) PushFrontList(other *List[T]) {
 
 // generic functions
 
+func (l *List[T]) Filter(f func(int, T) bool) *List[T] {
+	var ret List[T]
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if f(i, e.Value) {
+			ret.PushBack(e.Value)
+		}
+	}
+	return &ret
+}
+
 // Map
 func Map[T, U any](l *List[T], f func(int, T) U) *List[U] {
 	var ret List[U]
