@@ -219,3 +219,35 @@ func MinMaxBy[T any](less func(T, T) bool, s ...T) (min optional.Optional[T], ma
 	max = optional.New(myMax)
 	return
 }
+
+func Sum[T constraints.Float | constraints.Integer | constraints.Complex](s []T) optional.Optional[T] {
+	if len(s) == 0 {
+		return optional.None[T]()
+	}
+
+	sum := s[0]
+	var c T
+	for _, v := range s[1:] {
+		y := v - c
+		t := sum + y
+		c = (t - sum) - y
+		sum = t
+	}
+	return optional.New(sum)
+}
+
+func SumBy[T any, R constraints.Float | constraints.Integer | constraints.Complex](s []T, f func(T) R) optional.Optional[R] {
+	if len(s) == 0 {
+		return optional.None[R]()
+	}
+
+	sum := f(s[0])
+	var c R
+	for _, v := range s[1:] {
+		y := f(v) - c
+		t := sum + y
+		c = (t - sum) - y
+		sum = t
+	}
+	return optional.New(sum)
+}

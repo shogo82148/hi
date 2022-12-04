@@ -119,3 +119,10 @@ func ExampleMinMax() {
 	// min: 1
 	// max: 9
 }
+
+func ExampleSum() {
+	sum := hi.Sum([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+	fmt.Println(sum.Get())
+	// Output:
+	// 55
+}
