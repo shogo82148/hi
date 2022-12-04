@@ -265,6 +265,34 @@ func (l *List[T]) CountBy(f func(int, T) bool) int {
 	return count
 }
 
+// Any
+func Any[T comparable](l List[T], value T) bool {
+	for e := l.Front(); e != nil; e = e.Next() {
+		if e.Value == value {
+			return true
+		}
+	}
+	return false
+}
+
+func (l List[T]) AnyBy(f func(int, T) bool) bool {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if f(i, e.Value) {
+			return true
+		}
+	}
+	return false
+}
+
+func AnyBy[T any](l List[T], f func(int, T) bool) bool {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if f(i, e.Value) {
+			return true
+		}
+	}
+	return false
+}
+
 // Map
 func Map[T, U any](l *List[T], f func(int, T) U) *List[U] {
 	var ret List[U]
