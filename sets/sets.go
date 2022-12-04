@@ -182,6 +182,24 @@ func (set Set[T]) Count(f func(v T) bool) int {
 	return count
 }
 
+func (set Set[T]) Any(f func(v T) bool) bool {
+	for v := range set {
+		if f(v) {
+			return true
+		}
+	}
+	return false
+}
+
+func (set Set[T]) All(f func(v T) bool) bool {
+	for v := range set {
+		if !f(v) {
+			return false
+		}
+	}
+	return true
+}
+
 // Map converts all items in the set by using the mapper.
 func Map[T, U comparable](set Set[T], mapper func(v T) U) Set[U] {
 	ret := make(Set[U], len(set))
