@@ -1,5 +1,7 @@
 package result
 
+import "errors"
+
 //go:generate ./generate-zip.pl
 //go:generate ./generate-unzip.pl
 
@@ -54,6 +56,18 @@ func (e *wrapErrors) Error() string {
 
 func (e *wrapErrors) Unwrap() []error {
 	return e.errs
+}
+
+func (v Result[T]) Filter(f func(T) bool) Result[T] {
+	if v.err != nil {
+		return v
+	}
+	if f(v.value) {
+		return v
+	}
+	return Result[T]{
+		err: errors.New("result: invalid result"),
+	}
 }
 
 func Map[T, U any](r Result[T], f func(T) U) Result[U] {
