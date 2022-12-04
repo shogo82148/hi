@@ -55,3 +55,10 @@ func (e *wrapErrors) Error() string {
 func (e *wrapErrors) Unwrap() []error {
 	return e.errs
 }
+
+func Map[T, U any](r Result[T], f func(T) U) Result[U] {
+	if r.err != nil {
+		return Result[U]{err: r.err}
+	}
+	return Result[U]{value: f(r.value)}
+}
