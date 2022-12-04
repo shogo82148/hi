@@ -99,3 +99,32 @@ func ExampleList_CountBy() {
 	// Output:
 	// 2
 }
+
+func ExampleAny() {
+	var l list.List[int]
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+	l.PushBack(4)
+	l.PushBack(5)
+
+	fmt.Println(list.Any(l, 5))
+	fmt.Println(list.Any(l, 6))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAnyBy() {
+	var l list.List[int]
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+	l.PushBack(4)
+	l.PushBack(5)
+
+	cnt := l.AnyBy(func(_, v int) bool { return v > 3 })
+	fmt.Println(cnt)
+	// Output:
+	// true
+}
