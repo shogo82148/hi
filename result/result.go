@@ -1,5 +1,8 @@
 package result
 
+//go:generate ./generate-zip.pl
+//go:generate ./generate-unzip.pl
+
 type Result[T any] struct {
 	value T
 	err   error
@@ -38,4 +41,17 @@ func (v Result[T]) Get() T {
 
 func (v Result[T]) Err() error {
 	return v.err
+}
+
+type wrapErrors struct {
+	msg  string
+	errs []error
+}
+
+func (e *wrapErrors) Error() string {
+	return e.msg
+}
+
+func (e *wrapErrors) Unwrap() []error {
+	return e.errs
 }
