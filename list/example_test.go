@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/shogo82148/hi/list"
+	"github.com/shogo82148/hi/tuple"
 )
 
 func ExampleZip2() {
@@ -24,4 +25,26 @@ func ExampleZip2() {
 	// (1, one)
 	// (2, two)
 	// (3, three)
+}
+
+func ExampleUnzip2() {
+	var l list.List[tuple.Tuple2[int, string]]
+	l.PushBack(tuple.New2(1, "one"))
+	l.PushBack(tuple.New2(2, "two"))
+	l.PushBack(tuple.New2(3, "three"))
+
+	l1, l2 := list.Unzip2(&l)
+	for e := l1.Front(); e != nil; e = e.Next() {
+		fmt.Println(e.Value)
+	}
+	for e := l2.Front(); e != nil; e = e.Next() {
+		fmt.Println(e.Value)
+	}
+	// Output:
+	// 1
+	// 2
+	// 3
+	// one
+	// two
+	// three
 }
