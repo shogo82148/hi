@@ -39,7 +39,7 @@ func Count[T comparable](a []T, value T) int {
 	return count
 }
 
-// Count counts the number of elements that counter returns true.
+// CountBy counts the number of elements that counter returns true.
 func CountBy[T any](a []T, counter func(int, T) bool) int {
 	var count int
 	for i, v := range a {

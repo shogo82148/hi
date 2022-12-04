@@ -65,3 +65,37 @@ func ExampleList_Filter() {
 	// 4
 	// 5
 }
+
+func ExampleCount() {
+	var l list.List[int]
+	l.PushBack(3)
+	l.PushBack(1)
+	l.PushBack(4)
+	l.PushBack(1)
+	l.PushBack(5)
+	l.PushBack(9)
+	l.PushBack(2)
+	l.PushBack(6)
+	l.PushBack(5)
+	l.PushBack(3)
+	l.PushBack(5)
+
+	cnt := list.Count(l, 5)
+	fmt.Println(cnt)
+	// Output:
+	// 3
+}
+
+func ExampleList_CountBy() {
+	var l list.List[int]
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+	l.PushBack(4)
+	l.PushBack(5)
+
+	cnt := l.CountBy(func(_, v int) bool { return v > 3 })
+	fmt.Println(cnt)
+	// Output:
+	// 2
+}
