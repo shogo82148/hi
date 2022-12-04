@@ -23,7 +23,7 @@ for my $n(2..16) {
     say $fh "";
     my $types = mapJoin { "T$_" } $n;
 
-    say $fh "// Unip$n converts a list of $n-tuple to lists of each elements.";
+    say $fh "// Unzip$n converts a list of $n-tuple to lists of each elements.";
     say $fh "func Unzip${n}[$types any](l *List[tuple.Tuple${n}[$types]]) (" . (mapJoin { "*List[T$_]" } $n) . ") {";
     for my $i (1..$n) {
         say $fh "	l$i := new(List[T$i]).Init()";

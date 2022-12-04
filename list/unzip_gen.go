@@ -6,7 +6,7 @@ import (
 	"github.com/shogo82148/hi/tuple"
 )
 
-// Unip2 converts a list of 2-tuple to lists of each elements.
+// Unzip2 converts a list of 2-tuple to lists of each elements.
 func Unzip2[T1, T2 any](l *List[tuple.Tuple2[T1, T2]]) (*List[T1], *List[T2]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -17,7 +17,7 @@ func Unzip2[T1, T2 any](l *List[tuple.Tuple2[T1, T2]]) (*List[T1], *List[T2]) {
 	return l1, l2
 }
 
-// Unip3 converts a list of 3-tuple to lists of each elements.
+// Unzip3 converts a list of 3-tuple to lists of each elements.
 func Unzip3[T1, T2, T3 any](l *List[tuple.Tuple3[T1, T2, T3]]) (*List[T1], *List[T2], *List[T3]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -30,7 +30,7 @@ func Unzip3[T1, T2, T3 any](l *List[tuple.Tuple3[T1, T2, T3]]) (*List[T1], *List
 	return l1, l2, l3
 }
 
-// Unip4 converts a list of 4-tuple to lists of each elements.
+// Unzip4 converts a list of 4-tuple to lists of each elements.
 func Unzip4[T1, T2, T3, T4 any](l *List[tuple.Tuple4[T1, T2, T3, T4]]) (*List[T1], *List[T2], *List[T3], *List[T4]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -45,7 +45,7 @@ func Unzip4[T1, T2, T3, T4 any](l *List[tuple.Tuple4[T1, T2, T3, T4]]) (*List[T1
 	return l1, l2, l3, l4
 }
 
-// Unip5 converts a list of 5-tuple to lists of each elements.
+// Unzip5 converts a list of 5-tuple to lists of each elements.
 func Unzip5[T1, T2, T3, T4, T5 any](l *List[tuple.Tuple5[T1, T2, T3, T4, T5]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -62,7 +62,7 @@ func Unzip5[T1, T2, T3, T4, T5 any](l *List[tuple.Tuple5[T1, T2, T3, T4, T5]]) (
 	return l1, l2, l3, l4, l5
 }
 
-// Unip6 converts a list of 6-tuple to lists of each elements.
+// Unzip6 converts a list of 6-tuple to lists of each elements.
 func Unzip6[T1, T2, T3, T4, T5, T6 any](l *List[tuple.Tuple6[T1, T2, T3, T4, T5, T6]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -81,7 +81,7 @@ func Unzip6[T1, T2, T3, T4, T5, T6 any](l *List[tuple.Tuple6[T1, T2, T3, T4, T5,
 	return l1, l2, l3, l4, l5, l6
 }
 
-// Unip7 converts a list of 7-tuple to lists of each elements.
+// Unzip7 converts a list of 7-tuple to lists of each elements.
 func Unzip7[T1, T2, T3, T4, T5, T6, T7 any](l *List[tuple.Tuple7[T1, T2, T3, T4, T5, T6, T7]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -102,7 +102,7 @@ func Unzip7[T1, T2, T3, T4, T5, T6, T7 any](l *List[tuple.Tuple7[T1, T2, T3, T4,
 	return l1, l2, l3, l4, l5, l6, l7
 }
 
-// Unip8 converts a list of 8-tuple to lists of each elements.
+// Unzip8 converts a list of 8-tuple to lists of each elements.
 func Unzip8[T1, T2, T3, T4, T5, T6, T7, T8 any](l *List[tuple.Tuple8[T1, T2, T3, T4, T5, T6, T7, T8]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -125,7 +125,7 @@ func Unzip8[T1, T2, T3, T4, T5, T6, T7, T8 any](l *List[tuple.Tuple8[T1, T2, T3,
 	return l1, l2, l3, l4, l5, l6, l7, l8
 }
 
-// Unip9 converts a list of 9-tuple to lists of each elements.
+// Unzip9 converts a list of 9-tuple to lists of each elements.
 func Unzip9[T1, T2, T3, T4, T5, T6, T7, T8, T9 any](l *List[tuple.Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -150,7 +150,7 @@ func Unzip9[T1, T2, T3, T4, T5, T6, T7, T8, T9 any](l *List[tuple.Tuple9[T1, T2,
 	return l1, l2, l3, l4, l5, l6, l7, l8, l9
 }
 
-// Unip10 converts a list of 10-tuple to lists of each elements.
+// Unzip10 converts a list of 10-tuple to lists of each elements.
 func Unzip10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10 any](l *List[tuple.Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9], *List[T10]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -177,7 +177,7 @@ func Unzip10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10 any](l *List[tuple.Tuple10[
 	return l1, l2, l3, l4, l5, l6, l7, l8, l9, l10
 }
 
-// Unip11 converts a list of 11-tuple to lists of each elements.
+// Unzip11 converts a list of 11-tuple to lists of each elements.
 func Unzip11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11 any](l *List[tuple.Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9], *List[T10], *List[T11]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -206,7 +206,7 @@ func Unzip11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11 any](l *List[tuple.Tup
 	return l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11
 }
 
-// Unip12 converts a list of 12-tuple to lists of each elements.
+// Unzip12 converts a list of 12-tuple to lists of each elements.
 func Unzip12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12 any](l *List[tuple.Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9], *List[T10], *List[T11], *List[T12]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -237,7 +237,7 @@ func Unzip12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12 any](l *List[tupl
 	return l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12
 }
 
-// Unip13 converts a list of 13-tuple to lists of each elements.
+// Unzip13 converts a list of 13-tuple to lists of each elements.
 func Unzip13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13 any](l *List[tuple.Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9], *List[T10], *List[T11], *List[T12], *List[T13]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -270,7 +270,7 @@ func Unzip13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13 any](l *List
 	return l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13
 }
 
-// Unip14 converts a list of 14-tuple to lists of each elements.
+// Unzip14 converts a list of 14-tuple to lists of each elements.
 func Unzip14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14 any](l *List[tuple.Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9], *List[T10], *List[T11], *List[T12], *List[T13], *List[T14]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -305,7 +305,7 @@ func Unzip14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14 any](l 
 	return l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14
 }
 
-// Unip15 converts a list of 15-tuple to lists of each elements.
+// Unzip15 converts a list of 15-tuple to lists of each elements.
 func Unzip15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15 any](l *List[tuple.Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9], *List[T10], *List[T11], *List[T12], *List[T13], *List[T14], *List[T15]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()
@@ -342,7 +342,7 @@ func Unzip15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15 an
 	return l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15
 }
 
-// Unip16 converts a list of 16-tuple to lists of each elements.
+// Unzip16 converts a list of 16-tuple to lists of each elements.
 func Unzip16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16 any](l *List[tuple.Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]]) (*List[T1], *List[T2], *List[T3], *List[T4], *List[T5], *List[T6], *List[T7], *List[T8], *List[T9], *List[T10], *List[T11], *List[T12], *List[T13], *List[T14], *List[T15], *List[T16]) {
 	l1 := new(List[T1]).Init()
 	l2 := new(List[T2]).Init()

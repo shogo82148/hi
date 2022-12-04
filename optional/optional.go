@@ -1,5 +1,8 @@
 package optional
 
+//go:generate ./generate-zip.pl
+//go:generate ./generate-unzip.pl
+
 // Optional is an optional of T.
 // Zero value equals None[T]()
 type Optional[T any] struct {
@@ -57,7 +60,7 @@ func (v Optional[T]) GetOrZero() T {
 }
 
 // GetOrFunc returns the value of v if v is valid.
-// Otherwise it calls f and return the result.
+// Otherwise it calls f and returns its result.
 func (v Optional[T]) GetOrFunc(f func() T) T {
 	if v.valid {
 		return v.value
