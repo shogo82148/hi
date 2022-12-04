@@ -86,7 +86,7 @@ func ExampleCount() {
 	// 3
 }
 
-func ExampleCountBy() {
+func ExampleList_CountBy() {
 	var l list.List[int]
 	l.PushBack(1)
 	l.PushBack(2)
