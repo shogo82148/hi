@@ -171,6 +171,17 @@ func (set Set[T]) Filter(f func(v T) bool) Set[T] {
 	return ret
 }
 
+// Count returns the number of elements that f returns true.
+func (set Set[T]) Count(f func(v T) bool) int {
+	var count int
+	for v := range set {
+		if f(v) {
+			count++
+		}
+	}
+	return count
+}
+
 // Map converts all items in the set by using the mapper.
 func Map[T, U comparable](set Set[T], mapper func(v T) U) Set[U] {
 	ret := make(Set[U], len(set))
