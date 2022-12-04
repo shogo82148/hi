@@ -243,6 +243,28 @@ func (l *List[T]) Filter(f func(int, T) bool) *List[T] {
 	return &ret
 }
 
+// Count counts the number of elements in the collection that compare equal to value.
+func Count[T comparable](l List[T], value T) int {
+	var count int
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if e.Value == value {
+			count++
+		}
+	}
+	return count
+}
+
+// CountBy counts the number of elements that counter returns true.
+func (l *List[T]) CountBy(f func(int, T) bool) int {
+	var count int
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if f(i, e.Value) {
+			count++
+		}
+	}
+	return count
+}
+
 // Map
 func Map[T, U any](l *List[T], f func(int, T) U) *List[U] {
 	var ret List[U]
