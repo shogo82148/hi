@@ -68,3 +68,14 @@ func (v Optional[T]) GetOrFunc(f func() T) T {
 		return f()
 	}
 }
+
+func Map[T, U any](v Optional[T], f func(T) U) Optional[U] {
+	if v.valid {
+		return Optional[U]{
+			value: f(v.value),
+			valid: true,
+		}
+	} else {
+		return Optional[U]{}
+	}
+}

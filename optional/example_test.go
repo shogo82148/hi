@@ -22,3 +22,11 @@ func ExampleUnzip2() {
 	// 1
 	// one
 }
+
+func ExampleMap() {
+	v := optional.New(10)
+	w := optional.Map(v, func(v int) string { return fmt.Sprintf("%x", v) })
+	fmt.Println(w.GetOrZero())
+	// Output:
+	// a
+}
