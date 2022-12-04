@@ -29,7 +29,7 @@ func Error[T any](err error) Result[T] {
 }
 
 func (v Result[T]) Get() T {
-	if v.err != nil {
+	if v.err == nil {
 		return v.value
 	} else {
 		panic(v.err)
