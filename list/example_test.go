@@ -16,7 +16,7 @@ func ExampleZip2() {
 	l2.PushBack("two")
 	l2.PushBack("three")
 
-	l := list.Zip2(l1, l2)
+	l := list.Zip2(&l1, &l2)
 	for e := l.Front(); e != nil; e = e.Next() {
 		fmt.Println(e.Value)
 	}

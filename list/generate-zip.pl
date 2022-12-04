@@ -22,16 +22,16 @@ sub mapJoin :prototype(&$) ($f, $n) {
 for my $n(2..16) {
     say $fh "";
     my $types = mapJoin { "T$_" } $n;
-    my $list_args = mapJoin { "l$_ List[T$_]" } $n;
+    my $list_args = mapJoin { "l$_ *List[T$_]" } $n;
 
     say $fh "// Zip$n returns a list of $n-tuples.";
     say $fh "// The returned list have the length of the shortest list.";
-    say $fh "func Zip${n}[$types any]($list_args) List[tuple.Tuple${n}[$types]] {";
+    say $fh "func Zip${n}[$types any]($list_args) *List[tuple.Tuple${n}[$types]] {";
     say $fh "	var ret List[tuple.Tuple${n}[$types]]";
     say $fh "	for " . (mapJoin { "e$_" } $n) . " := " . (mapJoin { "l$_.Front()" } $n) . "; " . (join " && ", map { "e$_ != nil" } 1..$n) . "; " . (mapJoin { "e$_" } $n) . " = " . (mapJoin { "e$_.Next()" } $n) . "{";
     say $fh "		ret.PushBack(tuple.Tuple${n}[$types]{" . (mapJoin { "V$_: e$_.Value" } $n) . "})";
     say $fh "	}";
-    say $fh "	return ret";
+    say $fh "	return &ret";
     say $fh "}";
 }
 

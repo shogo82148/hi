@@ -7,6 +7,7 @@
 package list
 
 //go:generate ./generate-zip.pl
+//go:generate ./generate-unzip.pl
 
 type Element[T any] struct {
 	Value T
