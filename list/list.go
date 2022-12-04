@@ -285,12 +285,30 @@ func (l List[T]) AnyBy(f func(int, T) bool) bool {
 }
 
 func AnyBy[T any](l List[T], f func(int, T) bool) bool {
-	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
-		if f(i, e.Value) {
-			return true
+	return l.AnyBy(f)
+}
+
+// All
+func All[T comparable](l List[T], value T) bool {
+	for e := l.Front(); e != nil; e = e.Next() {
+		if e.Value != value {
+			return false
 		}
 	}
-	return false
+	return true
+}
+
+func (l List[T]) AllBy(f func(int, T) bool) bool {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if !f(i, e.Value) {
+			return false
+		}
+	}
+	return true
+}
+
+func AllBy[T any](l List[T], f func(int, T) bool) bool {
+	return l.AllBy(f)
 }
 
 // Map
