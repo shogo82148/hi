@@ -251,3 +251,19 @@ func SumBy[T any, R constraints.Float | constraints.Integer | constraints.Comple
 	}
 	return optional.New(sum)
 }
+
+// Reduce reduces s.
+func Reduce[T any, U any](s []T, f func(i int, agg U, item T) U, init U) U {
+	for i, v := range s {
+		init = f(i, init, v)
+	}
+	return init
+}
+
+// ReduceRight reduces s.
+func ReduceRight[T any, U any](s []T, f func(i int, agg U, item T) U, init U) U {
+	for i := len(s); i > 0; i-- {
+		init = f(i-1, init, s[i-1])
+	}
+	return init
+}

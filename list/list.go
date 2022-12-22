@@ -320,3 +320,10 @@ func Map[T, U any](l *List[T], f func(int, T) U) *List[U] {
 	}
 	return &ret
 }
+
+func Reduce[T, U any](l *List[T], f func(i int, acc U, item T) U, init U) U {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		init = f(i, init, e.Value)
+	}
+	return init
+}
