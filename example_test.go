@@ -126,3 +126,12 @@ func ExampleSum() {
 	// Output:
 	// 55
 }
+
+func ExampleReduce() {
+	sum := hi.Reduce([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, func(_ int, sum int, item int) int {
+		return sum + item
+	}, 0)
+	fmt.Println(sum)
+	// Output:
+	// 55
+}
