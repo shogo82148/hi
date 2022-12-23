@@ -104,14 +104,16 @@ func Max[T constraints.Ordered](s ...T) optional.Optional[T] {
 	return optional.New(max)
 }
 
-// MaxBy returns the maximum element of s.
-func MaxBy[T any](less func(T, T) bool, s ...T) optional.Optional[T] {
+// MaxBy returns an element that f returns maximum value in s.
+func MaxBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
 	max := s[0]
+	maxW := f(s[0])
 	for _, v := range s[1:] {
-		if less(max, v) {
+		if w := f(v); w > maxW {
+			maxW = w
 			max = v
 		}
 	}
@@ -132,14 +134,16 @@ func Min[T constraints.Ordered](s ...T) optional.Optional[T] {
 	return optional.New(min)
 }
 
-// MinBy returns the minimum element of s.
-func MinBy[T any](less func(T, T) bool, s ...T) optional.Optional[T] {
+// MinBy returns an element that f returns minimum value in s.
+func MinBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
 	min := s[0]
+	minW := f(s[0])
 	for _, v := range s[1:] {
-		if less(v, min) {
+		if w := f(v); w < minW {
+			minW = w
 			min = v
 		}
 	}
