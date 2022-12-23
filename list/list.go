@@ -233,7 +233,7 @@ func (l *List[T]) PushFrontList(other *List[T]) {
 
 // generic functions
 
-func (l *List[T]) Filter(f func(int, T) bool) *List[T] {
+func Filter[T any](l *List[T], f func(index int, value T) bool) *List[T] {
 	var ret List[T]
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if f(i, e.Value) {
@@ -244,7 +244,7 @@ func (l *List[T]) Filter(f func(int, T) bool) *List[T] {
 }
 
 // Count counts the number of elements in the collection that compare equal to value.
-func Count[T comparable](l List[T], value T) int {
+func Count[T comparable](l *List[T], value T) int {
 	var count int
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if e.Value == value {
@@ -255,7 +255,7 @@ func Count[T comparable](l List[T], value T) int {
 }
 
 // CountBy counts the number of elements that counter returns true.
-func (l *List[T]) CountBy(f func(int, T) bool) int {
+func CountBy[T any](l *List[T], f func(index int, value T) bool) int {
 	var count int
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if f(i, e.Value) {
@@ -265,8 +265,8 @@ func (l *List[T]) CountBy(f func(int, T) bool) int {
 	return count
 }
 
-// Any
-func Any[T comparable](l List[T], value T) bool {
+// Any returns whether l has value at least one.
+func Any[T comparable](l *List[T], value T) bool {
 	for e := l.Front(); e != nil; e = e.Next() {
 		if e.Value == value {
 			return true
@@ -275,7 +275,8 @@ func Any[T comparable](l List[T], value T) bool {
 	return false
 }
 
-func (l List[T]) AnyBy(f func(int, T) bool) bool {
+// AnyBy returns whether l has an element for that f returns true.
+func AnyBy[T any](l *List[T], f func(index int, value T) bool) bool {
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if f(i, e.Value) {
 			return true
@@ -284,12 +285,8 @@ func (l List[T]) AnyBy(f func(int, T) bool) bool {
 	return false
 }
 
-func AnyBy[T any](l List[T], f func(int, T) bool) bool {
-	return l.AnyBy(f)
-}
-
-// All
-func All[T comparable](l List[T], value T) bool {
+// All returns whether all elements of l are value.
+func All[T comparable](l *List[T], value T) bool {
 	for e := l.Front(); e != nil; e = e.Next() {
 		if e.Value != value {
 			return false
@@ -298,17 +295,14 @@ func All[T comparable](l List[T], value T) bool {
 	return true
 }
 
-func (l List[T]) AllBy(f func(int, T) bool) bool {
+// AllBy returns whether f returns true for all elements in l.
+func AllBy[T any](l *List[T], f func(int, T) bool) bool {
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if !f(i, e.Value) {
 			return false
 		}
 	}
 	return true
-}
-
-func AllBy[T any](l List[T], f func(int, T) bool) bool {
-	return l.AllBy(f)
 }
 
 // Map
@@ -321,6 +315,7 @@ func Map[T, U any](l *List[T], f func(int, T) U) *List[U] {
 	return &ret
 }
 
+// Reduce reduces l.
 func Reduce[T, U any](l *List[T], f func(i int, acc U, item T) U, init U) U {
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		init = f(i, init, e.Value)

@@ -50,6 +50,7 @@ func CountBy[T any](a []T, counter func(int, T) bool) int {
 	return count
 }
 
+// Any returns whether l has value at least one.
 func Any[T comparable](a []T, value T) bool {
 	for _, v := range a {
 		if v == value {
@@ -59,7 +60,8 @@ func Any[T comparable](a []T, value T) bool {
 	return false
 }
 
-func AnyBy[T any](a []T, f func(int, T) bool) bool {
+// AnyBy returns whether l has an element for that f returns true.
+func AnyBy[T any](a []T, f func(index int, value T) bool) bool {
 	for i, v := range a {
 		if f(i, v) {
 			return true
@@ -68,6 +70,7 @@ func AnyBy[T any](a []T, f func(int, T) bool) bool {
 	return false
 }
 
+// All returns whether all elements of l are value.
 func All[T comparable](a []T, value T) bool {
 	for _, v := range a {
 		if v != value {
@@ -77,6 +80,7 @@ func All[T comparable](a []T, value T) bool {
 	return true
 }
 
+// AllBy returns whether f returns true for all elements in l.
 func AllBy[T any](a []T, f func(int, T) bool) bool {
 	for i, v := range a {
 		if !f(i, v) {
