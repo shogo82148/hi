@@ -104,11 +104,31 @@ func ExampleMax() {
 	// 9
 }
 
+func ExampleMaxBy() {
+	max := hi.MaxBy(
+		func(s string) int { return len(s) },
+		"Can", "I", "find", "a", "trick", "recalling", "Pi", "easily",
+	)
+	fmt.Println(max.GetOrZero())
+	// Output:
+	// recalling
+}
+
 func ExampleMin() {
 	min := hi.Min(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
 	fmt.Println(min.GetOrZero())
 	// Output:
 	// 1
+}
+
+func ExampleMinBy() {
+	min := hi.MinBy(
+		func(s string) int { return len(s) },
+		"Can", "I", "find", "a", "trick", "recalling", "Pi", "easily",
+	)
+	fmt.Println(min.GetOrZero())
+	// Output:
+	// I
 }
 
 func ExampleMinMax() {
@@ -118,6 +138,18 @@ func ExampleMinMax() {
 	// Output:
 	// min: 1
 	// max: 9
+}
+
+func ExampleMinMaxBy() {
+	min, max := hi.MinMaxBy(
+		func(s string) int { return len(s) },
+		"Can", "I", "find", "a", "trick", "recalling", "Pi", "easily",
+	)
+	fmt.Println("min:", min.GetOrZero())
+	fmt.Println("max:", max.GetOrZero())
+	// Output:
+	// min: I
+	// max: recalling
 }
 
 func ExampleSum() {

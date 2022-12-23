@@ -190,37 +190,39 @@ func MinMax[T constraints.Ordered](s ...T) (min optional.Optional[T], max option
 }
 
 // MinMaxBy returns the minimum element and the maximum element of s.
-func MinMaxBy[T any](less func(T, T) bool, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
+func MinMaxBy[T any, U constraints.Ordered](f func(element T) U, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
 	if len(s) == 0 {
 		return
 	}
 	var i int
 	var myMin, myMax T
+	var minW, maxW U
 	if len(s)%2 == 0 {
-		x := s[0]
-		y := s[1]
-		if less(y, x) {
-			x, y = y, x
+		x, y := s[0], s[1]
+		xw, yw := f(x), f(y)
+		if xw > yw {
+			x, xw, y, yw = y, yw, x, xw
 		}
-		myMin = x
-		myMax = y
+		myMin, minW = x, xw
+		myMax, maxW = y, yw
 		i = 2
 	} else {
-		myMin = s[0]
-		myMax = s[0]
+		w := f(s[0])
+		myMin, minW = s[0], w
+		myMax, maxW = s[0], w
 		i = 1
 	}
 	for ; i+1 < len(s); i += 2 {
-		x := s[i+0]
-		y := s[i+1]
-		if less(y, x) {
-			x, y = y, x
+		x, y := s[i+0], s[i+1]
+		xw, yw := f(x), f(y)
+		if xw > yw {
+			x, xw, y, yw = y, yw, x, xw
 		}
-		if less(x, myMin) {
-			myMin = x
+		if xw < minW {
+			myMin, minW = x, xw
 		}
-		if less(myMax, y) {
-			myMax = y
+		if yw > maxW {
+			myMax, maxW = y, yw
 		}
 	}
 	min = optional.New(myMin)
@@ -228,6 +230,7 @@ func MinMaxBy[T any](less func(T, T) bool, s ...T) (min optional.Optional[T], ma
 	return
 }
 
+// Sum returns a sum of s using Kahan summation algorithm.
 func Sum[T constraints.Float | constraints.Integer | constraints.Complex](s []T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
@@ -244,6 +247,7 @@ func Sum[T constraints.Float | constraints.Integer | constraints.Complex](s []T)
 	return optional.New(sum)
 }
 
+// Sum returns a sum of s using Kahan summation algorithm.
 func SumBy[T any, R constraints.Float | constraints.Integer | constraints.Complex](s []T, f func(T) R) optional.Optional[R] {
 	if len(s) == 0 {
 		return optional.None[R]()
