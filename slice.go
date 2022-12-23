@@ -50,6 +50,7 @@ func CountBy[T any](a []T, counter func(int, T) bool) int {
 	return count
 }
 
+// Any returns whether l has value at least one.
 func Any[T comparable](a []T, value T) bool {
 	for _, v := range a {
 		if v == value {
@@ -59,7 +60,8 @@ func Any[T comparable](a []T, value T) bool {
 	return false
 }
 
-func AnyBy[T any](a []T, f func(int, T) bool) bool {
+// AnyBy returns whether l has an element for that f returns true.
+func AnyBy[T any](a []T, f func(index int, value T) bool) bool {
 	for i, v := range a {
 		if f(i, v) {
 			return true
@@ -68,6 +70,7 @@ func AnyBy[T any](a []T, f func(int, T) bool) bool {
 	return false
 }
 
+// All returns whether all elements of l are value.
 func All[T comparable](a []T, value T) bool {
 	for _, v := range a {
 		if v != value {
@@ -77,6 +80,7 @@ func All[T comparable](a []T, value T) bool {
 	return true
 }
 
+// AllBy returns whether f returns true for all elements in l.
 func AllBy[T any](a []T, f func(int, T) bool) bool {
 	for i, v := range a {
 		if !f(i, v) {
@@ -100,14 +104,16 @@ func Max[T constraints.Ordered](s ...T) optional.Optional[T] {
 	return optional.New(max)
 }
 
-// MaxBy returns the maximum element of s.
-func MaxBy[T any](less func(T, T) bool, s ...T) optional.Optional[T] {
+// MaxBy returns an element that f returns maximum value in s.
+func MaxBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
 	max := s[0]
+	maxW := f(s[0])
 	for _, v := range s[1:] {
-		if less(max, v) {
+		if w := f(v); w > maxW {
+			maxW = w
 			max = v
 		}
 	}
@@ -128,14 +134,16 @@ func Min[T constraints.Ordered](s ...T) optional.Optional[T] {
 	return optional.New(min)
 }
 
-// MinBy returns the minimum element of s.
-func MinBy[T any](less func(T, T) bool, s ...T) optional.Optional[T] {
+// MinBy returns an element that f returns minimum value in s.
+func MinBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
 	min := s[0]
+	minW := f(s[0])
 	for _, v := range s[1:] {
-		if less(v, min) {
+		if w := f(v); w < minW {
+			minW = w
 			min = v
 		}
 	}
@@ -182,37 +190,39 @@ func MinMax[T constraints.Ordered](s ...T) (min optional.Optional[T], max option
 }
 
 // MinMaxBy returns the minimum element and the maximum element of s.
-func MinMaxBy[T any](less func(T, T) bool, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
+func MinMaxBy[T any, U constraints.Ordered](f func(element T) U, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
 	if len(s) == 0 {
 		return
 	}
 	var i int
 	var myMin, myMax T
+	var minW, maxW U
 	if len(s)%2 == 0 {
-		x := s[0]
-		y := s[1]
-		if less(y, x) {
-			x, y = y, x
+		x, y := s[0], s[1]
+		xw, yw := f(x), f(y)
+		if xw > yw {
+			x, xw, y, yw = y, yw, x, xw
 		}
-		myMin = x
-		myMax = y
+		myMin, minW = x, xw
+		myMax, maxW = y, yw
 		i = 2
 	} else {
-		myMin = s[0]
-		myMax = s[0]
+		w := f(s[0])
+		myMin, minW = s[0], w
+		myMax, maxW = s[0], w
 		i = 1
 	}
 	for ; i+1 < len(s); i += 2 {
-		x := s[i+0]
-		y := s[i+1]
-		if less(y, x) {
-			x, y = y, x
+		x, y := s[i+0], s[i+1]
+		xw, yw := f(x), f(y)
+		if xw > yw {
+			x, xw, y, yw = y, yw, x, xw
 		}
-		if less(x, myMin) {
-			myMin = x
+		if xw < minW {
+			myMin, minW = x, xw
 		}
-		if less(myMax, y) {
-			myMax = y
+		if yw > maxW {
+			myMax, maxW = y, yw
 		}
 	}
 	min = optional.New(myMin)
@@ -220,6 +230,7 @@ func MinMaxBy[T any](less func(T, T) bool, s ...T) (min optional.Optional[T], ma
 	return
 }
 
+// Sum returns a sum of s using Kahan summation algorithm.
 func Sum[T constraints.Float | constraints.Integer | constraints.Complex](s []T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
@@ -236,6 +247,7 @@ func Sum[T constraints.Float | constraints.Integer | constraints.Complex](s []T)
 	return optional.New(sum)
 }
 
+// Sum returns a sum of s using Kahan summation algorithm.
 func SumBy[T any, R constraints.Float | constraints.Integer | constraints.Complex](s []T, f func(T) R) optional.Optional[R] {
 	if len(s) == 0 {
 		return optional.None[R]()

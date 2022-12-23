@@ -49,7 +49,7 @@ func ExampleUnzip2() {
 	// three
 }
 
-func ExampleList_Filter() {
+func ExampleFilter() {
 	var l list.List[int]
 	l.PushBack(1)
 	l.PushBack(2)
@@ -57,7 +57,7 @@ func ExampleList_Filter() {
 	l.PushBack(4)
 	l.PushBack(5)
 
-	m := l.Filter(func(_, v int) bool { return v > 3 })
+	m := list.Filter(&l, func(_, v int) bool { return v > 3 })
 	for e := m.Front(); e != nil; e = e.Next() {
 		fmt.Println(e.Value)
 	}
@@ -80,13 +80,13 @@ func ExampleCount() {
 	l.PushBack(3)
 	l.PushBack(5)
 
-	cnt := list.Count(l, 5)
+	cnt := list.Count(&l, 5)
 	fmt.Println(cnt)
 	// Output:
 	// 3
 }
 
-func ExampleList_CountBy() {
+func ExampleCountBy() {
 	var l list.List[int]
 	l.PushBack(1)
 	l.PushBack(2)
@@ -94,7 +94,7 @@ func ExampleList_CountBy() {
 	l.PushBack(4)
 	l.PushBack(5)
 
-	cnt := l.CountBy(func(_, v int) bool { return v > 3 })
+	cnt := list.CountBy(&l, func(_, v int) bool { return v > 3 })
 	fmt.Println(cnt)
 	// Output:
 	// 2
@@ -108,8 +108,8 @@ func ExampleAny() {
 	l.PushBack(4)
 	l.PushBack(5)
 
-	fmt.Println(list.Any(l, 5))
-	fmt.Println(list.Any(l, 6))
+	fmt.Println(list.Any(&l, 5))
+	fmt.Println(list.Any(&l, 6))
 	// Output:
 	// true
 	// false
@@ -123,8 +123,8 @@ func ExampleAnyBy() {
 	l.PushBack(4)
 	l.PushBack(5)
 
-	fmt.Println(l.AnyBy(func(_, v int) bool { return v > 3 }))
-	fmt.Println(l.AnyBy(func(_, v int) bool { return v > 5 }))
+	fmt.Println(list.AnyBy(&l, func(_, v int) bool { return v > 3 }))
+	fmt.Println(list.AnyBy(&l, func(_, v int) bool { return v > 5 }))
 	// Output:
 	// true
 	// false
@@ -138,8 +138,8 @@ func ExampleAll() {
 	l.PushBack(5)
 	l.PushBack(5)
 
-	fmt.Println(list.All(l, 5))
-	fmt.Println(list.Any(l, 6))
+	fmt.Println(list.All(&l, 5))
+	fmt.Println(list.Any(&l, 6))
 	// Output:
 	// true
 	// false
@@ -153,8 +153,8 @@ func ExampleAllBy() {
 	l.PushBack(4)
 	l.PushBack(5)
 
-	fmt.Println(l.AllBy(func(_, v int) bool { return v > 0 }))
-	fmt.Println(l.AllBy(func(_, v int) bool { return v > 3 }))
+	fmt.Println(list.AllBy(&l, func(_, v int) bool { return v > 0 }))
+	fmt.Println(list.AllBy(&l, func(_, v int) bool { return v > 3 }))
 	// Output:
 	// true
 	// false
