@@ -30,5 +30,6 @@ jobs:
         if: always()
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: profile.cov
           flags: Go-${{ matrix.go }}
