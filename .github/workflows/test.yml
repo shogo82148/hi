@@ -11,6 +11,8 @@ jobs:
       fail-fast: false
       matrix:
         go:
+          - "1.21"
+          - "1.20"
           - "1.19"
           - "1.18"
     steps:
@@ -26,18 +28,7 @@ jobs:
 
       - name: Send coverage
         if: always()
-        uses: shogo82148/actions-goveralls@v1
+        uses: codecov/codecov-action@v3
         with:
-          path-to-profile: profile.cov
-          flag-name: Go-${{ matrix.go }}-OS-${{ matrix.os }}
-          parallel: true
-
-  # notifies that all test jobs are finished.
-  finish:
-    if: always()
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: shogo82148/actions-goveralls@v1
-        with:
-          parallel-finished: true
+          files: profile.cov
+          flags: Go-${{ matrix.go }}
