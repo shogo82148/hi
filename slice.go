@@ -1,6 +1,7 @@
 package hi
 
 import (
+	"github.com/shogo82148/hi/cmp"
 	"github.com/shogo82148/hi/optional"
 	"golang.org/x/exp/constraints"
 )
@@ -91,12 +92,18 @@ func AllBy[T any](a []T, f func(int, T) bool) bool {
 }
 
 // Max returns the maximum element of s.
-func Max[T constraints.Ordered](s ...T) optional.Optional[T] {
+// If s is empty, Max returns None.
+// If T is a floating-point type and any of the arguments are NaNs, max will return NaN.
+func Max[T cmp.Ordered](s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
 	max := s[0]
 	for _, v := range s[1:] {
+		if isNaN(v) {
+			max = v
+			break
+		}
 		if v > max {
 			max = v
 		}
@@ -105,7 +112,7 @@ func Max[T constraints.Ordered](s ...T) optional.Optional[T] {
 }
 
 // MaxBy returns an element that f returns maximum value in s.
-func MaxBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
+func MaxBy[T any, U cmp.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
@@ -121,12 +128,18 @@ func MaxBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.O
 }
 
 // Min returns the minimum element in s.
-func Min[T constraints.Ordered](s ...T) optional.Optional[T] {
+// If s is empty, Max returns None.
+// If T is a floating-point type and any of the arguments are NaNs, max will return NaN.
+func Min[T cmp.Ordered](s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
 	min := s[0]
 	for _, v := range s[1:] {
+		if isNaN(v) {
+			min = v
+			break
+		}
 		if v < min {
 			min = v
 		}
@@ -135,7 +148,7 @@ func Min[T constraints.Ordered](s ...T) optional.Optional[T] {
 }
 
 // MinBy returns an element that f returns minimum value in s.
-func MinBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
+func MinBy[T any, U cmp.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
@@ -151,7 +164,7 @@ func MinBy[T any, U constraints.Ordered](f func(element T) U, s ...T) optional.O
 }
 
 // MinMax returns the minimum element and the maximum element of s.
-func MinMax[T constraints.Ordered](s ...T) (min optional.Optional[T], max optional.Optional[T]) {
+func MinMax[T cmp.Ordered](s ...T) (min optional.Optional[T], max optional.Optional[T]) {
 	if len(s) == 0 {
 		return
 	}
@@ -190,7 +203,7 @@ func MinMax[T constraints.Ordered](s ...T) (min optional.Optional[T], max option
 }
 
 // MinMaxBy returns the minimum element and the maximum element of s.
-func MinMaxBy[T any, U constraints.Ordered](f func(element T) U, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
+func MinMaxBy[T any, U cmp.Ordered](f func(element T) U, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
 	if len(s) == 0 {
 		return
 	}
@@ -278,4 +291,10 @@ func ReduceRight[T any, U any](s []T, f func(i int, agg U, item T) U, init U) U 
 		init = f(i-1, init, s[i-1])
 	}
 	return init
+}
+
+// isNaN reports whether x is a NaN without requiring the math package.
+// This will always return false if T is not floating-point.
+func isNaN[T cmp.Ordered](x T) bool {
+	return x != x
 }
