@@ -5,6 +5,49 @@ import (
 	"testing"
 )
 
+func TestCount(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    []float64
+		target   float64
+		expected int
+	}{
+		{
+			name:     "empty slice",
+			input:    []float64{},
+			target:   1,
+			expected: 0,
+		},
+		{
+			name:     "single element slice",
+			input:    []float64{1},
+			target:   1,
+			expected: 1,
+		},
+		{
+			name:     "multiple element slice",
+			input:    []float64{1, 2, 3, 4, 3, 5},
+			target:   3,
+			expected: 2,
+		},
+		{
+			name:     "NaN",
+			input:    []float64{0, math.NaN(), 1, math.NaN(), 2},
+			target:   math.NaN(),
+			expected: 2,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := Count(tt.input, tt.target)
+			if result != tt.expected {
+				t.Errorf("Count(%v, %f) = %d, want %d", tt.input, tt.target, result, tt.expected)
+			}
+		})
+	}
+}
+
 func TestMax(t *testing.T) {
 	tests := []struct {
 		name     string

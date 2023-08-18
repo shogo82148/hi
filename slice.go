@@ -30,8 +30,18 @@ func Filter[T any](a []T, filter func(int, T) bool) []T {
 }
 
 // Count counts the number of elements in the collection that compare equal to value.
+// If T is a floating-point type and value is NaN, Count returns the number of NaNs in the collection.
 func Count[T comparable](a []T, value T) int {
 	var count int
+	if isNaN(value) {
+		// shortcut for NaN
+		for _, v := range a {
+			if isNaN(v) {
+				count++
+			}
+		}
+		return count
+	}
 	for _, v := range a {
 		if v == value {
 			count++
@@ -295,6 +305,6 @@ func ReduceRight[T any, U any](s []T, f func(i int, agg U, item T) U, init U) U 
 
 // isNaN reports whether x is a NaN without requiring the math package.
 // This will always return false if T is not floating-point.
-func isNaN[T cmp.Ordered](x T) bool {
+func isNaN[T comparable](x T) bool {
 	return x != x
 }
