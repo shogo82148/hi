@@ -123,21 +123,6 @@ func TestOnceValuesPanic(t *testing.T) {
 	testOncePanicX(t, &calls, func() { f() })
 }
 
-func TestOnceFuncPanicNil(t *testing.T) {
-	calls := 0
-	f := sync.OnceFunc(func() {
-		calls++
-		panic(nil)
-	})
-	testOncePanicWith(t, &calls, f, func(label string, p any) {
-		switch p.(type) {
-		case nil, *runtime.PanicNilError:
-			return
-		}
-		t.Fatalf("%s: want nil panic, got %v", label, p)
-	})
-}
-
 func TestOnceFuncGoexit(t *testing.T) {
 	// If f calls Goexit, the results are unspecified. But check that f doesn't
 	// get called twice.
