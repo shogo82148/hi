@@ -2,7 +2,7 @@ package sync
 
 import "sync"
 
-// A Pool is a set of temporary objects that may be individually saved and retrieved.
+// A Pool is a generics-enabled version of [sync.Pool].
 type Pool[T any] struct {
 	// New optionally specifies a function to generate
 	// a value when Get would otherwise return zero value.

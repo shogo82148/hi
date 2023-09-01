@@ -2,6 +2,7 @@ package sync
 
 import "sync"
 
+// Map is a generics-enabled version of [sync.Map].
 type Map[K comparable, V any] struct {
 	m sync.Map
 }
