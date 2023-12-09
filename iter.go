@@ -21,3 +21,36 @@ func SliceValues[S ~[]E, E any](x S) func(func(E) bool) {
 		}
 	}
 }
+
+// MapIter returns an iterator for the map.
+func MapIter[M ~map[K]V, K comparable, V any](x M) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		for k, v := range x {
+			if !yield(k, v) {
+				break
+			}
+		}
+	}
+}
+
+// MapKeys returns an iterator for the map.
+func MapKeys[M ~map[K]V, K comparable, V any](x M) func(func(K) bool) {
+	return func(yield func(K) bool) {
+		for k := range x {
+			if !yield(k) {
+				break
+			}
+		}
+	}
+}
+
+// MapValues returns an iterator for the map.
+func MapValues[M ~map[K]V, K comparable, V any](x M) func(func(V) bool) {
+	return func(yield func(V) bool) {
+		for _, v := range x {
+			if !yield(v) {
+				break
+			}
+		}
+	}
+}
