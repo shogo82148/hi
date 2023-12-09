@@ -66,3 +66,20 @@ func TestMapValues(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestChanValues(t *testing.T) {
+	ch := make(chan int, 5)
+	ch <- 1
+	ch <- 2
+	ch <- 3
+	close(ch)
+
+	got := make([]int, 0)
+	for v := range ChanValues(ch) {
+		got = append(got, v)
+	}
+	want := []int{1, 2, 3}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}

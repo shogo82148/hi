@@ -54,3 +54,14 @@ func MapValues[M ~map[K]V, K comparable, V any](x M) func(func(V) bool) {
 		}
 	}
 }
+
+// ChanValues returns an iterator for the channel.
+func ChanValues[T any](x <-chan T) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		for v := range x {
+			if !yield(v) {
+				break
+			}
+		}
+	}
+}
