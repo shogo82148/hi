@@ -3,8 +3,8 @@
 package hi
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func TestSliceIter(t *testing.T) {
@@ -21,7 +21,6 @@ func TestSliceIter(t *testing.T) {
 		}
 	}
 }
-
 
 func TestSliceValues(t *testing.T) {
 	s := []int{1, 2, 3}

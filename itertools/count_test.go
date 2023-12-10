@@ -1,8 +1,10 @@
+//go:build goexperiment.rangefunc
+
 package itertools
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func TestCount(t *testing.T) {

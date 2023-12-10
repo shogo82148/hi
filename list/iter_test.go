@@ -3,9 +3,9 @@
 package list
 
 import (
-	"testing"
 	"fmt"
 	"reflect"
+	"testing"
 )
 
 func TestForward(t *testing.T) {
