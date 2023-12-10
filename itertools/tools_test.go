@@ -84,3 +84,15 @@ func TestValues(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestFilter(t *testing.T) {
+	seq := Filter(
+		func(v int) bool { return v % 2 != 0 },
+		Range(10),
+	)
+	got := Append(make([]int, 0, 5), seq)
+	want := []int{1, 3, 5, 7, 9}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}

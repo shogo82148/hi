@@ -152,3 +152,17 @@ func DropWhile[T any](f func(T) bool, seq iter.Seq[T]) func(func(T) bool) {
 		}
 	}
 }
+
+// FilterFalse makes an iterator that filters elements from data returning only those
+// that have a corresponding element in selectors that evaluates to False.
+func FilterFalse[T any](f func(T) bool, seq iter.Seq[T]) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		for v := range seq {
+			if !f(v) {
+				if !yield(v) {
+					break
+				}
+			}
+		}
+	}
+}
