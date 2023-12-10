@@ -63,3 +63,16 @@ func TestRepeatN(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestAccumulate(t *testing.T) {
+	seq := hi.SliceValues([]int{1, 2, 3, 4})
+	got := make([]int, 0, 4)
+	add := func(a, b int) int { return a + b }
+	for v := range Accumulate(seq, add) {
+		got = append(got, v)
+	}
+	want := []int{1, 3, 6, 10}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}

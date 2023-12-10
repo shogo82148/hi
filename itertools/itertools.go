@@ -64,3 +64,23 @@ func RepeatN[T any](v T, n int) func(func(T) bool) {
 		}
 	}
 }
+
+// Accumulate makes an iterator that returns accumulated sums,
+// or accumulated results of other binary functions (specified via the optional func argument).
+func Accumulate[T any](seq iter.Seq[T], f func(T, T) T) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		var total T
+		initialized := false
+		for v := range seq {
+			if !initialized {
+				total = v
+				initialized = true
+			} else {
+				total = f(total, v)
+			}
+			if !yield(total) {
+				break
+			}
+		}
+	}
+}
