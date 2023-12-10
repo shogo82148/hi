@@ -113,3 +113,15 @@ func TestCompress(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestDropWhile(t *testing.T) {
+	seq := DropWhile(
+		func(v int) bool { return v < 5 },
+		hi.SliceValues([]int{1, 4, 6, 4, 1}),
+	)
+	got := Append(make([]int, 0, 2), seq)
+	want := []int{6, 4, 1}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
