@@ -2,8 +2,6 @@ package list
 
 import (
 	"testing"
-	"fmt"
-	"reflect"
 )
 
 func checkListLen[T any](t *testing.T, l *List[T], len int) bool {
@@ -137,36 +135,4 @@ func TestList(t *testing.T) {
 		l.Remove(e)
 	}
 	checkListPointers(t, l, []*Element[string]{})
-}
-
-func TestForward(t *testing.T) {
-	l := New[string]()
-	for i := 0; i < 5; i++ {
-		l.PushBack(fmt.Sprintf("%d", i))
-	}
-
-	got := make([]string, 0, l.Len())
-	for e := range l.Forward() {
-		got = append(got, e.Value)
-	}
-	want := []string{"0", "1", "2", "3", "4"}
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %v, want %v", got, want)
-	}
-}
-
-func TestReverse(t *testing.T) {
-	l := New[string]()
-	for i := 0; i < 5; i++ {
-		l.PushBack(fmt.Sprintf("%d", i))
-	}
-
-	got := make([]string, 0, l.Len())
-	for e := range l.Reverse() {
-		got = append(got, e.Value)
-	}
-	want := []string{"4", "3", "2", "1", "0"}
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %v, want %v", got, want)
-	}
 }

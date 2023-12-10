@@ -75,28 +75,6 @@ func (l *List[T]) Back() *Element[T] {
 	return l.root.prev
 }
 
-// Forward returns an iterator of l.
-func (l *List[T]) Forward() func(func(*Element[T]) bool) {
-	return func(yield func(*Element[T]) bool) {
-		for e := l.Front(); e != nil; e = e.Next() {
-			if !yield(e) {
-				break
-			}
-		}
-	}
-}
-
-// Reverse returns an iterator of l.
-func (l *List[T]) Reverse() func(func(*Element[T]) bool) {
-	return func(yield func(*Element[T]) bool) {
-		for e := l.Back(); e != nil; e = e.Prev() {
-			if !yield(e) {
-				break
-			}
-		}
-	}
-}
-
 // lazyInit lazily initializes a zero List value.
 func (l *List[T]) lazyInit() {
 	if l.root.next == nil {

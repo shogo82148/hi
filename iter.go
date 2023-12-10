@@ -1,7 +1,13 @@
+//go:build goexperiment.rangefunc
+
 package hi
 
+import (
+	"iter"
+)
+
 // SliceIter returns an iterator for the slice.
-func SliceIter[S ~[]E, E any](x S) func(func(int, E) bool) {
+func SliceIter[S ~[]E, E any](x S) iter.Seq2[int, E] {
 	return func(yield func(int, E) bool) {
 		for i, v := range x {
 			if !yield(i, v) {
@@ -12,7 +18,7 @@ func SliceIter[S ~[]E, E any](x S) func(func(int, E) bool) {
 }
 
 // SliceValues returns an iterator for the slice.
-func SliceValues[S ~[]E, E any](x S) func(func(E) bool) {
+func SliceValues[S ~[]E, E any](x S) iter.Seq[E] {
 	return func(yield func(E) bool) {
 		for _, v := range x {
 			if !yield(v) {
@@ -23,7 +29,7 @@ func SliceValues[S ~[]E, E any](x S) func(func(E) bool) {
 }
 
 // MapIter returns an iterator for the map.
-func MapIter[M ~map[K]V, K comparable, V any](x M) func(func(K, V) bool) {
+func MapIter[M ~map[K]V, K comparable, V any](x M) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
 		for k, v := range x {
 			if !yield(k, v) {
@@ -34,7 +40,7 @@ func MapIter[M ~map[K]V, K comparable, V any](x M) func(func(K, V) bool) {
 }
 
 // MapKeys returns an iterator for the map.
-func MapKeys[M ~map[K]V, K comparable, V any](x M) func(func(K) bool) {
+func MapKeys[M ~map[K]V, K comparable, V any](x M) iter.Seq[K] {
 	return func(yield func(K) bool) {
 		for k := range x {
 			if !yield(k) {
@@ -45,7 +51,7 @@ func MapKeys[M ~map[K]V, K comparable, V any](x M) func(func(K) bool) {
 }
 
 // MapValues returns an iterator for the map.
-func MapValues[M ~map[K]V, K comparable, V any](x M) func(func(V) bool) {
+func MapValues[M ~map[K]V, K comparable, V any](x M) iter.Seq[V] {
 	return func(yield func(V) bool) {
 		for _, v := range x {
 			if !yield(v) {
@@ -56,7 +62,7 @@ func MapValues[M ~map[K]V, K comparable, V any](x M) func(func(V) bool) {
 }
 
 // ChanValues returns an iterator for the channel.
-func ChanValues[T any](x <-chan T) func(func(T) bool) {
+func ChanValues[T any](x <-chan T) iter.Seq[T] {
 	return func(yield func(T) bool) {
 		for v := range x {
 			if !yield(v) {
