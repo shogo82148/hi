@@ -42,7 +42,7 @@ jobs:
       - name: install gotip
         run: |
           go install golang.org/dl/gotip@latest
-          go download
+          gotip download
           gotip version
 
       - name: test
