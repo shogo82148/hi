@@ -1,6 +1,8 @@
 package list
 
-import "testing"
+import (
+	"testing"
+)
 
 func checkListLen[T any](t *testing.T, l *List[T], len int) bool {
 	if n := l.Len(); n != len {
