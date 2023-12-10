@@ -1,4 +1,4 @@
-package iter
+package itertools
 
 // Slice returns a slice of the elements of the iterator.
 func Slice[S ~[]E, E any](iter func (func(E)bool)) S {

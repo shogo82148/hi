@@ -1,4 +1,4 @@
-package iter
+package itertools
 
 type Countable interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 |
