@@ -84,3 +84,31 @@ func Accumulate[T any](seq iter.Seq[T], f func(T, T) T) func(func(T) bool) {
 		}
 	}
 }
+
+// Chain makes an iterator that returns elements from the first iterable until it is exhausted,
+// then proceeds to the next iterable, until all of the iterables are exhausted.
+func Chain[T any](seqs ...iter.Seq[T]) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		for _, seq := range seqs {
+			for v := range seq {
+				if !yield(v) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// ChainFromIterables makes an iterator that returns elements from the first iterable until it is exhausted,
+// then proceeds to the next iterable, until all of the iterables are exhausted.
+func ChainFromIterables[T any](seqs iter.Seq[iter.Seq[T]]) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		for seq := range seqs {
+			for v := range seq {
+				if !yield(v) {
+					return
+				}
+			}
+		}
+	}
+}

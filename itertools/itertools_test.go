@@ -3,6 +3,7 @@
 package itertools
 
 import (
+	"iter"
 	"reflect"
 	"testing"
 
@@ -72,6 +73,30 @@ func TestAccumulate(t *testing.T) {
 		got = append(got, v)
 	}
 	want := []int{1, 3, 6, 10}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestChain(t *testing.T) {
+	seq := Chain(
+		hi.SliceValues([]int{1, 2, 3, 4}),
+		hi.SliceValues([]int{5, 6, 7, 8}),
+	)
+	got := Append(make([]int, 0, 8), seq)
+	want := []int{1, 2, 3, 4, 5, 6, 7, 8}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestChainFromIterables(t *testing.T) {
+	seq := ChainFromIterables(hi.SliceValues([]iter.Seq[int]{
+		hi.SliceValues([]int{1, 2, 3, 4}),
+		hi.SliceValues([]int{5, 6, 7, 8}),
+	}))
+	got := Append(make([]int, 0, 8), seq)
+	want := []int{1, 2, 3, 4, 5, 6, 7, 8}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
