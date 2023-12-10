@@ -112,3 +112,24 @@ func ChainFromIterables[T any](seqs iter.Seq[iter.Seq[T]]) func(func(T) bool) {
 		}
 	}
 }
+
+// Compress makes an iterator that filters elements from data returning only those
+// that have a corresponding element in selectors that evaluates to True.
+func Compress[T any](data iter.Seq[T], selectors iter.Seq[bool]) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		next, stop := iter.Pull(selectors)
+		defer stop()
+
+		for v := range data {
+			s, ok := next()
+			if !ok {
+				break
+			}
+			if s {
+				if !yield(v) {
+					break
+				}
+			}
+		}
+	}
+}

@@ -101,3 +101,15 @@ func TestChainFromIterables(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestCompress(t *testing.T) {
+	seq := Compress(
+		hi.SliceValues([]int{1, 2, 3, 4}),
+		hi.SliceValues([]bool{true, false, true, false}),
+	)
+	got := Append(make([]int, 0, 2), seq)
+	want := []int{1, 3}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
