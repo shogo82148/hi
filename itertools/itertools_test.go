@@ -125,3 +125,15 @@ func TestDropWhile(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestFilterFalse(t *testing.T) {
+	seq := FilterFalse(
+		func(v int) bool { return v % 2 != 0 },
+		Range(10),
+	)
+	got := Append(make([]int, 0, 5), seq)
+	want := []int{0, 2, 4, 6, 8}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}

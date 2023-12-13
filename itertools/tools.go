@@ -6,6 +6,16 @@ import (
 	"iter"
 )
 
+func Range(n int) func(func(int) bool) {
+	return func(yield func(int) bool) {
+		for i := 0; i < n; i++ {
+			if !yield(i) {
+				break
+			}
+		}
+	}
+}
+
 // Append appends all elements of seq to s and returns the resulting slice.
 func Append[S ~[]E, E any](s S, seq iter.Seq[E]) S {
 	for v := range seq {
@@ -49,6 +59,20 @@ func Values[K, V any](seq iter.Seq2[K, V]) func(func(V) bool) {
 		for _, v := range seq {
 			if !yield(v) {
 				break
+			}
+		}
+	}
+}
+
+// Filter returns an iterator that filters elements from data returning only those
+// that have a corresponding element in selectors that evaluates to True.
+func Filter[T any](f func(T) bool, seq iter.Seq[T]) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		for v := range seq {
+			if f(v) {
+				if !yield(v) {
+					break
+				}
 			}
 		}
 	}
