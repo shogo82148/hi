@@ -1,6 +1,6 @@
 //go:build goexperiment.rangefunc
 
-package itertools
+package it
 
 import (
 	"iter"
