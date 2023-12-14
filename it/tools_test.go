@@ -1,12 +1,12 @@
 //go:build goexperiment.rangefunc
 
-package itertools
+package it
 
 import (
 	"fmt"
 	"reflect"
-	"testing"
 	"slices"
+	"testing"
 
 	"github.com/shogo82148/hi"
 )
@@ -87,7 +87,7 @@ func TestValues(t *testing.T) {
 
 func TestFilter(t *testing.T) {
 	seq := Filter(
-		func(v int) bool { return v % 2 != 0 },
+		func(v int) bool { return v%2 != 0 },
 		Range(10),
 	)
 	got := Append(make([]int, 0, 5), seq)
