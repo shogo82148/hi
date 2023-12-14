@@ -53,6 +53,7 @@ jobs:
         env:
           GOEXPERIMENT: rangefunc
         run: |
+          go mod edit -go=1.22
           gotip test -v -coverprofile=profile.cov ./...
 
       - name: Send coverage
