@@ -7,8 +7,6 @@ import (
 	"reflect"
 	"slices"
 	"testing"
-
-	"github.com/shogo82148/hi"
 )
 
 func TestAppend(t *testing.T) {
@@ -64,7 +62,7 @@ func TestKeyValues(t *testing.T) {
 }
 
 func TestKeys(t *testing.T) {
-	seq := hi.MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"})
+	seq := MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"})
 
 	got := Append([]int{}, Keys(seq))
 	slices.Sort(got)
@@ -75,7 +73,7 @@ func TestKeys(t *testing.T) {
 }
 
 func TestValues(t *testing.T) {
-	seq := hi.MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"})
+	seq := MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"})
 
 	got := Append([]string{}, Values(seq))
 	slices.Sort(got)
@@ -99,7 +97,7 @@ func TestFilter(t *testing.T) {
 
 func TestFilter2(t *testing.T) {
 	seq := Filter2(
-		hi.SliceIter([]string{"0", "1", "2", "3", "4"}),
+		SliceIter([]string{"0", "1", "2", "3", "4"}),
 		func(k int, v string) bool { return k%2 != 0 },
 	)
 	got := make([]string, 0, 5)
