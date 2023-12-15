@@ -99,10 +99,13 @@ func TestFilter(t *testing.T) {
 
 func TestFilter2(t *testing.T) {
 	seq := Filter2(
-		func(k int, v string) bool { return k%2 != 0 },
 		hi.MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"}),
+		func(k int, v string) bool { return k%2 != 0 },
 	)
-	got := Append(make([]string, 0, 5), seq)
+	got := make([]string, 0, 5)
+	for _, v := range seq {
+		got = append(got, v)
+	}
 	want := []string{"1", "3"}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, want %v", got, want)
