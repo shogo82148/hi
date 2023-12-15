@@ -84,6 +84,37 @@ func ExampleChanValues() {
 	// c
 }
 
+func ExampleMap() {
+	seq := it.Map(it.Range(5), func(v int) string {
+		return fmt.Sprintf("(%d)", v)
+	})
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// (0)
+	// (1)
+	// (2)
+	// (3)
+	// (4)
+}
+
+func ExampleMap2() {
+	in := it.SliceIter([]string{"a", "b", "c"})
+	seq := it.Map2(in, func(i int, v string) (int, string) {
+		return i, fmt.Sprintf("(%s)", v)
+	})
+	for i, v := range seq {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 0: (a)
+	// 1: (b)
+	// 2: (c)
+}
+
 func ExampleFilter() {
 	seq := it.Filter(it.Range(5), func(v int) bool {
 		return v%2 == 0

@@ -10,8 +10,8 @@ import (
 //go:generate ./generate-unzip.pl
 
 // Map calls mapper on each element of a and returns the result of its result in a slice.
-func Map[T, U any](a []T, mapper func(int, T) U) []U {
-	ret := make([]U, len(a))
+func Map[S1 ~[]T1, S2 []T2, T1, T2 any](a S1, mapper func(int, T1) T2) S2 {
+	ret := make(S2, len(a))
 	for i, v := range a {
 		ret[i] = mapper(i, v)
 	}
