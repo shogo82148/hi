@@ -6,8 +6,6 @@ import (
 	"iter"
 	"reflect"
 	"testing"
-
-	"github.com/shogo82148/hi"
 )
 
 func TestCount(t *testing.T) {
@@ -26,7 +24,7 @@ func TestCount(t *testing.T) {
 
 func TestCycle(t *testing.T) {
 	got := make([]int, 0, 10)
-	seq := hi.SliceValues([]int{1, 2, 3, 4})
+	seq := SliceValues([]int{1, 2, 3, 4})
 	for v := range Cycle(seq) {
 		got = append(got, v)
 		if len(got) >= 10 {
@@ -66,7 +64,7 @@ func TestRepeatN(t *testing.T) {
 }
 
 func TestAccumulate(t *testing.T) {
-	seq := hi.SliceValues([]int{1, 2, 3, 4})
+	seq := SliceValues([]int{1, 2, 3, 4})
 	got := make([]int, 0, 4)
 	add := func(a, b int) int { return a + b }
 	for v := range Accumulate(seq, add) {
@@ -80,8 +78,8 @@ func TestAccumulate(t *testing.T) {
 
 func TestChain(t *testing.T) {
 	seq := Chain(
-		hi.SliceValues([]int{1, 2, 3, 4}),
-		hi.SliceValues([]int{5, 6, 7, 8}),
+		SliceValues([]int{1, 2, 3, 4}),
+		SliceValues([]int{5, 6, 7, 8}),
 	)
 	got := Append(make([]int, 0, 8), seq)
 	want := []int{1, 2, 3, 4, 5, 6, 7, 8}
@@ -91,9 +89,9 @@ func TestChain(t *testing.T) {
 }
 
 func TestChainFromIterables(t *testing.T) {
-	seq := ChainFromIterables(hi.SliceValues([]iter.Seq[int]{
-		hi.SliceValues([]int{1, 2, 3, 4}),
-		hi.SliceValues([]int{5, 6, 7, 8}),
+	seq := ChainFromIterables(SliceValues([]iter.Seq[int]{
+		SliceValues([]int{1, 2, 3, 4}),
+		SliceValues([]int{5, 6, 7, 8}),
 	}))
 	got := Append(make([]int, 0, 8), seq)
 	want := []int{1, 2, 3, 4, 5, 6, 7, 8}
@@ -104,8 +102,8 @@ func TestChainFromIterables(t *testing.T) {
 
 func TestCompress(t *testing.T) {
 	seq := Compress(
-		hi.SliceValues([]int{1, 2, 3, 4}),
-		hi.SliceValues([]bool{true, false, true, false}),
+		SliceValues([]int{1, 2, 3, 4}),
+		SliceValues([]bool{true, false, true, false}),
 	)
 	got := Append(make([]int, 0, 2), seq)
 	want := []int{1, 3}
@@ -117,7 +115,7 @@ func TestCompress(t *testing.T) {
 func TestDropWhile(t *testing.T) {
 	seq := DropWhile(
 		func(v int) bool { return v < 5 },
-		hi.SliceValues([]int{1, 4, 6, 4, 1}),
+		SliceValues([]int{1, 4, 6, 4, 1}),
 	)
 	got := Append(make([]int, 0, 2), seq)
 	want := []int{6, 4, 1}
