@@ -77,3 +77,17 @@ func Filter[T any](f func(T) bool, seq iter.Seq[T]) func(func(T) bool) {
 		}
 	}
 }
+
+// Filter2 returns an iterator that filters elements from data returning only those
+// that have a corresponding element in selectors that evaluates to True.
+func Filter2[K, V any](seq iter.Seq2[K, V], filter func(K, V) bool) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		for k, v := range seq {
+			if filter(k, v) {
+				if !yield(k, v) {
+					break
+				}
+			}
+		}
+	}
+}
