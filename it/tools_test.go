@@ -87,8 +87,8 @@ func TestValues(t *testing.T) {
 
 func TestFilter(t *testing.T) {
 	seq := Filter(
-		func(v int) bool { return v%2 != 0 },
 		Range(10),
+		func(v int) bool { return v%2 != 0 },
 	)
 	got := Append(make([]int, 0, 5), seq)
 	want := []int{1, 3, 5, 7, 9}
@@ -99,7 +99,7 @@ func TestFilter(t *testing.T) {
 
 func TestFilter2(t *testing.T) {
 	seq := Filter2(
-		hi.MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"}),
+		hi.SliceIter([]string{"0", "1", "2", "3", "4"}),
 		func(k int, v string) bool { return k%2 != 0 },
 	)
 	got := make([]string, 0, 5)
