@@ -210,3 +210,14 @@ func Count[T comparable](seq iter.Seq[T], value T) int {
 	}
 	return count
 }
+
+// CountBy counts the number of elements that counter returns true.
+func CountBy[T any](seq iter.Seq[T], counter func(T) bool) int {
+	var count int
+	for v := range seq {
+		if counter(v) {
+			count++
+		}
+	}
+	return count
+}
