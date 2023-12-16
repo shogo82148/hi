@@ -171,6 +171,18 @@ func ExampleFilter() {
 	// 4
 }
 
+func ExampleGroupBy() {
+	seq := it.GroupBy(it.Range(5), func(v int) int {
+		return v % 2
+	})
+	for k, v := range seq {
+		fmt.Printf("%d: %v\n", k, v)
+	}
+	// Unordered output:
+	// 0: [0 2 4]
+	// 1: [1 3]
+}
+
 func ExampleChunk() {
 	seq := it.Chunk(it.Range(5), 2)
 	for v := range seq {
