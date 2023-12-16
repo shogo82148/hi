@@ -87,6 +87,15 @@ for v := range it.Range(5) {
 // 4
 ```
 
+### Zip
+
+Experimental: `it.Zip` converts a pair of `iter.Seq` to `iter.Seq2`.
+
+```go
+it.Zip(it.Range(3), it.SliceValues([]string{"zero", "one", "two"}))
+// it.SliceIter([]string{"zero", "one", "two"})
+```
+
 ### Zip2,... ,Zip16
 
 ```go
