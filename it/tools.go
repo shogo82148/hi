@@ -72,6 +72,7 @@ func ChanValues[T any](x <-chan T) func(func(T) bool) {
 	}
 }
 
+// Range returns an iterator for the range.
 func Range(n int) func(func(int) bool) {
 	return func(yield func(int) bool) {
 		for i := 0; i < n; i++ {
@@ -124,6 +125,28 @@ func Values[K, V any](seq iter.Seq2[K, V]) func(func(V) bool) {
 	return func(yield func(V) bool) {
 		for _, v := range seq {
 			if !yield(v) {
+				break
+			}
+		}
+	}
+}
+
+// Map calls mapper for each element of seq and returns the result in a iterator.
+func Map[T1, T2 any](seq iter.Seq[T1], mapper func(T1) T2) func(func(T2) bool) {
+	return func(yield func(T2) bool) {
+		for v := range seq {
+			if !yield(mapper(v)) {
+				break
+			}
+		}
+	}
+}
+
+// Map2 calls mapper for each element of seq and returns the result in a iterator.
+func Map2[K1, V1, K2, V2 any](seq iter.Seq2[K1, V1], mapper func(K1, V1) (K2, V2)) func(func(K2, V2) bool) {
+	return func(yield func(K2, V2) bool) {
+		for k, v := range seq {
+			if !yield(mapper(k, v)) {
 				break
 			}
 		}
