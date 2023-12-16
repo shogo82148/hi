@@ -160,11 +160,22 @@ func (set Set[T]) For(f func(v T) error) error {
 	return nil
 }
 
-// Filter returns a new subset where f returns true for all items.
+// Filter returns a new subset where f returns true for.
 func (set Set[T]) Filter(f func(v T) bool) Set[T] {
 	ret := make(Set[T], len(set))
 	for v := range set {
 		if f(v) {
+			ret[v] = struct{}{}
+		}
+	}
+	return ret
+}
+
+// FilterFalse returns a new subset where f returns false for.
+func (set Set[T]) FilterFalse(f func(v T) bool) Set[T] {
+	ret := make(Set[T], len(set))
+	for v := range set {
+		if !f(v) {
 			ret[v] = struct{}{}
 		}
 	}

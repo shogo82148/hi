@@ -233,10 +233,22 @@ func (l *List[T]) PushFrontList(other *List[T]) {
 
 // generic functions
 
+// Filter iterates over elements of collection, returning a list of all elements predicate returns true for.
 func Filter[T any](l *List[T], f func(index int, value T) bool) *List[T] {
 	var ret List[T]
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if f(i, e.Value) {
+			ret.PushBack(e.Value)
+		}
+	}
+	return &ret
+}
+
+// FilterFalse iterates over elements of collection, returning a list of all elements predicate returns false for.
+func FilterFalse[T any](l *List[T], f func(index int, value T) bool) *List[T] {
+	var ret List[T]
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if !f(i, e.Value) {
 			ret.PushBack(e.Value)
 		}
 	}

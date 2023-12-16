@@ -36,6 +36,27 @@ func Filter[S ~[]T, T any](a S, filter func(int, T) bool) S {
 	return ret
 }
 
+// FilterFalse iterates over elements of collection, returning a slice of all elements predicate returns false for.
+func FilterFalse[S ~[]T, T any](a S, filter func(int, T) bool) S {
+	ret := make(S, 0, len(a))
+	for i, v := range a {
+		if !filter(i, v) {
+			ret = append(ret, v)
+		}
+	}
+	return ret
+}
+
+// GroupBy returns a map of slices, where each slice contains elements of a grouped by the result of f.
+func GroupBy[S ~[]T, T any, K comparable](a S, f func(int, T) K) map[K]S {
+	ret := make(map[K]S)
+	for i, v := range a {
+		k := f(i, v)
+		ret[k] = append(ret[k], v)
+	}
+	return ret
+}
+
 // Chunk creates a slice of elements split into groups the length of size.
 func Chunk[S ~[]T, T any](a S, size int) []S {
 	if size <= 0 {

@@ -112,8 +112,8 @@ func TestDropWhile(t *testing.T) {
 
 func TestFilterFalse(t *testing.T) {
 	seq := FilterFalse(
-		func(v int) bool { return v%2 != 0 },
 		Range(10),
+		func(v int) bool { return v%2 != 0 },
 	)
 	got := Append(make([]int, 0, 5), seq)
 	want := []int{0, 2, 4, 6, 8}
