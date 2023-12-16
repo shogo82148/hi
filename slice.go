@@ -44,6 +44,15 @@ func FilterFalse[S ~[]T, T any](a S, filter func(int, T) bool) S {
 			ret = append(ret, v)
 		}
 	}
+}
+
+// GroupBy returns a map of slices, where each slice contains elements of a grouped by the result of f.
+func GroupBy[S ~[]T, T any, K comparable](a S, f func(int, T) K) map[K]S {
+	ret := make(map[K]S)
+	for i, v := range a {
+		k := f(i, v)
+		ret[k] = append(ret[k], v)
+	}
 	return ret
 }
 
