@@ -4,6 +4,7 @@ package it
 
 import (
 	"fmt"
+	"iter"
 	"reflect"
 	"slices"
 	"testing"
@@ -107,5 +108,27 @@ func TestFilter2(t *testing.T) {
 	want := []string{"1", "3"}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestUnzip(t *testing.T) {
+	keys, values := Unzip(SliceIter([]string{"0", "1", "2", "3", "4"}))
+
+	nextKey, stopKey := iter.Pull(keys)
+	defer stopKey()
+	nextValue, stopValue := iter.Pull(values)
+	defer stopValue()
+
+	for {
+		k, ok := nextKey()
+		if !ok {
+			break
+		}
+		v, ok := nextValue()
+		if !ok {
+			break
+		}
+
+		fmt.Printf("%d: %s\n", k, v)
 	}
 }
