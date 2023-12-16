@@ -183,6 +183,24 @@ func Filter2[K, V any](seq iter.Seq2[K, V], filter func(K, V) bool) func(func(K,
 	}
 }
 
+// Zip is similar to Zip2, but it returns [iter.Seq2].
+func Zip[K, V any](keys iter.Seq[K], values iter.Seq[V]) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		next, stop := iter.Pull(values)
+		defer stop()
+
+		for k := range keys {
+			v, ok := next()
+			if !ok {
+				break
+			}
+			if !yield(k, v) {
+				break
+			}
+		}
+	}
+}
+
 // Chunk returns an iterator that returns slices of length size from seq.
 func Chunk[T any](seq iter.Seq[T], size int) func(func([]T) bool) {
 	return func(yield func([]T) bool) {
