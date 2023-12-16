@@ -118,3 +118,17 @@ Experimental: `Chunk` on iterators
 it.Chunk(it.Range(5), 2)
 // it.SliceValues([][]int{{0, 1}, {2, 3}, {4}})
 ```
+
+### Count
+
+```go
+hi.Count([]int{1, 2, 3, 4, 5}, 3)
+// 1
+```
+
+Experimental: `Count` on iterators
+
+```go
+it.Count(it.Range(5), 3)
+// 1
+```

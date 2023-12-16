@@ -91,6 +91,13 @@ func ExampleChunk() {
 	// [5]
 }
 
+func ExampleCount() {
+	input := []int{1, 2, 3, 4, 5}
+	fmt.Println(hi.Count(input, 3))
+	// Output:
+	// 1
+}
+
 func ExampleAny() {
 	input := []int{1, 2, 3, 4, 5}
 	fmt.Println(hi.Any(input, 5))

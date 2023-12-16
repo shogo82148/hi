@@ -8,20 +8,6 @@ import (
 	"testing"
 )
 
-func TestCount(t *testing.T) {
-	got := make([]int, 0, 5)
-	for v := range Count(0, 2) {
-		got = append(got, v)
-		if len(got) >= 5 {
-			break
-		}
-	}
-	want := []int{0, 2, 4, 6, 8}
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %v, want %v", got, want)
-	}
-}
-
 func TestCycle(t *testing.T) {
 	got := make([]int, 0, 10)
 	seq := SliceValues([]int{1, 2, 3, 4})

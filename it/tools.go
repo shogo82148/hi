@@ -199,3 +199,14 @@ func Chunk[T any](seq iter.Seq[T], size int) func(func([]T) bool) {
 		}
 	}
 }
+
+// Count counts the number of elements in the collection that compare equal to value.
+func Count[T comparable](seq iter.Seq[T], value T) int {
+	var count int
+	for v := range seq {
+		if v == value {
+			count++
+		}
+	}
+	return count
+}
