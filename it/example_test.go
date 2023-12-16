@@ -108,6 +108,25 @@ func ExampleZip2() {
 	// (2, c)
 }
 
+func ExampleUnzip() {
+	seq1, seq2 := it.Unzip(it.SliceIter([]string{"a", "b", "c"}))
+
+	for v := range seq1 {
+		fmt.Println(v)
+	}
+	for v := range seq2 {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// a
+	// b
+	// c
+}
+
 func ExampleMap() {
 	seq := it.Map(it.Range(5), func(v int) string {
 		return fmt.Sprintf("(%d)", v)

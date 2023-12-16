@@ -118,6 +118,22 @@ it.Zip2(it.Range(3), it.SliceValues([]string{"zero", "one", "two"}))
 // })
 ```
 
+### Unzip
+
+Experimental: `it.Unzip` converts a `iter.Seq2` to a pair of `iter.Seq`.
+
+```go
+it.Unzip(it.SliceIter([]string{"zero", "one", "two"}))
+// it.Range(3), it.SliceValues([]string{"zero", "one", "two"})
+```
+
+### Unzip2,... , Unzip16
+
+```go
+hi.Unzip2([]tuple.Tuple2{tuple.New2(1, "one"), tuple.New2(2, "two"), tuple.New2(3, "three")})
+// []int{1, 2, 3}, []string{"one", "two", "three"}
+```
+
 ### Map
 
 ```go
