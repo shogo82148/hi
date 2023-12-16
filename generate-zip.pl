@@ -17,21 +17,22 @@ END
 
 for my $n(2..16) {
     say $fh "";
+    my $slice_types = join ", ", map { "S$_ ~[]T$_" } 1..$n;
     my $types = join ", ", map { "T$_" } 1..$n;
-    my $slice_args = join ", ", map { "s$_ []T$_" } 1..$n;
+    my $slice_args = join ", ", map { "s$_ S$_" } 1..$n;
     my $slices = join ", ", map { "s${_}[i]" } 1..$n;
     say $fh "// Zip$n returns a slice of $n-tuples.";
     say $fh "// The returned slice have the length of the shortest slice.";
-    say $fh "func Zip${n}[$types any]($slice_args) []tuple.Tuple${n}[$types] {";
+    say $fh "func Zip${n}[S []tuple.Tuple${n}[$types], $slice_types, $types any]($slice_args) S {";
     say $fh "	l := len(s1)";
     for my $i(2..$n) {
         say $fh "	if len(s$i) < l {";
         say $fh "		l = len(s$i)";
         say $fh "	}";
     }
-    say $fh "	ret := make([]tuple.Tuple${n}[$types], l)";
+    say $fh "	ret := make(S, l)";
     say $fh "	for i := 0; i < l; i++ {";
-    say $fh "		ret[i] = tuple.Tuple${n}[$types]{", join(", ", map { "V$_: s${_}[i]" } 1..$n), "}";
+    say $fh "		ret[i] = tuple.New$n($slices)";
     say $fh "	}";
     say $fh "	return ret";
     say $fh "}";

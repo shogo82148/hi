@@ -87,6 +87,28 @@ for v := range it.Range(5) {
 // 4
 ```
 
+### Zip2,... ,Zip16
+
+```go
+hi.Zip2([]int{1, 2, 3}, []string{"one", "two", "three"})
+// []tuple.Tuple2{
+//     tuple.New2(1, "one"),
+//     tuple.New2(2, "two"),
+//     tuple.New2(3, "three"),
+// }
+```
+
+Experimental: zip on iterators
+
+```go
+it.Zip2(it.Range(3), it.SliceValues([]string{"zero", "one", "two"}))
+// it.SliceValues([]tuple.Tuple2{
+//     tuple.New2(0, "zero"),
+//     tuple.New2(1, "one"),
+//     tuple.New2(2, "two"),
+// })
+```
+
 ### Map
 
 ```go

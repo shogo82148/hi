@@ -84,6 +84,18 @@ func ExampleChanValues() {
 	// c
 }
 
+func ExampleZip2() {
+	seq := it.Zip2(it.Range(5), it.SliceValues([]string{"a", "b", "c"}))
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// (0, a)
+	// (1, b)
+	// (2, c)
+}
+
 func ExampleMap() {
 	seq := it.Map(it.Range(5), func(v int) string {
 		return fmt.Sprintf("(%d)", v)
