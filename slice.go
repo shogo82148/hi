@@ -11,9 +11,9 @@ import (
 // Addable is a type that can be added and subtracted.
 type Addable interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 |
-	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr |
-	~float32 | ~float64 |
-	~complex64 | ~complex128
+		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr |
+		~float32 | ~float64 |
+		~complex64 | ~complex128
 }
 
 // Map calls mapper on each element of a and returns the result of its result in a slice.
@@ -26,8 +26,8 @@ func Map[S1 ~[]T1, S2 []T2, T1, T2 any](a S1, mapper func(int, T1) T2) S2 {
 }
 
 // Filter iterates over elements of collection, returning a slice of all elements predicate returns true for.
-func Filter[T any](a []T, filter func(int, T) bool) []T {
-	ret := make([]T, 0, len(a))
+func Filter[S ~[]T, T any](a S, filter func(int, T) bool) S {
+	ret := make(S, 0, len(a))
 	for i, v := range a {
 		if filter(i, v) {
 			ret = append(ret, v)
