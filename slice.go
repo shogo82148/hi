@@ -3,11 +3,18 @@ package hi
 import (
 	"github.com/shogo82148/hi/cmp"
 	"github.com/shogo82148/hi/optional"
-	"golang.org/x/exp/constraints"
 )
 
 //go:generate ./generate-zip.pl
 //go:generate ./generate-unzip.pl
+
+// Addable is a type that can be added and subtracted.
+type Addable interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 |
+	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr |
+	~float32 | ~float64 |
+	~complex64 | ~complex128
+}
 
 // Map calls mapper on each element of a and returns the result of its result in a slice.
 func Map[S1 ~[]T1, S2 []T2, T1, T2 any](a S1, mapper func(int, T1) T2) S2 {
@@ -244,7 +251,7 @@ func MinMaxBy[T any, U cmp.Ordered](f func(element T) U, s ...T) (min optional.O
 }
 
 // Sum returns a sum of s using Kahan summation algorithm.
-func Sum[T constraints.Float | constraints.Integer | constraints.Complex](s []T) optional.Optional[T] {
+func Sum[T Addable](s []T) optional.Optional[T] {
 	if len(s) == 0 {
 		return optional.None[T]()
 	}
@@ -261,7 +268,7 @@ func Sum[T constraints.Float | constraints.Integer | constraints.Complex](s []T)
 }
 
 // Sum returns a sum of s using Kahan summation algorithm.
-func SumBy[T any, R constraints.Float | constraints.Integer | constraints.Complex](s []T, f func(T) R) optional.Optional[R] {
+func SumBy[T any, R Addable](s []T, f func(T) R) optional.Optional[R] {
 	if len(s) == 0 {
 		return optional.None[R]()
 	}
