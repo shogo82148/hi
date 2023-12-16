@@ -180,3 +180,22 @@ func Filter2[K, V any](seq iter.Seq2[K, V], filter func(K, V) bool) func(func(K,
 		}
 	}
 }
+
+// Chunk returns an iterator that returns slices of length size from seq.
+func Chunk[T any](seq iter.Seq[T], size int) func(func([]T) bool) {
+	return func(yield func([]T) bool) {
+		chunk := make([]T, 0, size)
+		for v := range seq {
+			chunk = append(chunk, v)
+			if len(chunk) == size {
+				if !yield(chunk) {
+					break
+				}
+				chunk = chunk[:0]
+			}
+		}
+		if len(chunk) > 0 {
+			yield(chunk)
+		}
+	}
+}

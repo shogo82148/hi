@@ -104,3 +104,17 @@ even := it.Filter(it.Range(5), func(v int) bool {
 })
 // it.SliceValues([]int{0, 2, 4})
 ```
+
+### Chunk
+
+```go
+hi.Chunk([]int{1, 2, 3, 4, 5}, 2)
+// [][]int{{1, 2}, {3, 4}, {5}}
+```
+
+Experimental: `Chunk` on iterators
+
+```go
+it.Chunk(it.Range(5), 2)
+// it.SliceValues([][]int{{0, 1}, {2, 3}, {4}})
+```

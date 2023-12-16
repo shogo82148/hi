@@ -79,6 +79,18 @@ func ExampleFilter() {
 	// 4
 }
 
+func ExampleChunk() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.Chunk(input, 2)
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// [1 2]
+	// [3 4]
+	// [5]
+}
+
 func ExampleAny() {
 	input := []int{1, 2, 3, 4, 5}
 	fmt.Println(hi.Any(input, 5))
