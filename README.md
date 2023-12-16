@@ -72,7 +72,7 @@ for i, v := range it.SliceIter([]string{"a", "b", "c"}) {
 
 ### Range
 
-Experimental: `Range` returns an iterator that generates.
+Experimental: `Range` creates an iterator that returns a sequence of integers.
 
 ```go
 for v := range it.Range(5) {
@@ -85,6 +85,24 @@ for v := range it.Range(5) {
 // 2
 // 3
 // 4
+```
+
+### Map
+
+```go
+hi.Map([]int{1, 2, 3, 4, 5}, func(_, v int) string {
+    return fmt.Sprintf("(%d)", v)
+})
+// []string{"(1)", "(2)", "(3)", "(4)", "(5)"}
+```
+
+Experimental: `Map` on iterators
+
+```go
+it.Map(it.Range(5), func(v int) string {
+    return fmt.Sprintf("(%d)", v)
+})
+// it.SliceValues([]string{"(0)", "(1)", "(2)", "(3)", "(4)"})
 ```
 
 ### Filter
