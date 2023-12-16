@@ -138,3 +138,9 @@ func ExampleChunk() {
 	// [2 3]
 	// [4]
 }
+
+func ExampleCount() {
+	fmt.Println(it.Count(it.Range(5), 3))
+	// Output:
+	// 1
+}

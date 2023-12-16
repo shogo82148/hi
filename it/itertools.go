@@ -6,23 +6,6 @@ import (
 	"iter"
 )
 
-type Countable interface {
-	~int | ~int8 | ~int16 | ~int32 | ~int64 |
-		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr |
-		~float32 | ~float64
-}
-
-// Count makes an iterator that returns evenly spaced values starting with number start.
-func Count[T Countable](start, step T) func(func(T) bool) {
-	return func(yield func(T) bool) {
-		for i := start; ; i += step {
-			if !yield(i) {
-				break
-			}
-		}
-	}
-}
-
 // Cycle makes an iterator returning elements from the iterable and saving a copy of each.
 func Cycle[T any](seq iter.Seq[T]) func(func(T) bool) {
 	return func(yield func(T) bool) {
