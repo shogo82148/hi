@@ -127,3 +127,14 @@ func ExampleFilter() {
 	// 2
 	// 4
 }
+
+func ExampleChunk() {
+	seq := it.Chunk(it.Range(5), 2)
+	for v := range seq {
+		fmt.Println(v)
+	}
+	// Output:
+	// [0 1]
+	// [2 3]
+	// [4]
+}

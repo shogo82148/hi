@@ -29,6 +29,22 @@ func Filter[T any](a []T, filter func(int, T) bool) []T {
 	return ret
 }
 
+// Chunk creates a slice of elements split into groups the length of size.
+func Chunk[S ~[]T, T any](a S, size int) []S {
+	if size <= 0 {
+		panic("size must be positive")
+	}
+	ret := make([]S, 0, (len(a)+size-1)/size)
+	for i := 0; i < len(a); i += size {
+		end := i + size
+		if end > len(a) {
+			end = len(a)
+		}
+		ret = append(ret, a[i:end])
+	}
+	return ret
+}
+
 // Count counts the number of elements in the collection that compare equal to value.
 func Count[T comparable](a []T, value T) int {
 	var count int
