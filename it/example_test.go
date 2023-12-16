@@ -144,3 +144,9 @@ func ExampleCount() {
 	// Output:
 	// 1
 }
+
+func ExampleCountBy() {
+	fmt.Println(it.CountBy(it.Range(5), func(v int) bool { return v%2 == 0 }))
+	// Output:
+	// 3
+}

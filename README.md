@@ -150,3 +150,17 @@ Experimental: `Count` on iterators
 it.Count(it.Range(5), 3)
 // 1
 ```
+
+### CountBy
+
+```go
+numberOfEven := hi.CountBy([]int{1, 2, 3, 4, 5}, func(_, v int) bool { return v % 2 == 0 })
+// 2
+```
+
+Experimental: `CountBy` on iterators
+
+```go
+numberOfEven := it.CountBy(it.Range(5), func(_, v int) bool { return v % 2 == 0 })
+// 3
+```

@@ -98,6 +98,13 @@ func ExampleCount() {
 	// 1
 }
 
+func ExampleCountBy() {
+	input := []int{1, 2, 3, 4, 5}
+	fmt.Println(hi.CountBy(input, func(_, v int) bool { return v%2 == 0 }))
+	// Output:
+	// 2
+}
+
 func ExampleAny() {
 	input := []int{1, 2, 3, 4, 5}
 	fmt.Println(hi.Any(input, 5))
