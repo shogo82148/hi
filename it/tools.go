@@ -6,6 +6,8 @@ import (
 	"iter"
 )
 
+//go:generate ./generate-zip.pl
+
 // SliceIter returns an iterator for the slice.
 func SliceIter[S ~[]E, E any](x S) func(func(int, E) bool) {
 	return func(yield func(int, E) bool) {
