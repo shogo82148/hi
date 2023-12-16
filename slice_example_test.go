@@ -79,6 +79,19 @@ func ExampleFilter() {
 	// 4
 }
 
+func ExampleGroupBy() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.GroupBy(input, func(_, v int) int {
+		return v % 2
+	})
+	for k, v := range output {
+		fmt.Println(k, v)
+	}
+	// Unordered output:
+	// 0 [2 4]
+	// 1 [1 3 5]
+}
+
 func ExampleChunk() {
 	input := []int{1, 2, 3, 4, 5}
 	output := hi.Chunk(input, 2)

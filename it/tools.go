@@ -201,6 +201,16 @@ func Zip[K, V any](keys iter.Seq[K], values iter.Seq[V]) func(func(K, V) bool) {
 	}
 }
 
+// GroupBy returns a map of slices, where each slice contains elements of seq grouped by the result of key.
+func GroupBy[K comparable, V any](seq iter.Seq[V], key func(V) K) map[K][]V {
+	m := make(map[K][]V)
+	for v := range seq {
+		k := key(v)
+		m[k] = append(m[k], v)
+	}
+	return m
+}
+
 // Chunk returns an iterator that returns slices of length size from seq.
 func Chunk[T any](seq iter.Seq[T], size int) func(func([]T) bool) {
 	return func(yield func([]T) bool) {
