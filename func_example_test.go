@@ -37,3 +37,13 @@ func ExampleNegate2() {
 	// 3: false, true
 	// 4: true, false
 }
+
+// Example of Negate with Filter.
+func ExampleNegate2_Filter() {
+	filter := func(_, v int) bool { return v > 3 }
+	negate := hi.Negate2(filter)
+	fmt.Println(hi.Filter([]int{1, 2, 3, 4, 5}, negate))
+
+	// Output:
+	// [1 2 3]
+}
