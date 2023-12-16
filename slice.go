@@ -44,6 +44,7 @@ func FilterFalse[S ~[]T, T any](a S, filter func(int, T) bool) S {
 			ret = append(ret, v)
 		}
 	}
+	return ret
 }
 
 // GroupBy returns a map of slices, where each slice contains elements of a grouped by the result of f.
