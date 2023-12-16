@@ -79,6 +79,20 @@ func ExampleFilter() {
 	// 4
 }
 
+func ExampleFilterFalse() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.FilterFalse(input, func(_, v int) bool {
+		return v%2 == 0
+	})
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// 1
+	// 3
+	// 5
+}
+
 func ExampleGroupBy() {
 	input := []int{1, 2, 3, 4, 5}
 	output := hi.GroupBy(input, func(_, v int) int {

@@ -23,6 +23,34 @@ func ExampleUnzip2() {
 	// one
 }
 
+func ExampleFilter() {
+	filter := func(v int) bool { return v > 20 }
+
+	v := optional.New(10).Filter(filter)
+	fmt.Println(v.Valid())
+
+	w := optional.New(30).Filter(filter)
+	fmt.Println(w.Valid())
+
+	// Output:
+	// false
+	// true
+}
+
+func ExampleFilterFalse() {
+	filter := func(v int) bool { return v > 20 }
+
+	v := optional.New(10).FilterFalse(filter)
+	fmt.Println(v.Valid())
+
+	w := optional.New(30).FilterFalse(filter)
+	fmt.Println(w.Valid())
+
+	// Output:
+	// true
+	// false
+}
+
 func ExampleMap() {
 	v := optional.New(10)
 	w := optional.Map(v, func(v int) string { return fmt.Sprintf("%x", v) })

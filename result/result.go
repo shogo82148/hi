@@ -5,6 +5,9 @@ import "errors"
 //go:generate ./generate-zip.pl
 //go:generate ./generate-unzip.pl
 
+// ErrFiltered is returned when the result is filtered.
+var ErrFiltered = errors.New("result: filtered")
+
 type Result[T any] struct {
 	value T
 	err   error
@@ -66,7 +69,19 @@ func (v Result[T]) Filter(f func(T) bool) Result[T] {
 		return v
 	}
 	return Result[T]{
-		err: errors.New("result: invalid result"),
+		err: ErrFiltered,
+	}
+}
+
+func (v Result[T]) FilterFalse(f func(T) bool) Result[T] {
+	if v.err != nil {
+		return v
+	}
+	if !f(v.value) {
+		return v
+	}
+	return Result[T]{
+		err: ErrFiltered,
 	}
 }
 
