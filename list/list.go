@@ -245,9 +245,9 @@ func Filter[T any](l *List[T], f func(index int, value T) bool) *List[T] {
 }
 
 // FilterFalse iterates over elements of collection, returning a list of all elements predicate returns false for.
-for FilterFalse[T any](l *List[T], f func(index int, value T) bool) *List[T] {
+func FilterFalse[T any](l *List[T], f func(index int, value T) bool) *List[T] {
 	var ret List[T]
-	for i, e := 0, l.Front(); e != nil; i, e := i+1, e.Next() {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if !f(i, e.Value) {
 			ret.PushBack(e.Value)
 		}
