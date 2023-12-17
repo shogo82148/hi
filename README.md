@@ -258,3 +258,10 @@ Experimental: `CountBy` on iterators
 numberOfEven := it.CountBy(it.Range(5), func(_, v int) bool { return v % 2 == 0 })
 // 3
 ```
+
+### Ptr
+
+```go
+p := hi.Ptr("hello")
+// *p = "hello"
+```
