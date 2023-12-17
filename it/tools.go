@@ -384,3 +384,43 @@ func AnyBy2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) bool {
 	}
 	return false
 }
+
+// All returns whether all elements of seq are value.
+func All[T comparable](seq iter.Seq[T], value T) bool {
+	for v := range seq {
+		if v != value {
+			return false
+		}
+	}
+	return true
+}
+
+// All2 returns whether all elements of seq are key-value pair.
+func All2[K, V comparable](seq iter.Seq2[K, V], key K, value V) bool {
+	for k, v := range seq {
+		if k != key || v != value {
+			return false
+		}
+	}
+	return true
+}
+
+// AllBy returns whether f returns true for all elements in seq.
+func AllBy[T any](seq iter.Seq[T], f func(T) bool) bool {
+	for v := range seq {
+		if !f(v) {
+			return false
+		}
+	}
+	return true
+}
+
+// AllBy2 returns whether f returns true for all elements in seq.
+func AllBy2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) bool {
+	for k, v := range seq {
+		if !f(k, v) {
+			return false
+		}
+	}
+	return true
+}

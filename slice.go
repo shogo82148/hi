@@ -169,7 +169,7 @@ func AnyBy[T any](a []T, f func(index int, value T) bool) bool {
 	return false
 }
 
-// All returns whether all elements of l are value.
+// All returns whether all elements of a are value.
 func All[T comparable](a []T, value T) bool {
 	for _, v := range a {
 		if v != value {
@@ -179,7 +179,7 @@ func All[T comparable](a []T, value T) bool {
 	return true
 }
 
-// AllBy returns whether f returns true for all elements in l.
+// AllBy returns whether f returns true for all elements in a.
 func AllBy[T any](a []T, f func(int, T) bool) bool {
 	for i, v := range a {
 		if !f(i, v) {

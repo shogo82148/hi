@@ -305,3 +305,37 @@ func ExampleAnyBy2() {
 	// true
 	// false
 }
+
+func ExampleAll() {
+	fmt.Println(it.All(it.Range(1), 0))
+	fmt.Println(it.All(it.Range(5), 0))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAll2() {
+	m := map[int]string{0: "0"}
+	fmt.Println(it.All2(it.MapIter(m), 0, "0"))
+	fmt.Println(it.All2(it.MapIter(m), 0, "1"))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAllBy() {
+	fmt.Println(it.AllBy(it.Range(5), func(v int) bool { return v < 5 }))
+	fmt.Println(it.AllBy(it.Range(5), func(v int) bool { return v < 4 }))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAllBy2() {
+	m := map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"}
+	fmt.Println(it.AllBy2(it.MapIter(m), func(_ int, v string) bool { return v < "5" }))
+	fmt.Println(it.AllBy2(it.MapIter(m), func(_ int, v string) bool { return v < "4" }))
+	// Output:
+	// true
+	// false
+}
