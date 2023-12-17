@@ -188,6 +188,25 @@ func DropWhile[T any](seq iter.Seq[T], f func(T) bool) func(func(T) bool) {
 	}
 }
 
+// DropWhile2 makes an iterator that drops elements from the iterable as long as the predicate is true;
+// afterwards, returns every element.
+func DropWhile2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		dropping := true
+		for k, v := range seq {
+			if dropping {
+				if f(k, v) {
+					continue
+				}
+				dropping = false
+			}
+			if !yield(k, v) {
+				break
+			}
+		}
+	}
+}
+
 // FilterFalse makes an iterator that filters elements from data returning only those
 // that have a corresponding element in selectors that evaluates to False.
 func FilterFalse[T any](seq iter.Seq[T], f func(T) bool) func(func(T) bool) {

@@ -190,6 +190,21 @@ func ExampleDropWhile() {
 	// 1
 }
 
+func ExampleDropWhile2() {
+	seq := it.DropWhile2(
+		it.SliceIter([]int{1, 4, 6, 4, 1}),
+		func(_, v int) bool { return v < 5 },
+	)
+	for k, v := range seq {
+		fmt.Printf("%d: %d\n", k, v)
+	}
+
+	// Output:
+	// 2: 6
+	// 3: 4
+	// 4: 1
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {
