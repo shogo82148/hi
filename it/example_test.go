@@ -8,6 +8,72 @@ import (
 	"github.com/shogo82148/hi/it"
 )
 
+func ExampleRange() {
+	seq := it.Range(5)
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 3
+	// 4
+}
+
+func ExampleSlice_StartEnd() {
+	seq := it.SliceValues([]string{"a", "b", "c", "d", "e", "f", "g"})
+	seq = it.Slice(seq, 2, 4, 1)
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// c
+	// d
+}
+
+func ExampleSlice_Step() {
+	seq := it.SliceValues([]string{"a", "b", "c", "d", "e", "f", "g"})
+	seq = it.Slice(seq, 0, -1, 2)
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// a
+	// c
+	// e
+	// g
+}
+
+func ExampleSlice2_StartEnd() {
+	seq := it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"})
+	seq = it.Slice2(seq, 2, 4, 1)
+	for i, v := range seq {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 2: c
+	// 3: d
+}
+
+func ExampleSlice2_Step() {
+	seq := it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"})
+	seq = it.Slice2(seq, 0, -1, 2)
+	for i, v := range seq {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 0: a
+	// 2: c
+	// 4: e
+	// 6: g
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {

@@ -73,6 +73,48 @@ func Chunk[S ~[]T, T any](a S, size int) []S {
 	return ret
 }
 
+// Slice returns a Python-like slice of s.
+// Unlike Go's builtin slice, Slice can handle negative indices and step,
+// and always returns a new slice.
+// Negative indices count from the end of the slice (-1 means the last element).
+func Slice[S ~[]T, T any](s S, start, stop, step int) S {
+	if start < 0 {
+		start += len(s)
+	}
+	if start < 0 {
+		start = 0
+	} else if start > len(s) {
+		start = len(s)
+	}
+
+	if stop < 0 {
+		stop += len(s)
+	}
+	if stop < 0 {
+		stop = 0
+	} else if stop > len(s) {
+		stop = len(s)
+	}
+
+	if step == 0 {
+		panic("step must not be zero")
+	}
+
+	if step < 0 {
+		ret := make(S, 0, (start-stop-step-1)/(-step))
+		for i := start; i > stop; i += step {
+			ret = append(ret, s[i])
+		}
+		return ret
+	} else {
+		ret := make(S, 0, (stop-start+step-1)/step)
+		for i := start; i < stop; i += step {
+			ret = append(ret, s[i])
+		}
+		return ret	
+	}
+}
+
 // RepeatN returns a slice consisting of n copies of v.
 func RepeatN[T any](v T, n int) []T {
 	if n < 0 {

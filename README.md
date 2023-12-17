@@ -184,6 +184,25 @@ it.Chunk(it.Range(5), 2)
 // it.SliceValues([][]int{{0, 1}, {2, 3}, {4}})
 ```
 
+### Slice
+
+Python-like slice.
+
+```go
+hi.Slice([]int{0, 1, 2, 3, 4}, 1, 3, 1)
+// []int{1, 2}
+```
+
+Experimental: `Slice` on iterators
+
+```go
+it.Slice(it.Range(5), 1, 3, 1)
+// it.SliceValues([]int{1, 2})
+
+it.Slice2(it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"}), 2, 4, 1)
+// it.Zip(it.SliceValues([]int{2, 3}), it.SliceValues([]string{"c", "d"}))
+```
+
 ### Repeat
 
 Experimental:

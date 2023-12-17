@@ -118,6 +118,33 @@ func ExampleChunk() {
 	// [5]
 }
 
+func ExampleSlice() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.Slice(input, 1, 3, 1)
+	fmt.Println(output)
+	// Output:
+	// [2 3]
+}
+
+func ExampleSlice_NegativeIndex() {
+	input := []int{1, 2, 3, 4, 5}
+
+	// slices last 2 elements
+	output := hi.Slice(input, -2, len(input), 1)
+	fmt.Println(output)
+
+	// Output:
+	// [4 5]
+}
+
+func ExampleSlice_NegativeStep() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.Slice(input, 3, 1, -1)
+	fmt.Println(output)
+	// Output:
+	// [4 3]
+}
+
 func ExampleRepeatN() {
 	output := hi.RepeatN("hello", 3)
 	for _, v := range output {
