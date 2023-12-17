@@ -149,7 +149,7 @@ func CountBy[T any](a []T, counter func(int, T) bool) int {
 	return count
 }
 
-// Any returns whether l has value at least one.
+// Any returns whether a has value at least one.
 func Any[T comparable](a []T, value T) bool {
 	for _, v := range a {
 		if v == value {
@@ -159,7 +159,7 @@ func Any[T comparable](a []T, value T) bool {
 	return false
 }
 
-// AnyBy returns whether l has an element for that f returns true.
+// AnyBy returns whether a has an element for that f returns true.
 func AnyBy[T any](a []T, f func(index int, value T) bool) bool {
 	for i, v := range a {
 		if f(i, v) {

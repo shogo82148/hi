@@ -259,6 +259,44 @@ numberOfEven := it.CountBy(it.Range(5), func(_, v int) bool { return v % 2 == 0 
 // 3
 ```
 
+### Any
+
+[Any](https://pkg.go.dev/github.com/shogo82148/hi#Any) returns whether l has value at least one.
+
+```go
+hi.Any([]int{1, 2, 3, 4, 5}, 5)
+// true
+```
+
+Experimental: `Any` on iterators
+
+```go
+it.Any(it.Range(5), 4)
+// true
+
+it.Any2(it.SliceIter([]int{1, 2, 3, 4, 5}), 4, 5)
+// true
+```
+
+### AnyBy
+
+[AnyBy](https://pkg.go.dev/github.com/shogo82148/hi#AnyBy) returns whether a has an element for that f returns true.
+
+```go
+hi.AnyBy([]int{1, 2, 3, 4, 5}, func(_, v int) bool { return v > 3 })
+// true
+```
+
+Experimental: `AnyBy` on iterators
+
+```go
+it.AnyBy(it.Range(5), func(v int) bool { return v > 3 })
+// true
+
+it.AnyBy2(it.SliceIter([]int{1, 2, 3, 4, 5}), func(_, v int) bool { return v > 3 })
+// true
+```
+
 ### Ptr
 
 ```go
