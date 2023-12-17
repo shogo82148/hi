@@ -244,6 +244,24 @@ it.Compress2(it.SliceIter([]string{"zero", "one", "two"}), it.SliceValues([]bool
 // it.Zip(it.SliceValues([]int{0, 2}), it.SliceValues([]string{"zero", "two"}))
 ```
 
+### DropWhile
+
+[DropWhile](https://pkg.go.dev/github.com/shogo82148/hi#DropWhile) returns a slice of the remaining elements after dropping the longest prefix of elements that satisfy predicate.
+
+```go
+l := hi.DropWhile([]int{1, 4, 6, 4, 1}, func(_, val int) bool {
+    return v < 5
+})
+// []int{6, 4, 1}
+```
+
+Experimental: `DropWhile` on iterators
+
+```go
+it.DropWhile(it.SliceValues([]int{1, 4, 6, 4, 1}), func(v int) bool { return v < 5 })
+// it.SliceValues([]int{6, 4, 1})
+```
+
 ### Repeat
 
 Experimental:

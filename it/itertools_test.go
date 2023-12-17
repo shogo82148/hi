@@ -98,18 +98,6 @@ func TestCompress(t *testing.T) {
 	}
 }
 
-func TestDropWhile(t *testing.T) {
-	seq := DropWhile(
-		func(v int) bool { return v < 5 },
-		SliceValues([]int{1, 4, 6, 4, 1}),
-	)
-	got := Append(make([]int, 0, 2), seq)
-	want := []int{6, 4, 1}
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %v, want %v", got, want)
-	}
-}
-
 func TestFilterFalse(t *testing.T) {
 	seq := FilterFalse(
 		Range(10),

@@ -120,6 +120,8 @@ func TestUnzip(t *testing.T) {
 	nextValue, stopValue := iter.Pull(values)
 	defer stopValue()
 
+	keysGot := make([]int, 0, 5)
+	valuesGot := make([]string, 0, 5)
 	for {
 		k, ok := nextKey()
 		if !ok {
@@ -130,7 +132,17 @@ func TestUnzip(t *testing.T) {
 			break
 		}
 
-		fmt.Printf("%d: %s\n", k, v)
+		keysGot = append(keysGot, k)
+		valuesGot = append(valuesGot, v)
+	}
+
+	keysWant := []int{0, 1, 2, 3, 4}
+	valuesWant := []string{"0", "1", "2", "3", "4"}
+	if !reflect.DeepEqual(keysGot, keysWant) {
+		t.Errorf("got %v, want %v", keysGot, keysWant)
+	}
+	if !reflect.DeepEqual(valuesGot, valuesWant) {
+		t.Errorf("got %v, want %v", valuesGot, valuesWant)
 	}
 }
 

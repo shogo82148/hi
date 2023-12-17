@@ -175,6 +175,21 @@ func ExampleCompress2() {
 	// 2: two
 }
 
+func ExampleDropWhile() {
+	seq := it.DropWhile(
+		it.SliceValues([]int{1, 4, 6, 4, 1}),
+		func(v int) bool { return v < 5 },
+	)
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 6
+	// 4
+	// 1
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {

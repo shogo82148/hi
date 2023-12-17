@@ -174,6 +174,20 @@ func ExampleCompress() {
 	// 5
 }
 
+func ExampleDropWhile() {
+	input := []int{1, 4, 6, 4, 1}
+	output := hi.DropWhile(input, func(_, v int) bool {
+		return v < 5
+	})
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// 6
+	// 4
+	// 1
+}
+
 func ExampleRepeatN() {
 	output := hi.RepeatN("hello", 3)
 	for _, v := range output {
