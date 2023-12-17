@@ -152,6 +152,18 @@ func ExampleChainFromIterables2() {
 	// 2: zwei
 }
 
+func ExampleCompress() {
+	seq := it.Compress(it.Range(5), it.SliceValues([]bool{true, false, true, false, true}))
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 0
+	// 2
+	// 4
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {

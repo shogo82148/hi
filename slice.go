@@ -126,6 +126,18 @@ func Chain[S ~[]T, T any](a ...S) []T {
 	return ret
 }
 
+// Compress makes a slice of the elements in a for which the corresponding element in selectors is true.
+func Compress[S ~[]T, T any](a S, selectors []bool) S {
+	l := min(len(a), len(selectors))
+	ret := make(S, 0, l)
+	for i := 0; i < l; i++ {
+		if selectors[i] {
+			ret = append(ret, a[i])
+		}
+	}
+	return ret
+}
+
 // RepeatN returns a slice consisting of n copies of v.
 func RepeatN[T any](v T, n int) []T {
 	if n < 0 {
