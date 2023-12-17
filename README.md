@@ -217,6 +217,12 @@ Experimental: `Chain` on iterators
 ```go
 it.Chain(it.Range(3), it.Range(3))
 // it.SliceValues([]int{0, 1, 2, 0, 1, 2})
+
+it.Chain2(
+    it.SliceIter([]string{"zero", "one", "two"}),
+    it.SliceIter([]string{"null", "eins", "zwei"}),
+)
+// it.Zip([]int{0, 1, 2, 0, 1, 2}, []string{"zero", "one", "two", "null", "eins", "zwei"})
 ```
 
 ### Repeat

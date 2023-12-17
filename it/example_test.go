@@ -4,6 +4,7 @@ package it_test
 
 import (
 	"fmt"
+	"iter"
 
 	"github.com/shogo82148/hi/it"
 )
@@ -87,6 +88,68 @@ func ExampleChain() {
 	// 0
 	// 1
 	// 2
+}
+
+func ExampleChainFromIterables() {
+	seq := func(yield func(seq iter.Seq[int]) bool) {
+		if !yield(it.Range(3)) {
+			return
+		}
+		if !yield(it.Range(3)) {
+			return
+		}
+	}
+	for v := range it.ChainFromIterables(seq) {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 0
+	// 1
+	// 2
+}
+
+func ExampleChain2() {
+	seq := it.Chain2(
+		it.SliceIter([]string{"zero", "one", "two"}),
+		it.SliceIter([]string{"null", "eins", "zwei"}),
+	)
+	for i, v := range seq {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 0: zero
+	// 1: one
+	// 2: two
+	// 0: null
+	// 1: eins
+	// 2: zwei
+}
+
+func ExampleChainFromIterables2() {
+	seq := func(yield func(seq iter.Seq2[int, string]) bool) {
+		if !yield(it.SliceIter([]string{"zero", "one", "two"})) {
+			return
+		}
+		if !yield(it.SliceIter([]string{"null", "eins", "zwei"})) {
+			return
+		}
+	}
+	for i, v := range it.ChainFromIterables2(seq) {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 0: zero
+	// 1: one
+	// 2: two
+	// 0: null
+	// 1: eins
+	// 2: zwei
 }
 
 func ExampleSliceIter() {

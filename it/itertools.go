@@ -85,6 +85,20 @@ func Chain[T any](seqs ...iter.Seq[T]) func(func(T) bool) {
 	}
 }
 
+// Chain2 makes an iterator that returns elements from the first iterable until it is exhausted,
+// then proceeds to the next iterable, until all of the iterables are exhausted.
+func Chain2[K, V any](seqs ...iter.Seq2[K, V]) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		for _, seq := range seqs {
+			for k, v := range seq {
+				if !yield(k, v) {
+					return
+				}
+			}
+		}
+	}
+}
+
 // ChainFromIterables makes an iterator that returns elements from the first iterable until it is exhausted,
 // then proceeds to the next iterable, until all of the iterables are exhausted.
 func ChainFromIterables[T any](seqs iter.Seq[iter.Seq[T]]) func(func(T) bool) {
@@ -92,6 +106,20 @@ func ChainFromIterables[T any](seqs iter.Seq[iter.Seq[T]]) func(func(T) bool) {
 		for seq := range seqs {
 			for v := range seq {
 				if !yield(v) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// ChainFromIterables2 makes an iterator that returns elements from the first iterable until it is exhausted,
+// then proceeds to the next iterable, until all of the iterables are exhausted.
+func ChainFromIterables2[K, V any](seqs iter.Seq[iter.Seq2[K, V]]) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		for seq := range seqs {
+			for k, v := range seq {
+				if !yield(k, v) {
 					return
 				}
 			}
