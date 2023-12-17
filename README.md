@@ -239,6 +239,9 @@ Experimental: `Compress` on iterators
 ```go
 it.Compress(it.Range(5), it.SliceValues([]bool{true, false, true, false, true}))
 // it.SliceValues([]int{0, 2, 4})
+
+it.Compress2(it.SliceIter([]string{"zero", "one", "two"}), it.SliceValues([]bool{true, false, true}))
+// it.Zip(it.SliceValues([]int{0, 2}), it.SliceValues([]string{"zero", "two"}))
 ```
 
 ### Repeat

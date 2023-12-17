@@ -164,6 +164,17 @@ func ExampleCompress() {
 	// 4
 }
 
+func ExampleCompress2() {
+	seq := it.Compress2(it.SliceIter([]string{"zero", "one", "two"}), it.SliceValues([]bool{true, false, true}))
+	for k, v := range seq {
+		fmt.Printf("%d: %s\n", k, v)
+	}
+
+	// Output:
+	// 0: zero
+	// 2: two
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {
