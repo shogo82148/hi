@@ -5,6 +5,7 @@ package it
 import (
 	"fmt"
 	"iter"
+	"math"
 	"reflect"
 	"slices"
 	"testing"
@@ -130,5 +131,19 @@ func TestUnzip(t *testing.T) {
 		}
 
 		fmt.Printf("%d: %s\n", k, v)
+	}
+}
+
+func TestMax_Nan(t *testing.T) {
+	input := []float64{
+		0, 1, 2, math.NaN(), 4, 5,
+	}
+	result := Max(SliceValues(input))
+	if !result.Valid() {
+		t.Errorf("Max(%v) = %t, want %t", input, result.Valid(), true)
+	}
+	got := result.Get()
+	if !math.IsNaN(got) {
+		t.Errorf("Max(%v) = %f, want NaN", input, got)
 	}
 }

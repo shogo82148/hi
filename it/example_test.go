@@ -339,3 +339,10 @@ func ExampleAllBy2() {
 	// true
 	// false
 }
+
+func ExampleMax() {
+	max := it.Max(it.SliceValues([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}))
+	fmt.Println(max.GetOrZero())
+	// Output:
+	// 9
+}

@@ -185,7 +185,7 @@ func Slice[T any](seq iter.Seq[T], start, stop, step int) func(func(T) bool) {
 		return func(yield func(T) bool) {
 			var i int
 			for v := range seq {
-				if i >= start && (i - start)%step == 0 {
+				if i >= start && (i-start)%step == 0 {
 					if !yield(v) {
 						break
 					}

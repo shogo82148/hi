@@ -5,7 +5,9 @@ package it
 import (
 	"iter"
 
+	"github.com/shogo82148/hi/cmp"
 	"github.com/shogo82148/hi/list"
+	"github.com/shogo82148/hi/optional"
 )
 
 //go:generate ./generate-zip.pl
@@ -423,4 +425,29 @@ func AllBy2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) bool {
 		}
 	}
 	return true
+}
+
+// Max returns the maximum element of seq.
+func Max[T cmp.Ordered](seq iter.Seq[T]) optional.Optional[T] {
+	var max T
+	var initialized bool
+	for v := range seq {
+		if isNaN(v) {
+			return optional.New(v)
+		}
+		if !initialized || v > max {
+			max = v
+			initialized = true
+		}
+	}
+	if !initialized {
+		return optional.None[T]()
+	}
+	return optional.New(max)
+}
+
+// isNaN reports whether x is a NaN without requiring the math package.
+// This will always return false if T is not floating-point.
+func isNaN[T cmp.Ordered](x T) bool {
+	return x != x
 }

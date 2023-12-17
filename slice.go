@@ -111,7 +111,7 @@ func Slice[S ~[]T, T any](s S, start, stop, step int) S {
 		for i := start; i < stop; i += step {
 			ret = append(ret, s[i])
 		}
-		return ret	
+		return ret
 	}
 }
 
