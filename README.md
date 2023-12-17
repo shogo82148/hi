@@ -203,6 +203,22 @@ it.Slice2(it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"}), 2, 4, 1)
 // it.Zip(it.SliceValues([]int{2, 3}), it.SliceValues([]string{"c", "d"}))
 ```
 
+### Chain
+
+[Chain](https://pkg.go.dev/github.com/shogo82148/hi#Chain) returns a slice of all elements from all slices.
+
+```go
+hi.Chain([]int{1, 2, 3}, []int{4, 5, 6})
+// []int{1, 2, 3, 4, 5, 6}
+```
+
+Experimental: `Chain` on iterators
+
+```go
+it.Chain(it.Range(3), it.Range(3))
+// it.SliceValues([]int{0, 1, 2, 0, 1, 2})
+```
+
 ### Repeat
 
 Experimental:

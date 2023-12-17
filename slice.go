@@ -117,6 +117,15 @@ func Slice[S ~[]T, T any](s S, start, stop, step int) S {
 	}
 }
 
+// Chain returns a slice of all elements from all slices.
+func Chain[S ~[]T, T any](a ...S) []T {
+	var ret []T
+	for _, v := range a {
+		ret = append(ret, v...)
+	}
+	return ret
+}
+
 // RepeatN returns a slice consisting of n copies of v.
 func RepeatN[T any](v T, n int) []T {
 	if n < 0 {
