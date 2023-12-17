@@ -206,7 +206,14 @@ func ExampleAllBy() {
 
 func ExampleMax() {
 	max := hi.Max([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5})
-	fmt.Println(max.GetOrZero())
+	fmt.Println(max.Get())
 	// Output:
 	// 9
+}
+
+func ExampleMin() {
+	min := hi.Min([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5})
+	fmt.Println(min.Get())
+	// Output:
+	// 1
 }

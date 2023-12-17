@@ -346,3 +346,10 @@ func ExampleMax() {
 	// Output:
 	// 9
 }
+
+func ExampleMin() {
+	min := it.Min(it.SliceValues([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}))
+	fmt.Println(min.GetOrZero())
+	// Output:
+	// 1
+}

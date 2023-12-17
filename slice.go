@@ -198,3 +198,11 @@ func Max[S ~[]T, T cmp.Ordered](a S) optional.Optional[T] {
 	}
 	return optional.New(slices.Max(a))
 }
+
+// Min returns the minimal value in a.
+func Min[S ~[]T, T cmp.Ordered](a S) optional.Optional[T] {
+	if len(a) == 0 {
+		return optional.None[T]()
+	}
+	return optional.New(slices.Min(a))
+}
