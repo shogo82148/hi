@@ -148,6 +148,27 @@ func Compress[T any](data iter.Seq[T], selectors iter.Seq[bool]) func(func(T) bo
 	}
 }
 
+// Compress2 makes an iterator that filters elements from data returning only those
+// that have a corresponding element in selectors that evaluates to true.
+func Compress2[K, V any](data iter.Seq2[K, V], selectors iter.Seq[bool]) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		next, stop := iter.Pull(selectors)
+		defer stop()
+
+		for k, v := range data {
+			s, ok := next()
+			if !ok {
+				break
+			}
+			if s {
+				if !yield(k, v) {
+					break
+				}
+			}
+		}
+	}
+}
+
 // DropWhile makes an iterator that drops elements from the iterable as long as the predicate is true;
 // afterwards, returns every element.
 func DropWhile[T any](f func(T) bool, seq iter.Seq[T]) func(func(T) bool) {
