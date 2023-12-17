@@ -271,3 +271,37 @@ func ExampleCountBy() {
 	// Output:
 	// 3
 }
+
+func ExampleAny() {
+	fmt.Println(it.Any(it.Range(5), 4))
+	fmt.Println(it.Any(it.Range(5), 5))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAny2() {
+	m := map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"}
+	fmt.Println(it.Any2(it.MapIter(m), 1, "1"))
+	fmt.Println(it.Any2(it.MapIter(m), 1, "2"))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAnyBy() {
+	fmt.Println(it.AnyBy(it.Range(5), func(v int) bool { return v > 3 }))
+	fmt.Println(it.AnyBy(it.Range(5), func(v int) bool { return v > 5 }))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleAnyBy2() {
+	m := map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"}
+	fmt.Println(it.AnyBy2(it.MapIter(m), func(_ int, v string) bool { return v == "1" }))
+	fmt.Println(it.AnyBy2(it.MapIter(m), func(_ int, v string) bool { return v == "5" }))
+	// Output:
+	// true
+	// false
+}

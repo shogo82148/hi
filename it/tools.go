@@ -344,3 +344,43 @@ func CountBy[T any](seq iter.Seq[T], counter func(T) bool) int {
 	}
 	return count
 }
+
+// Any returns whether seq has value at least one.
+func Any[T comparable](seq iter.Seq[T], value T) bool {
+	for v := range seq {
+		if v == value {
+			return true
+		}
+	}
+	return false
+}
+
+// Any2 returns whether seq has key-value pair at least one.
+func Any2[K, V comparable](seq iter.Seq2[K, V], key K, value V) bool {
+	for k, v := range seq {
+		if k == key && v == value {
+			return true
+		}
+	}
+	return false
+}
+
+// AnyBy returns whether seq has an element for that f returns true.
+func AnyBy[T any](seq iter.Seq[T], f func(T) bool) bool {
+	for v := range seq {
+		if f(v) {
+			return true
+		}
+	}
+	return false
+}
+
+// AnyBy2 returns whether seq has an element for that f returns true.
+func AnyBy2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) bool {
+	for k, v := range seq {
+		if f(k, v) {
+			return true
+		}
+	}
+	return false
+}
