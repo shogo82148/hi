@@ -205,72 +205,8 @@ func ExampleAllBy() {
 }
 
 func ExampleMax() {
-	max := hi.Max(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
+	max := hi.Max([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5})
 	fmt.Println(max.GetOrZero())
 	// Output:
 	// 9
-}
-
-func ExampleMaxBy() {
-	max := hi.MaxBy(
-		func(s string) int { return len(s) },
-		"Can", "I", "find", "a", "trick", "recalling", "Pi", "easily",
-	)
-	fmt.Println(max.GetOrZero())
-	// Output:
-	// recalling
-}
-
-func ExampleMin() {
-	min := hi.Min(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
-	fmt.Println(min.GetOrZero())
-	// Output:
-	// 1
-}
-
-func ExampleMinBy() {
-	min := hi.MinBy(
-		func(s string) int { return len(s) },
-		"Can", "I", "find", "a", "trick", "recalling", "Pi", "easily",
-	)
-	fmt.Println(min.GetOrZero())
-	// Output:
-	// I
-}
-
-func ExampleMinMax() {
-	min, max := hi.MinMax(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
-	fmt.Println("min:", min.GetOrZero())
-	fmt.Println("max:", max.GetOrZero())
-	// Output:
-	// min: 1
-	// max: 9
-}
-
-func ExampleMinMaxBy() {
-	min, max := hi.MinMaxBy(
-		func(s string) int { return len(s) },
-		"Can", "I", "find", "a", "trick", "recalling", "Pi", "easily",
-	)
-	fmt.Println("min:", min.GetOrZero())
-	fmt.Println("max:", max.GetOrZero())
-	// Output:
-	// min: I
-	// max: recalling
-}
-
-func ExampleSum() {
-	sum := hi.Sum([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
-	fmt.Println(sum.Get())
-	// Output:
-	// 55
-}
-
-func ExampleReduce() {
-	sum := hi.Reduce([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, func(_ int, sum int, item int) int {
-		return sum + item
-	}, 0)
-	fmt.Println(sum)
-	// Output:
-	// 55
 }

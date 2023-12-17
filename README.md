@@ -341,6 +341,22 @@ it.AllBy2(it.MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"}), fu
 // true
 ```
 
+### Max
+
+[Max](https://pkg.go.dev/github.com/shogo82148/hi#Max) returns the maximum element of arguments.
+
+```go
+hi.Max([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5})
+// optional.New(9)
+```
+
+Experimental: `Max` on iterators
+
+```go
+it.Max(it.SliceValues([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}))
+// optional.New(9)
+```
+
 ### Ptr
 
 ```go

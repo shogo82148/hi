@@ -3,9 +3,11 @@
 package it
 
 import (
+	"cmp"
 	"iter"
 
 	"github.com/shogo82148/hi/list"
+	"github.com/shogo82148/hi/optional"
 )
 
 //go:generate ./generate-zip.pl
@@ -423,4 +425,22 @@ func AllBy2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) bool {
 		}
 	}
 	return true
+}
+
+// Max returns the maximum element of seq.
+func Max[T cmp.Ordered](seq iter.Seq[T]) optional.Optional[T] {
+	var m T
+	var init bool
+	for v := range seq {
+		if !init {
+			m = v
+			init = true
+			continue
+		}
+		m = max(m, v)
+	}
+	if !init {
+		return optional.None[T]()
+	}
+	return optional.New(m)
 }

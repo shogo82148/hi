@@ -1,7 +1,9 @@
 package hi
 
 import (
-	"github.com/shogo82148/hi/cmp"
+	"cmp"
+	"slices"
+
 	"github.com/shogo82148/hi/optional"
 )
 
@@ -111,7 +113,7 @@ func Slice[S ~[]T, T any](s S, start, stop, step int) S {
 		for i := start; i < stop; i += step {
 			ret = append(ret, s[i])
 		}
-		return ret	
+		return ret
 	}
 }
 
@@ -189,210 +191,10 @@ func AllBy[T any](a []T, f func(int, T) bool) bool {
 	return true
 }
 
-// Max returns the maximum element of s.
-// If s is empty, Max returns None.
-// If T is a floating-point type and any of the arguments are NaNs, max will return NaN.
-func Max[T cmp.Ordered](s ...T) optional.Optional[T] {
-	if len(s) == 0 {
+// Max returns the maximal value in a.
+func Max[S ~[]T, T cmp.Ordered](a S) optional.Optional[T] {
+	if len(a) == 0 {
 		return optional.None[T]()
 	}
-	max := s[0]
-	for _, v := range s[1:] {
-		if isNaN(v) {
-			max = v
-			break
-		}
-		if v > max {
-			max = v
-		}
-	}
-	return optional.New(max)
-}
-
-// MaxBy returns an element that f returns maximum value in s.
-func MaxBy[T any, U cmp.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
-	if len(s) == 0 {
-		return optional.None[T]()
-	}
-	max := s[0]
-	maxW := f(s[0])
-	for _, v := range s[1:] {
-		if w := f(v); w > maxW {
-			maxW = w
-			max = v
-		}
-	}
-	return optional.New(max)
-}
-
-// Min returns the minimum element in s.
-// If s is empty, Max returns None.
-// If T is a floating-point type and any of the arguments are NaNs, max will return NaN.
-func Min[T cmp.Ordered](s ...T) optional.Optional[T] {
-	if len(s) == 0 {
-		return optional.None[T]()
-	}
-	min := s[0]
-	for _, v := range s[1:] {
-		if isNaN(v) {
-			min = v
-			break
-		}
-		if v < min {
-			min = v
-		}
-	}
-	return optional.New(min)
-}
-
-// MinBy returns an element that f returns minimum value in s.
-func MinBy[T any, U cmp.Ordered](f func(element T) U, s ...T) optional.Optional[T] {
-	if len(s) == 0 {
-		return optional.None[T]()
-	}
-	min := s[0]
-	minW := f(s[0])
-	for _, v := range s[1:] {
-		if w := f(v); w < minW {
-			minW = w
-			min = v
-		}
-	}
-	return optional.New(min)
-}
-
-// MinMax returns the minimum element and the maximum element of s.
-func MinMax[T cmp.Ordered](s ...T) (min optional.Optional[T], max optional.Optional[T]) {
-	if len(s) == 0 {
-		return
-	}
-	var i int
-	var myMin, myMax T
-	if len(s)%2 == 0 {
-		x := s[0]
-		y := s[1]
-		if x > y {
-			x, y = y, x
-		}
-		myMin = x
-		myMax = y
-		i = 2
-	} else {
-		myMin = s[0]
-		myMax = s[0]
-		i = 1
-	}
-	for ; i+1 < len(s); i += 2 {
-		x := s[i+0]
-		y := s[i+1]
-		if x > y {
-			x, y = y, x
-		}
-		if x < myMin {
-			myMin = x
-		}
-		if y > myMax {
-			myMax = y
-		}
-	}
-	min = optional.New(myMin)
-	max = optional.New(myMax)
-	return
-}
-
-// MinMaxBy returns the minimum element and the maximum element of s.
-func MinMaxBy[T any, U cmp.Ordered](f func(element T) U, s ...T) (min optional.Optional[T], max optional.Optional[T]) {
-	if len(s) == 0 {
-		return
-	}
-	var i int
-	var myMin, myMax T
-	var minW, maxW U
-	if len(s)%2 == 0 {
-		x, y := s[0], s[1]
-		xw, yw := f(x), f(y)
-		if xw > yw {
-			x, xw, y, yw = y, yw, x, xw
-		}
-		myMin, minW = x, xw
-		myMax, maxW = y, yw
-		i = 2
-	} else {
-		w := f(s[0])
-		myMin, minW = s[0], w
-		myMax, maxW = s[0], w
-		i = 1
-	}
-	for ; i+1 < len(s); i += 2 {
-		x, y := s[i+0], s[i+1]
-		xw, yw := f(x), f(y)
-		if xw > yw {
-			x, xw, y, yw = y, yw, x, xw
-		}
-		if xw < minW {
-			myMin, minW = x, xw
-		}
-		if yw > maxW {
-			myMax, maxW = y, yw
-		}
-	}
-	min = optional.New(myMin)
-	max = optional.New(myMax)
-	return
-}
-
-// Sum returns a sum of s using Kahan summation algorithm.
-func Sum[T Addable](s []T) optional.Optional[T] {
-	if len(s) == 0 {
-		return optional.None[T]()
-	}
-
-	sum := s[0]
-	var c T
-	for _, v := range s[1:] {
-		y := v - c
-		t := sum + y
-		c = (t - sum) - y
-		sum = t
-	}
-	return optional.New(sum)
-}
-
-// Sum returns a sum of s using Kahan summation algorithm.
-func SumBy[T any, R Addable](s []T, f func(T) R) optional.Optional[R] {
-	if len(s) == 0 {
-		return optional.None[R]()
-	}
-
-	sum := f(s[0])
-	var c R
-	for _, v := range s[1:] {
-		y := f(v) - c
-		t := sum + y
-		c = (t - sum) - y
-		sum = t
-	}
-	return optional.New(sum)
-}
-
-// Reduce reduces s.
-func Reduce[T any, U any](s []T, f func(i int, agg U, item T) U, init U) U {
-	for i, v := range s {
-		init = f(i, init, v)
-	}
-	return init
-}
-
-// ReduceRight reduces s.
-func ReduceRight[T any, U any](s []T, f func(i int, agg U, item T) U, init U) U {
-	for i := len(s); i > 0; i-- {
-		init = f(i-1, init, s[i-1])
-	}
-	return init
-}
-
-// isNaN reports whether x is a NaN without requiring the math package.
-// This will always return false if T is not floating-point.
-func isNaN[T cmp.Ordered](x T) bool {
-	return x != x
+	return optional.New(slices.Max(a))
 }
