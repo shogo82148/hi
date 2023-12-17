@@ -225,6 +225,22 @@ it.Chain2(
 // it.Zip([]int{0, 1, 2, 0, 1, 2}, []string{"zero", "one", "two", "null", "eins", "zwei"})
 ```
 
+### Compress
+
+[Compress](https://pkg.go.dev/github.com/shogo82148/hi#Compress) makes a slice of the elements in a for which the corresponding element in selectors is true.
+
+```go
+hi.Compress([]int{1, 2, 3, 4, 5}, []bool{true, false, true, false, true})
+// []int{1, 3, 5}
+```
+
+Experimental: `Compress` on iterators
+
+```go
+it.Compress(it.Range(5), it.SliceValues([]bool{true, false, true, false, true}))
+// it.SliceValues([]int{0, 2, 4})
+```
+
 ### Repeat
 
 Experimental:

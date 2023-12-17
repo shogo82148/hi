@@ -161,6 +161,19 @@ func ExampleChain() {
 	// 6
 }
 
+func ExampleCompress() {
+	input := []int{1, 2, 3, 4, 5}
+	selectors := []bool{true, false, true, false, true}
+	output := hi.Compress(input, selectors)
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// 1
+	// 3
+	// 5
+}
+
 func ExampleRepeatN() {
 	output := hi.RepeatN("hello", 3)
 	for _, v := range output {
