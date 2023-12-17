@@ -73,6 +73,47 @@ func Chunk[S ~[]T, T any](a S, size int) []S {
 	return ret
 }
 
+// Slice returns a Python-like slice of s.
+// Unlike Go's builtin slice, Slice can handle negative indices and step.
+// Negative indices count from the end of the slice (-1 means the last element).
+func Slice[S ~[]T, T any](s S, start, stop, step int) S {
+	if start < 0 {
+		start += len(s)
+	}
+	if start < 0 {
+		start = 0
+	} else if start > len(s) {
+		start = len(s)
+	}
+
+	if stop < 0 {
+		stop += len(s)
+	}
+	if stop < 0 {
+		stop = 0
+	} else if stop > len(s) {
+		stop = len(s)
+	}
+
+	if step == 0 {
+		panic("step must not be zero")
+	}
+
+	if step < 0 {
+		ret := make(S, 0, (start-stop-step-1)/(-step))
+		for i := start; i > stop; i += step {
+			ret = append(ret, s[i])
+		}
+		return ret
+	} else {
+		ret := make(S, 0, (stop-start+step-1)/step)
+		for i := start; i < stop; i += step {
+			ret = append(ret, s[i])
+		}
+		return ret	
+	}
+}
+
 // Count counts the number of elements in the collection that compare equal to value.
 func Count[T comparable](a []T, value T) int {
 	var count int

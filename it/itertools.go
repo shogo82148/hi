@@ -1,5 +1,8 @@
 //go:build goexperiment.rangefunc
 
+// itertools contains functions for creating iterators.
+// it is inspired by Python's itertools.
+
 package it
 
 import (
