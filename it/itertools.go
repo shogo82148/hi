@@ -150,7 +150,7 @@ func Compress[T any](data iter.Seq[T], selectors iter.Seq[bool]) func(func(T) bo
 
 // DropWhile makes an iterator that drops elements from the iterable as long as the predicate is true;
 // afterwards, returns every element.
-func DropWhile[T any](f func(T) bool, seq iter.Seq[T]) func(func(T) bool) {
+func DropWhile[T any](seq iter.Seq[T], f func(T) bool) func(func(T) bool) {
 	return func(yield func(T) bool) {
 		dropping := true
 		for v := range seq {

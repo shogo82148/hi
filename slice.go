@@ -138,6 +138,16 @@ func Compress[S ~[]T, T any](a S, selectors []bool) S {
 	return ret
 }
 
+// DropWhile returns a slice of the remaining elements after dropping the longest prefix of elements that satisfy predicate.
+func DropWhile[S ~[]T, T any](a S, predicate func(int, T) bool) S {
+	for i, v := range a {
+		if !predicate(i, v) {
+			return slices.Clone(a[i:])
+		}
+	}
+	return make(S, 0)
+}
+
 // RepeatN returns a slice consisting of n copies of v.
 func RepeatN[T any](v T, n int) []T {
 	if n < 0 {
