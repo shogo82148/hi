@@ -203,6 +203,34 @@ it.Slice2(it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"}), 2, 4, 1)
 // it.Zip(it.SliceValues([]int{2, 3}), it.SliceValues([]string{"c", "d"}))
 ```
 
+### Repeat
+
+Experimental:
+
+```go
+for v := range it.Repeat("hello") {
+    fmt.Println(v)
+}
+// hello
+// hello
+// hello
+// ... (infinite)
+```
+
+### RepeatN
+
+```go
+hi.RepeatN("hello", 3)
+// []string{"hello", "hello", "hello"}
+```
+
+Experimental: `RepeatN` on iterators
+
+```go
+it.RepeatN("hello", 3)
+// it.SliceValues([]string{"hello", "hello", "hello"})
+```
+
 ### Count
 
 ```go

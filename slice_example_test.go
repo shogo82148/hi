@@ -145,6 +145,17 @@ func ExampleSlice_NegativeStep() {
 	// [4 3]
 }
 
+func ExampleRepeatN() {
+	output := hi.RepeatN("hello", 3)
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// hello
+	// hello
+	// hello
+}
+
 func ExampleCount() {
 	input := []int{1, 2, 3, 4, 5}
 	fmt.Println(hi.Count(input, 3))

@@ -115,6 +115,18 @@ func Slice[S ~[]T, T any](s S, start, stop, step int) S {
 	}
 }
 
+// RepeatN returns a slice consisting of n copies of v.
+func RepeatN[T any](v T, n int) []T {
+	if n < 0 {
+		panic("n must be positive")
+	}
+	ret := make([]T, n)
+	for i := range ret {
+		ret[i] = v
+	}
+	return ret
+}
+
 // Count counts the number of elements in the collection that compare equal to value.
 func Count[T comparable](a []T, value T) int {
 	var count int
