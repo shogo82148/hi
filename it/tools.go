@@ -3,9 +3,9 @@
 package it
 
 import (
+	"cmp"
 	"iter"
 
-	"github.com/shogo82148/hi/cmp"
 	"github.com/shogo82148/hi/list"
 	"github.com/shogo82148/hi/optional"
 )
