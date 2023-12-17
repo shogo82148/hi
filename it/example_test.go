@@ -74,6 +74,21 @@ func ExampleSlice2_Step() {
 	// 6: g
 }
 
+func ExampleChain() {
+	seq := it.Chain(it.Range(3), it.Range(3))
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 0
+	// 1
+	// 2
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {

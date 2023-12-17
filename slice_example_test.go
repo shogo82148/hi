@@ -145,6 +145,22 @@ func ExampleSlice_NegativeStep() {
 	// [4 3]
 }
 
+func ExampleChain() {
+	input1 := []int{1, 2, 3}
+	input2 := []int{4, 5, 6}
+	output := hi.Chain(input1, input2)
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// 1
+	// 2
+	// 3
+	// 4
+	// 5
+	// 6
+}
+
 func ExampleRepeatN() {
 	output := hi.RepeatN("hello", 3)
 	for _, v := range output {
