@@ -48,6 +48,32 @@ func ExampleSlice_Step() {
 	// g
 }
 
+func ExampleSlice2_StartEnd() {
+	seq := it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"})
+	seq = it.Slice2(seq, 2, 4, 1)
+	for i, v := range seq {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 2: c
+	// 3: d
+}
+
+func ExampleSlice2_Step() {
+	seq := it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"})
+	seq = it.Slice2(seq, 0, -1, 2)
+	for i, v := range seq {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 0: a
+	// 2: c
+	// 4: e
+	// 6: g
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {

@@ -227,3 +227,72 @@ func Slice[T any](seq iter.Seq[T], start, stop, step int) func(func(T) bool) {
 		}
 	}
 }
+
+func Slice2[K, V any](seq iter.Seq2[K, V], start, stop, step int) func(func(K, V) bool) {
+	if start < 0 {
+		panic("it: start must be non-negative")
+	}
+	if step <= 0 {
+		panic("it: step must be positive")
+	}
+
+	// special cases
+	if stop < 0 && step == 1 {
+		return func(yield func(K, V) bool) {
+			var i int
+			for k, v := range seq {
+				if i >= start {
+					if !yield(k, v) {
+						break
+					}
+				}
+				i++
+			}
+		}
+	}
+	if stop < 0 {
+		return func(yield func(K, V) bool) {
+			var i int
+			for k, v := range seq {
+				if i >= start && (i-start)%step == 0 {
+					if !yield(k, v) {
+						break
+					}
+				}
+				i++
+			}
+		}
+	}
+	if step == 1 {
+		return func(yield func(K, V) bool) {
+			var i int
+			for k, v := range seq {
+				if i >= stop {
+					break
+				}
+				if i >= start {
+					if !yield(k, v) {
+						break
+					}
+				}
+				i++
+			}
+		}
+	}
+
+	// general case
+	return func(yield func(K, V) bool) {
+		var i int
+		for k, v := range seq {
+			if i >= stop {
+				break
+			}
+			if i >= start && (i-start)%step == 0 {
+				if !yield(k, v) {
+					break
+				}
+			}
+			i++
+		}
+	}
+}

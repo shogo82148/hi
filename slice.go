@@ -74,7 +74,8 @@ func Chunk[S ~[]T, T any](a S, size int) []S {
 }
 
 // Slice returns a Python-like slice of s.
-// Unlike Go's builtin slice, Slice can handle negative indices and step.
+// Unlike Go's builtin slice, Slice can handle negative indices and step,
+// and always returns a new slice.
 // Negative indices count from the end of the slice (-1 means the last element).
 func Slice[S ~[]T, T any](s S, start, stop, step int) S {
 	if start < 0 {
