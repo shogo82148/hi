@@ -260,11 +260,14 @@ Experimental: `DropWhile` on iterators
 ```go
 it.DropWhile(it.SliceValues([]int{1, 4, 6, 4, 1}), func(v int) bool { return v < 5 })
 // it.SliceValues([]int{6, 4, 1})
+
+it.DropWhile2(it.SliceIter([]int{1, 4, 6, 4, 1}), func(_, v int) bool { return v < 5 })
+// it.Zip(it.SliceValues([]int{2, 3, 4}), it.SliceValues([]int{6, 4, 1}))
 ```
 
 ### Repeat
 
-Experimental:
+Experimental: `Range` on iterators
 
 ```go
 for v := range it.Repeat("hello") {
