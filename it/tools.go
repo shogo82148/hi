@@ -429,25 +429,18 @@ func AllBy2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) bool {
 
 // Max returns the maximum element of seq.
 func Max[T cmp.Ordered](seq iter.Seq[T]) optional.Optional[T] {
-	var max T
-	var initialized bool
+	var m T
+	var init bool
 	for v := range seq {
-		if isNaN(v) {
-			return optional.New(v)
+		if !init {
+			m = v
+			init = true
+			continue
 		}
-		if !initialized || v > max {
-			max = v
-			initialized = true
-		}
+		m = max(m, v)
 	}
-	if !initialized {
+	if !init {
 		return optional.None[T]()
 	}
-	return optional.New(max)
-}
-
-// isNaN reports whether x is a NaN without requiring the math package.
-// This will always return false if T is not floating-point.
-func isNaN[T cmp.Ordered](x T) bool {
-	return x != x
+	return optional.New(m)
 }
