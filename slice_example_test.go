@@ -188,6 +188,22 @@ func ExampleAnyBy() {
 	// false
 }
 
+func ExampleAll() {
+	fmt.Println(hi.All([]int{1, 2, 3, 4, 5}, 5))
+	fmt.Println(hi.All([]int{5, 5, 5, 5, 5}, 5))
+	// Output:
+	// false
+	// true
+}
+
+func ExampleAllBy() {
+	fmt.Println(hi.AllBy([]int{1, 2, 3, 4, 5}, func(_, v int) bool { return v > 3 }))
+	fmt.Println(hi.AllBy([]int{4, 5, 6, 7, 8}, func(_, v int) bool { return v > 3 }))
+	// Output:
+	// false
+	// true
+}
+
 func ExampleMax() {
 	max := hi.Max(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
 	fmt.Println(max.GetOrZero())
