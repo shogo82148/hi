@@ -297,6 +297,50 @@ it.AnyBy2(it.SliceIter([]int{1, 2, 3, 4, 5}), func(_, v int) bool { return v > 3
 // true
 ```
 
+### All
+
+[All](https://pkg.go.dev/github.com/shogo82148/hi#All) returns whether all elements of a are value.
+
+```go
+hi.All([]int{1, 2, 3, 4, 5}, 5)
+// false
+
+hi.All([]int{5, 5, 5, 5, 5}, 5)
+// true
+```
+
+Experimental: `All` on iterators
+
+```go
+it.All(it.Range(1), 0)
+// true
+
+it.Any2(it.SliceIter([]int{1}), 0, 1)
+// true
+```
+
+### AllBy
+
+[AllBy](https://pkg.go.dev/github.com/shogo82148/hi#AllBy) returns whether f returns true for all elements in a.
+
+```go
+hi.AllBy([]int{1, 2, 3, 4, 5}, func(_, v int) bool { return v > 3 })
+// false
+
+hi.AllBy([]int{4, 5, 6, 7, 8}, func(_, v int) bool { return v > 3 })
+// true
+```
+
+Experimental: `AllBy` on iterators
+
+```go
+it.AllBy(it.Range(5), func(v int) bool { return v < 5 })
+// true
+
+it.AllBy2(it.MapIter(map[int]string{0: "0", 1: "1", 2: "2", 3: "3", 4: "4"}), func(_ int, v string) bool { return v < "5" })
+// true
+```
+
 ### Ptr
 
 ```go
