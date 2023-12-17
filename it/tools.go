@@ -428,6 +428,7 @@ func AllBy2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) bool {
 }
 
 // Max returns the maximum element of seq.
+// It returns [optional.None] if seq is empty.
 func Max[T cmp.Ordered](seq iter.Seq[T]) optional.Optional[T] {
 	var m T
 	var init bool
@@ -438,6 +439,25 @@ func Max[T cmp.Ordered](seq iter.Seq[T]) optional.Optional[T] {
 			continue
 		}
 		m = max(m, v)
+	}
+	if !init {
+		return optional.None[T]()
+	}
+	return optional.New(m)
+}
+
+// Min returns the minimum element of seq.
+// It returns [optional.None] if seq is empty.
+func Min[T cmp.Ordered](seq iter.Seq[T]) optional.Optional[T] {
+	var m T
+	var init bool
+	for v := range seq {
+		if !init {
+			m = v
+			init = true
+			continue
+		}
+		m = min(m, v)
 	}
 	if !init {
 		return optional.None[T]()

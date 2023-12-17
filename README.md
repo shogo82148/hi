@@ -357,6 +357,22 @@ it.Max(it.SliceValues([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}))
 // optional.New(9)
 ```
 
+### Min
+
+[Min](https://pkg.go.dev/github.com/shogo82148/hi#Min) returns the minimum element of arguments.
+
+```go
+hi.Min([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5})
+// optional.New(1)
+```
+
+Experimental: `Min` on iterators
+
+```go
+it.Min(it.SliceValues([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}))
+// optional.New(1)
+```
+
 ### Ptr
 
 ```go
