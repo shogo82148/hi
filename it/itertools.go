@@ -149,3 +149,78 @@ func FilterFalse[T any](seq iter.Seq[T], f func(T) bool) func(func(T) bool) {
 		}
 	}
 }
+
+// Slice makes an iterator that returns selected elements from the iterable.
+// If start is non-zero, then elements from the iterable are skipped until start is reached.
+// Afterward, elements are returned consecutively unless step is set higher than one which results in items being skipped.
+// If stop is negative, then iteration continues until the iterator is exhausted, if at all; otherwise, it stops at the specified position.
+//
+// start must be non-negative, and step must be positive.
+func Slice[T any](seq iter.Seq[T], start, stop, step int) func(func(T) bool) {
+	if start < 0 {
+		panic("it: start must be non-negative")
+	}
+	if step <= 0 {
+		panic("it: step must be positive")
+	}
+
+	// special cases
+	if stop < 0 && step == 1 {
+		return func(yield func(T) bool) {
+			var i int
+			for v := range seq {
+				if i >= start {
+					if !yield(v) {
+						break
+					}
+				}
+				i++
+			}
+		}
+	}
+	if stop < 0 {
+		return func(yield func(T) bool) {
+			var i int
+			for v := range seq {
+				if i >= start && (i - start)%step == 0 {
+					if !yield(v) {
+						break
+					}
+				}
+				i++
+			}
+		}
+	}
+	if step == 1 {
+		return func(yield func(T) bool) {
+			var i int
+			for v := range seq {
+				if i >= stop {
+					break
+				}
+				if i >= start {
+					if !yield(v) {
+						break
+					}
+				}
+				i++
+			}
+		}
+	}
+
+	// general case
+	return func(yield func(T) bool) {
+		var i int
+		for v := range seq {
+			if i >= stop {
+				break
+			}
+			if i >= start && (i-start)%step == 0 {
+				if !yield(v) {
+					break
+				}
+			}
+			i++
+		}
+	}
+}
