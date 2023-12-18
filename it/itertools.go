@@ -7,6 +7,8 @@ package it
 
 import (
 	"iter"
+
+	"github.com/shogo82148/hi/tuple"
 )
 
 // Cycle makes an iterator returning elements from the iterable and saving a copy of each.
@@ -22,6 +24,26 @@ func Cycle[T any](seq iter.Seq[T]) func(func(T) bool) {
 		for len(saved) > 0 {
 			for _, v := range saved {
 				if !yield(v) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// Cycle2 makes an iterator returning elements from the iterable and saving a copy of each.
+func Cycle2[K, V any](seq iter.Seq2[K, V]) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		var saved []tuple.Tuple2[K, V]
+		for k, v := range seq {
+			if !yield(k, v) {
+				return
+			}
+			saved = append(saved, tuple.New2(k, v))
+		}
+		for len(saved) > 0 {
+			for _, t := range saved {
+				if !yield(t.V1, t.V2) {
 					return
 				}
 			}
