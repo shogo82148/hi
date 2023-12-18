@@ -9,6 +9,56 @@ import (
 	"github.com/shogo82148/hi/it"
 )
 
+func ExampleCycle() {
+	seq := it.Cycle(it.Range(3))
+
+	i := 0
+	for v := range seq {
+		i++
+		if i > 10 {
+			break
+		}
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 0
+	// 1
+	// 2
+	// 0
+	// 1
+	// 2
+	// 0
+}
+
+func ExampleCycle2() {
+	seq := it.Cycle2(it.SliceIter([]string{"zero", "one", "two"}))
+
+	i := 0
+	for k, v := range seq {
+		i++
+		if i > 10 {
+			break
+		}
+		fmt.Printf("%d: %s\n", k, v)
+	}
+
+	// Output:
+	// 0: zero
+	// 1: one
+	// 2: two
+	// 0: zero
+	// 1: one
+	// 2: two
+	// 0: zero
+	// 1: one
+	// 2: two
+	// 0: zero
+}
+
 func ExampleRange() {
 	seq := it.Range(5)
 	for v := range seq {

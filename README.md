@@ -87,6 +87,21 @@ for v := range it.Range(5) {
 // 4
 ```
 
+### Cycle, Cycle2
+
+Experimental: Cycle makes an iterator returning elements from the iterable and saving a copy of each.
+
+```go
+seq := it.Cycle(it.Range(3))
+// it.SliceValues([]int{0, 1, 2, 0, 1, 2, 0, ...})
+
+seq := it.Cycle2(it.SliceIter([]string{"zero", "one", "two"}))
+// it.Zip(
+//     it.SliceValues([]int{0, 1, 2, 0, 1, 2, 0, ...}),
+//     it.SliceValues([]string{"zero", "one", "two", "zero", "one", "two", "zero", ...}),
+// )
+```
+
 ### Zip
 
 Experimental: `it.Zip` converts a pair of `iter.Seq` to `iter.Seq2`.
