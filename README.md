@@ -87,6 +87,15 @@ for v := range it.Range(5) {
 // 4
 ```
 
+### Enumerate
+
+Experimental: Enumerate returns an iterator that returns (index, value) tuples from seq.
+
+```go
+seq := it.Enumerate(it.SliceValues([]string{"a", "b", "c"}))
+// it.SliceIter([]string{"a", "b", "c"})
+```
+
 ### Cycle, Cycle2
 
 Experimental: Cycle makes an iterator returning elements from the iterable and saving a copy of each.
