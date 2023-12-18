@@ -7,6 +7,7 @@ import (
 	"iter"
 
 	"github.com/shogo82148/hi/it"
+	"github.com/shogo82148/hi/tuple"
 )
 
 func ExampleCycle() {
@@ -352,6 +353,22 @@ func ExampleChanValues() {
 func ExampleEnumerate() {
 	seq := it.Enumerate(it.SliceValues([]string{"a", "b", "c"}))
 	for k, v := range seq {
+		fmt.Printf("%d: %s\n", k, v)
+	}
+
+	// Output:
+	// 0: a
+	// 1: b
+	// 2: c
+}
+
+func ExampleKeyValues() {
+	seq := it.SliceValues([]tuple.Tuple2[int, string]{
+		tuple.New2(0, "a"),
+		tuple.New2(1, "b"),
+		tuple.New2(2, "c"),
+	})
+	for k, v := range it.KeyValues(seq) {
 		fmt.Printf("%d: %s\n", k, v)
 	}
 
