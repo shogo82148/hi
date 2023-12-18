@@ -388,12 +388,16 @@ func Slice2[K, V any](seq iter.Seq2[K, V], start, stop, step int) func(func(K, V
 	}
 }
 
+// Tee makes n iterators from seq.
 func Tee[T any](seq iter.Seq[T], n int) []func(func(T) bool) {
 	if n < 0 {
 		panic("it: n must be non-negative")
 	}
 	if n == 0 {
 		return nil
+	}
+	if n == 1 {
+		return []func(func(T) bool){seq}
 	}
 
 	queues := make([]*list.List[T], n)
@@ -433,6 +437,63 @@ func Tee[T any](seq iter.Seq[T], n int) []func(func(T) bool) {
 				v := e.Value
 				queues[i].Remove(e)
 				if !yield(v) {
+					break
+				}
+			}
+		}
+	}
+	return ret
+}
+
+// Tee2 makes n iterators from seq.
+func Tee2[K, V any](seq iter.Seq2[K, V], n int) []func(func(K, V) bool) {
+	if n < 0 {
+		panic("it: n must be non-negative")
+	}
+	if n == 0 {
+		return nil
+	}
+	if n == 1 {
+		return []func(func(K, V) bool){seq}
+	}
+
+	queues := make([]*list.List[tuple.Tuple2[K, V]], n)
+	for i := 0; i < n; i++ {
+		queues[i] = list.New[tuple.Tuple2[K, V]]()
+	}
+
+	life := n
+	pull := newPullSeq2(seq)
+
+	ret := make([]func(func(K, V) bool), n)
+	for i := 0; i < n; i++ {
+		i := i
+		ret[i] = func(yield func(K, V) bool) {
+			defer func() {
+				queues[i] = nil
+				life--
+				if life == 0 {
+					pull.stop()
+				}
+			}()
+
+			for {
+				if queues[i].Len() == 0 {
+					k, v, ok := pull.next()
+					if !ok {
+						break
+					}
+					for j := 0; j < n; j++ {
+						if q := queues[j]; q != nil {
+							q.PushBack(tuple.New2(k, v))
+						}
+					}
+				}
+
+				e := queues[i].Front()
+				t := e.Value
+				queues[i].Remove(e)
+				if !yield(t.V1, t.V2) {
 					break
 				}
 			}

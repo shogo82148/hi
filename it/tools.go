@@ -29,6 +29,21 @@ func newPullSeq[T any](seq iter.Seq[T]) *pullSeq[T] {
 	return pull
 }
 
+type pullSeq2[K, V any] struct {
+	next func() (K, V, bool)
+	stop func()
+}
+
+func newPullSeq2[K, V any](seq iter.Seq2[K, V]) *pullSeq2[K, V] {
+	next, stop := iter.Pull2(seq)
+	pull := &pullSeq2[K, V]{next, stop}
+
+	runtime.SetFinalizer(pull, func(pull *pullSeq2[K, V]) {
+		pull.stop()
+	})
+	return pull
+}
+
 // SliceIter returns an iterator for the slice.
 func SliceIter[S ~[]E, E any](x S) func(func(int, E) bool) {
 	return func(yield func(int, E) bool) {

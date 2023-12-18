@@ -111,13 +111,21 @@ seq := it.Cycle2(it.SliceIter([]string{"zero", "one", "two"}))
 // )
 ```
 
-### Tee
+### Tee, Tee2
 
-Experimental:
+Experimental: Tee makes n iterators from seq.
 
 ```go
 s := it.Tee(it.Range(3), 2)
 // []iter.Seq[int]{it.Range(3), it.Range(3)}
+```
+
+```go
+s := it.Tee2(it.SliceIter([]string{"zero", "one", "two"}), 2)
+// []iter.Seq2[int, string]{
+//     it.SliceIter([]string{"zero", "one", "two"}),
+//     it.SliceIter([]string{"zero", "one", "two"}),
+// }
 ```
 
 ### Zip
