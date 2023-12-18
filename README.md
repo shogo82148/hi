@@ -175,6 +175,17 @@ hi.Unzip2([]tuple.Tuple2{tuple.New2(1, "one"), tuple.New2(2, "two"), tuple.New2(
 // []int{1, 2, 3}, []string{"one", "two", "three"}
 ```
 
+Experimental: Unzip2,..., Unzip16 on iterators
+
+```go
+seq := it.Unzip(it.SliceValues([]tuple.Tuple2{
+    tuple.New2(0, "zero"),
+    tuple.New2(1, "one"),
+    tuple.New2(2, "two"),
+}))
+// it.Range(3), it.SliceValues([]string{"zero", "one", "two"})
+```
+
 ### Map
 
 ```go
