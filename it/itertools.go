@@ -8,7 +8,6 @@ package it
 import (
 	"iter"
 
-	listpkg "github.com/shogo82148/hi/list"
 	"github.com/shogo82148/hi/tuple"
 )
 
@@ -465,10 +464,10 @@ func Tee2[K, V any](seq iter.Seq2[K, V], n int) []func(func(K, V) bool) {
 		return []func(func(K, V) bool){seq}
 	}
 
-	queues := make([]*listpkg.List[tuple.Tuple2[K, V]], n)
-	for i := 0; i < n; i++ {
-		queues[i] = listpkg.New[tuple.Tuple2[K, V]]()
-	}
+	que := newList[tuple.Tuple2[K, V]]()
+	elements := make([]*element[tuple.Tuple2[K, V]], n)
+	lifeFirst := n
+	first := que.last
 
 	life := n
 	pull := newPullSeq2(seq)
@@ -478,32 +477,40 @@ func Tee2[K, V any](seq iter.Seq2[K, V], n int) []func(func(K, V) bool) {
 		i := i
 		ret[i] = func(yield func(K, V) bool) {
 			defer func() {
-				queues[i] = nil
 				life--
 				if life == 0 {
+					// all iterators are stopped.
 					pull.stop()
 				}
 			}()
 
 			for {
-				if queues[i].Len() == 0 {
+				e := elements[i]
+				if e == nil {
+					e = first
+
+					// garbage collector now can collect the first.
+					lifeFirst--
+					if lifeFirst == 0 {
+						first = nil
+					}
+				}
+				if e == que.last {
 					k, v, ok := pull.next()
 					if !ok {
 						break
 					}
-					for j := 0; j < n; j++ {
-						if q := queues[j]; q != nil {
-							q.PushBack(tuple.New2(k, v))
-						}
+					que.pushBack(tuple.New2(k, v))
+					e = que.tail
+					if first == que.last {
+						first = e
 					}
 				}
 
-				e := queues[i].Front()
-				t := e.Value
-				queues[i].Remove(e)
-				if !yield(t.V1, t.V2) {
+				if !yield(e.value.V1, e.value.V2) {
 					break
 				}
+				elements[i] = e.next
 			}
 		}
 	}

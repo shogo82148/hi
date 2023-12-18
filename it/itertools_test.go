@@ -137,3 +137,79 @@ func TestTee(t *testing.T) {
 		t.Errorf("got %d, want %d", i, 3)
 	}
 }
+
+func TestTee2(t *testing.T) {
+	s := Tee2(SliceIter([]string{"zero", "one", "two"}), 2)
+	if len(s) != 2 {
+		t.Fatalf("got %d, want %d", len(s), 2)
+	}
+
+	next0, stop0 := iter.Pull2(s[0])
+	defer stop0()
+	next1, stop1 := iter.Pull2(s[1])
+	defer stop1()
+
+	i := 0
+	for {
+		k0, v0, ok0 := next0()
+		k1, v1, ok1 := next1()
+		if !ok0 || !ok1 {
+			break
+		}
+		if k0 != k1 || v0 != v1 {
+			t.Errorf("got (%d, %s), want (%d, %s)", k0, v0, k1, v1)
+		}
+		i++
+	}
+	if i != 3 {
+		t.Errorf("got %d, want %d", i, 3)
+	}
+}
+
+func BenchmarkTee(b *testing.B) {
+	s := Tee(Range(b.N), 2)
+	next0, stop0 := iter.Pull(s[0])
+	defer stop0()
+	next1, stop1 := iter.Pull(s[1])
+	defer stop1()
+
+	i := 0
+	for {
+		v0, ok0 := next0()
+		v1, ok1 := next1()
+		if !ok0 || !ok1 {
+			break
+		}
+		if v0 != v1 {
+			b.Errorf("got %d, want %d", v0, v1)
+		}
+		i++
+	}
+	if i != b.N {
+		b.Errorf("got %d, want %d", i, b.N)
+	}
+}
+
+func BenchmarkTee2(b *testing.B) {
+	s := Tee2(Enumerate(Range(b.N)), 2)
+	next0, stop0 := iter.Pull2(s[0])
+	defer stop0()
+	next1, stop1 := iter.Pull2(s[1])
+	defer stop1()
+
+	i := 0
+	for {
+		k0, v0, ok0 := next0()
+		k1, v1, ok1 := next1()
+		if !ok0 || !ok1 {
+			break
+		}
+		if k0 != k1 || v0 != v1 {
+			b.Errorf("got (%d, %d), want (%d, %d)", k0, v0, k1, v1)
+		}
+		i++
+	}
+	if i != b.N {
+		b.Errorf("got %d, want %d", i, b.N)
+	}
+}
