@@ -273,6 +273,24 @@ func ExampleTee() {
 	// 2
 }
 
+func ExampleTee2() {
+	seq := it.Tee2(it.SliceIter([]string{"zero", "one", "two"}), 2)
+	for i, v := range seq[0] {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+	for i, v := range seq[1] {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	// Output:
+	// 0: zero
+	// 1: one
+	// 2: two
+	// 0: zero
+	// 1: one
+	// 2: two
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {
