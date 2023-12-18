@@ -89,6 +89,19 @@ func Range(n int) func(func(int) bool) {
 	}
 }
 
+// Enumerate returns an iterator that returns (index, value) tuples from seq.
+func Enumerate[T any](seq iter.Seq[T]) func(func(int, T) bool) {
+	return func(yield func(int, T) bool) {
+		var i int
+		for v := range seq {
+			if !yield(i, v) {
+				break
+			}
+			i++
+		}
+	}
+}
+
 // Append appends all elements of seq to s and returns the resulting slice.
 func Append[S ~[]E, E any](s S, seq iter.Seq[E]) S {
 	for v := range seq {
