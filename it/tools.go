@@ -5,12 +5,29 @@ package it
 import (
 	"cmp"
 	"iter"
+	"runtime"
 
 	"github.com/shogo82148/hi/list"
 	"github.com/shogo82148/hi/optional"
 )
 
 //go:generate ./generate-zip.pl
+
+// pullSeq is a pull-based iterator.
+type pullSeq[T any] struct {
+	next func() (T, bool)
+	stop func()
+}
+
+func newPullSeq[T any](seq iter.Seq[T]) *pullSeq[T] {
+	next, stop := iter.Pull(seq)
+	pull := &pullSeq[T]{next, stop}
+
+	runtime.SetFinalizer(pull, func(pull *pullSeq[T]) {
+		pull.stop()
+	})
+	return pull
+}
 
 // SliceIter returns an iterator for the slice.
 func SliceIter[S ~[]E, E any](x S) func(func(int, E) bool) {

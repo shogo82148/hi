@@ -111,6 +111,15 @@ seq := it.Cycle2(it.SliceIter([]string{"zero", "one", "two"}))
 // )
 ```
 
+### Tee
+
+Experimental:
+
+```go
+s := it.Tee(it.Range(3), 2)
+// []iter.Seq[int]{it.Range(3), it.Range(3)}
+```
+
 ### Zip
 
 Experimental: `it.Zip` converts a pair of `iter.Seq` to `iter.Seq2`.
