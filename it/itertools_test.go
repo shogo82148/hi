@@ -109,3 +109,31 @@ func TestFilterFalse(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestTee(t *testing.T) {
+	s := Tee(Range(3), 2)
+	if len(s) != 2 {
+		t.Fatalf("got %d, want %d", len(s), 2)
+	}
+
+	next0, stop0 := iter.Pull(s[0])
+	defer stop0()
+	next1, stop1 := iter.Pull(s[1])
+	defer stop1()
+
+	i := 0
+	for {
+		v0, ok0 := next0()
+		v1, ok1 := next1()
+		if !ok0 || !ok1 {
+			break
+		}
+		if v0 != v1 {
+			t.Errorf("got %d, want %d", v0, v1)
+		}
+		i++
+	}
+	if i != 3 {
+		t.Errorf("got %d, want %d", i, 3)
+	}
+}

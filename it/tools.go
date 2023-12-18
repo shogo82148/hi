@@ -7,7 +7,7 @@ import (
 	"iter"
 	"runtime"
 
-	"github.com/shogo82148/hi/list"
+	listpkg "github.com/shogo82148/hi/list"
 	"github.com/shogo82148/hi/optional"
 )
 
@@ -255,8 +255,8 @@ func Unzip[K, V any](seq iter.Seq2[K, V]) (func(func(K) bool), func(func(V) bool
 	var next func() (K, V, bool)
 	var stop func()
 
-	keys := list.New[K]()
-	values := list.New[V]()
+	keys := listpkg.New[K]()
+	values := listpkg.New[V]()
 
 	return func(yield func(K) bool) {
 			if next == nil {
