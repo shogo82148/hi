@@ -243,6 +243,20 @@ func FilterFalse[T any](seq iter.Seq[T], f func(T) bool) func(func(T) bool) {
 	}
 }
 
+// FilterFalse2 makes an iterator that filters elements from data returning only those
+// that have a corresponding element in selectors that evaluates to False.
+func FilterFalse2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		for k, v := range seq {
+			if !f(k, v) {
+				if !yield(k, v) {
+					break
+				}
+			}
+		}
+	}
+}
+
 // Slice makes an iterator that returns selected elements from the iterable.
 // If start is non-zero, then elements from the iterable are skipped until start is reached.
 // Afterward, elements are returned consecutively unless step is set higher than one which results in items being skipped.
