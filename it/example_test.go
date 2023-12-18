@@ -256,6 +256,32 @@ func ExampleDropWhile2() {
 	// 4: 1
 }
 
+func ExampleFilterFalse() {
+	seq := it.FilterFalse(
+		it.SliceValues([]int{1, 4, 6, 4, 1}),
+		func(v int) bool { return v < 5 },
+	)
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 6
+}
+
+func ExampleFilterFalse2() {
+	seq := it.FilterFalse2(
+		it.SliceIter([]int{1, 4, 6, 4, 1}),
+		func(_, v int) bool { return v < 5 },
+	)
+	for k, v := range seq {
+		fmt.Printf("%d: %d\n", k, v)
+	}
+
+	// Output:
+	// 2: 6
+}
+
 func ExampleTakeWhile() {
 	seq := it.TakeWhile(
 		it.SliceValues([]int{1, 4, 6, 4, 1}),
