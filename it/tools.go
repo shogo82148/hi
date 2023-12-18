@@ -8,6 +8,7 @@ import (
 	"runtime"
 
 	"github.com/shogo82148/hi/optional"
+	"github.com/shogo82148/hi/tuple"
 )
 
 //go:generate ./generate-zip.pl
@@ -141,18 +142,11 @@ func Append[S ~[]E, E any](s S, seq iter.Seq[E]) S {
 	return s
 }
 
-// KeyValues makes an iterator that returns keys and values from two iterators.
-func KeyValues[K, V any](keys iter.Seq[K], values iter.Seq[V]) func(func(K, V) bool) {
+// KeyValues makes an iterator that returns (key, value) tuples from an iterator.
+func KeyValues[K, V any](seq iter.Seq[tuple.Tuple2[K, V]]) func(func(K, V) bool) {
 	return func(yield func(K, V) bool) {
-		next, stop := iter.Pull(values)
-		defer stop()
-
-		for k := range keys {
-			v, ok := next()
-			if !ok {
-				break
-			}
-			if !yield(k, v) {
+		for kv := range seq {
+			if !yield(kv.V1, kv.V2) {
 				break
 			}
 		}
