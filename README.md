@@ -306,6 +306,27 @@ it.DropWhile2(it.SliceIter([]int{1, 4, 6, 4, 1}), func(_, v int) bool { return v
 // it.Zip(it.SliceValues([]int{2, 3, 4}), it.SliceValues([]int{6, 4, 1}))
 ```
 
+### TakeWhile
+
+[TakeWhile](https://pkg.go.dev/github.com/shogo82148/hi#TakeWhile) returns a slice of the longest prefix of elements that satisfy predicate f.
+
+```go
+l := hi.TakeWhile([]int{1, 4, 6, 4, 1}, func(_, val int) bool {
+    return v < 5
+})
+// []int{1, 4}
+```
+
+Experimental: `TakeWhile` on iterators
+
+```go
+it.TakeWhile(it.SliceValues([]int{1, 4, 6, 4, 1}), func(v int) bool { return v < 5 })
+// it.SliceValues([]int{1, 4})
+
+it.TakeWhile2(it.SliceIter([]int{1, 4, 6, 4, 1}), func(_, v int) bool { return v < 5 })
+// it.Zip(it.SliceValues([]int{0, 1}), it.SliceValues([]int{1, 4}))
+```
+
 ### Repeat
 
 Experimental: `Range` on iterators

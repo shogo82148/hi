@@ -387,6 +387,34 @@ func Slice2[K, V any](seq iter.Seq2[K, V], start, stop, step int) func(func(K, V
 	}
 }
 
+// TakeWhile makes an iterator that returns elements from the iterable as long as f returns true.
+func TakeWhile[T any](seq iter.Seq[T], f func(T) bool) func(func(T) bool) {
+	return func(yield func(T) bool) {
+		for v := range seq {
+			if !f(v) {
+				break
+			}
+			if !yield(v) {
+				break
+			}
+		}
+	}
+}
+
+// TakeWhile2 makes an iterator that returns elements from the iterable as long as f returns true.
+func TakeWhile2[K, V any](seq iter.Seq2[K, V], f func(K, V) bool) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		for k, v := range seq {
+			if !f(k, v) {
+				break
+			}
+			if !yield(k, v) {
+				break
+			}
+		}
+	}
+}
+
 // Tee makes n iterators from seq.
 func Tee[T any](seq iter.Seq[T], n int) []func(func(T) bool) {
 	if n < 0 {
