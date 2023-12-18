@@ -7,7 +7,6 @@ import (
 	"iter"
 	"runtime"
 
-	listpkg "github.com/shogo82148/hi/list"
 	"github.com/shogo82148/hi/optional"
 )
 
@@ -251,92 +250,19 @@ func Zip[K, V any](keys iter.Seq[K], values iter.Seq[V]) func(func(K, V) bool) {
 }
 
 func Unzip[K, V any](seq iter.Seq2[K, V]) (func(func(K) bool), func(func(V) bool)) {
-	var stopped bool
-	var next func() (K, V, bool)
-	var stop func()
-
-	keys := listpkg.New[K]()
-	values := listpkg.New[V]()
+	s := Tee2(seq, 2)
 
 	return func(yield func(K) bool) {
-			if next == nil {
-				next, stop = iter.Pull2(seq)
-			}
-			defer func() {
-				if stopped {
-					return
+			for k, _ := range s[0] {
+				if !yield(k) {
+					break
 				}
-				for {
-					_, v, ok := next()
-					if !ok {
-						break
-					}
-					values.PushBack(v)
-				}
-				stop()
-				stopped = true
-			}()
-
-			for {
-				if keys.Len() == 0 {
-					if stopped {
-						return
-					}
-					k, v, ok := next()
-					if !ok {
-						stop()
-						stopped = true
-						return
-					}
-					keys.PushBack(k)
-					values.PushBack(v)
-				}
-
-				e := keys.Front()
-				if !yield(e.Value) {
-					return
-				}
-				keys.Remove(e)
 			}
 		}, func(yield func(V) bool) {
-			if next == nil {
-				next, stop = iter.Pull2(seq)
-			}
-			defer func() {
-				if stopped {
-					return
+			for _, v := range s[1] {
+				if !yield(v) {
+					break
 				}
-				for {
-					k, _, ok := next()
-					if !ok {
-						break
-					}
-					keys.PushBack(k)
-				}
-				stop()
-				stopped = true
-			}()
-
-			for {
-				if values.Len() == 0 {
-					if stopped {
-						return
-					}
-					k, v, ok := next()
-					if !ok {
-						stop()
-						stopped = true
-						return
-					}
-					keys.PushBack(k)
-					values.PushBack(v)
-				}
-
-				e := values.Front()
-				if !yield(e.Value) {
-					return
-				}
-				values.Remove(e)
 			}
 		}
 }
