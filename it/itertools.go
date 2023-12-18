@@ -8,6 +8,7 @@ package it
 import (
 	"iter"
 
+	"github.com/shogo82148/hi/list"
 	"github.com/shogo82148/hi/tuple"
 )
 
@@ -385,4 +386,57 @@ func Slice2[K, V any](seq iter.Seq2[K, V], start, stop, step int) func(func(K, V
 			i++
 		}
 	}
+}
+
+func Tee[T any](seq iter.Seq[T], n int) []func(func(T) bool) {
+	if n < 0 {
+		panic("it: n must be non-negative")
+	}
+	if n == 0 {
+		return nil
+	}
+
+	queues := make([]*list.List[T], n)
+	for i := 0; i < n; i++ {
+		queues[i] = list.New[T]()
+	}
+
+	life := n
+	pull := newPullSeq(seq)
+
+	ret := make([]func(func(T) bool), n)
+	for i := 0; i < n; i++ {
+		i := i
+		ret[i] = func(yield func(T) bool) {
+			defer func() {
+				queues[i] = nil
+				life--
+				if life == 0 {
+					pull.stop()
+				}
+			}()
+
+			for {
+				if queues[i].Len() == 0 {
+					v, ok := pull.next()
+					if !ok {
+						break
+					}
+					for j := 0; j < n; j++ {
+						if q := queues[j]; q != nil {
+							q.PushBack(v)
+						}
+					}
+				}
+
+				e := queues[i].Front()
+				v := e.Value
+				queues[i].Remove(e)
+				if !yield(v) {
+					break
+				}
+			}
+		}
+	}
+	return ret
 }

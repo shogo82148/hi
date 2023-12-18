@@ -255,6 +255,24 @@ func ExampleDropWhile2() {
 	// 4: 1
 }
 
+func ExampleTee() {
+	seq := it.Tee(it.Range(3), 2)
+	for v := range seq[0] {
+		fmt.Println(v)
+	}
+	for v := range seq[1] {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 0
+	// 1
+	// 2
+}
+
 func ExampleSliceIter() {
 	seq := it.SliceIter([]string{"a", "b", "c"})
 	for i, v := range seq {
