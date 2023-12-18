@@ -188,6 +188,19 @@ func ExampleDropWhile() {
 	// 1
 }
 
+func ExampleTakeWhile() {
+	input := []int{1, 4, 6, 4, 1}
+	output := hi.TakeWhile(input, func(_, v int) bool {
+		return v < 5
+	})
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// 1
+	// 4
+}
+
 func ExampleRepeatN() {
 	output := hi.RepeatN("hello", 3)
 	for _, v := range output {

@@ -255,6 +255,34 @@ func ExampleDropWhile2() {
 	// 4: 1
 }
 
+func ExampleTakeWhile() {
+	seq := it.TakeWhile(
+		it.SliceValues([]int{1, 4, 6, 4, 1}),
+		func(v int) bool { return v < 5 },
+	)
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// 1
+	// 4
+}
+
+func ExampleTakeWhile2() {
+	seq := it.TakeWhile2(
+		it.SliceIter([]int{1, 4, 6, 4, 1}),
+		func(_, v int) bool { return v < 5 },
+	)
+	for k, v := range seq {
+		fmt.Printf("%d: %d\n", k, v)
+	}
+
+	// Output:
+	// 0: 1
+	// 1: 4
+}
+
 func ExampleTee() {
 	seq := it.Tee(it.Range(3), 2)
 	for v := range seq[0] {

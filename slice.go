@@ -148,6 +148,16 @@ func DropWhile[S ~[]T, T any](a S, predicate func(int, T) bool) S {
 	return make(S, 0)
 }
 
+// TakeWhile returns a slice of the longest prefix of elements that satisfy predicate f.
+func TakeWhile[S ~[]T, T any](a S, f func(int, T) bool) S {
+	for i, v := range a {
+		if !f(i, v) {
+			return slices.Clone(a[:i])
+		}
+	}
+	return slices.Clone(a)
+}
+
 // RepeatN returns a slice consisting of n copies of v.
 func RepeatN[T any](v T, n int) []T {
 	if n < 0 {
