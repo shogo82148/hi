@@ -12,6 +12,7 @@ import (
 )
 
 //go:generate ./generate-zip.pl
+//go:generate ./generate-unzip.pl
 
 // pullSeq is a pull-based iterator.
 type pullSeq[T any] struct {
