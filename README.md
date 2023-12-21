@@ -137,6 +137,15 @@ it.Zip(it.Range(3), it.SliceValues([]string{"zero", "one", "two"}))
 // it.SliceIter([]string{"zero", "one", "two"})
 ```
 
+### ZipLongest
+
+Experimental:
+
+```go
+it.Zip(it.Range(5), it.SliceValues([]string{"zero", "one", "two"}))
+// it.SliceIter([]string{"zero", "one", "two", "", ""})
+```
+
 ### Zip2,... ,Zip16
 
 ```go

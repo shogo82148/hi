@@ -486,6 +486,20 @@ func ExampleZip() {
 	// (2, c)
 }
 
+func ExampleZipLongest() {
+	seq := it.ZipLongest(it.Range(5), it.SliceValues([]string{"a", "b", "c"}))
+	for k, v := range seq {
+		fmt.Printf("(%d, %s)\n", k, v)
+	}
+
+	// Output:
+	// (0, a)
+	// (1, b)
+	// (2, c)
+	// (3, )
+	// (4, )
+}
+
 func ExampleZip2() {
 	seq := it.Zip2(it.Range(5), it.SliceValues([]string{"a", "b", "c"}))
 	for v := range seq {
