@@ -317,6 +317,28 @@ it.DropWhile2(it.SliceIter([]int{1, 4, 6, 4, 1}), func(_, v int) bool { return v
 // it.Zip(it.SliceValues([]int{2, 3, 4}), it.SliceValues([]int{6, 4, 1}))
 ```
 
+### Pairwise
+
+[Pairwise](https://pkg.go.dev/github.com/shogo82148/hi#Pairwise) makes a slice of all adjacent pairs of elements.
+
+```go
+l := hi.Pairwise([]int{1, 2, 3, 4, 5})
+// []tuple.Tuple2{tuple.New2(1, 2), tuple.New2(2, 3), tuple.New2(3, 4), tuple.New2(4, 5)}
+```
+
+Experimental: `Pairwise` on iterators
+
+```go
+seq := it.Pairwise(it.Range(5))
+// it.SliceValues([]tuple.Tuple2{tuple.New2(1, 2), tuple.New2(2, 3), tuple.New2(3, 4), tuple.New2(4, 5)})
+
+seq := it.Pairwise2(it.SliceIter([]string{"zero", "one", "two"}))
+// it.Zip(
+//     it.SliceValues([]tuple.Tuple2{tuple.New2(0, 1), tuple.New2(1, 2)})
+//     it.SliceValues([]tuple.Tuple2{tuple.New2("zero", "one"), tuple.New2("onw", "two")})
+// )
+```
+
 ### TakeWhile
 
 [TakeWhile](https://pkg.go.dev/github.com/shogo82148/hi#TakeWhile) returns a slice of the longest prefix of elements that satisfy predicate f.

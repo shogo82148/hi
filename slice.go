@@ -149,7 +149,7 @@ func DropWhile[S ~[]T, T any](a S, predicate func(int, T) bool) S {
 	return make(S, 0)
 }
 
-// Pairwise makes an iterator that returns tuples of the previous and current items of seq.
+// Pairwise makes a slice of all adjacent pairs of elements.
 func Pairwise[S ~[]T, T any](a S) []tuple.Tuple2[T, T] {
 	if len(a) < 2 {
 		return nil
