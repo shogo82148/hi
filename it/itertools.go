@@ -401,6 +401,41 @@ func Slice2[K, V any](seq iter.Seq2[K, V], start, stop, step int) func(func(K, V
 	}
 }
 
+// Pairwise makes an iterator that returns tuples of the previous and current items of seq.
+func Pairwise[T any](seq iter.Seq[T]) func(func(tuple.Tuple2[T, T]) bool) {
+	return func(yield func(tuple.Tuple2[T, T]) bool) {
+		var prev T
+		var initialized bool
+		for v := range seq {
+			if initialized {
+				if !yield(tuple.New2(prev, v)) {
+					break
+				}
+			}
+			prev = v
+			initialized = true
+		}
+	}
+}
+
+// Pairwise2 makes an iterator that returns tuples of the previous and current items of seq.
+func Pairwise2[K, V any](seq iter.Seq2[K, V]) func(func(tuple.Tuple2[K, K], tuple.Tuple2[V, V]) bool) {
+	return func(yield func(tuple.Tuple2[K, K], tuple.Tuple2[V, V]) bool) {
+		var prevK K
+		var prevV V
+		var initialized bool
+		for k, v := range seq {
+			if initialized {
+				if !yield(tuple.New2(prevK, k), tuple.New2(prevV, v)) {
+					break
+				}
+			}
+			prevK, prevV = k, v
+			initialized = true
+		}
+	}
+}
+
 // TakeWhile makes an iterator that returns elements from the iterable as long as f returns true.
 func TakeWhile[T any](seq iter.Seq[T], f func(T) bool) func(func(T) bool) {
 	return func(yield func(T) bool) {

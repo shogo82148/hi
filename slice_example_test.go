@@ -188,6 +188,19 @@ func ExampleDropWhile() {
 	// 1
 }
 
+func ExamplePairwise() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.Pairwise(input)
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Output:
+	// (1, 2)
+	// (2, 3)
+	// (3, 4)
+	// (4, 5)
+}
+
 func ExampleTakeWhile() {
 	input := []int{1, 4, 6, 4, 1}
 	output := hi.TakeWhile(input, func(_, v int) bool {
