@@ -5,6 +5,7 @@ import (
 	"slices"
 
 	"github.com/shogo82148/hi/optional"
+	"github.com/shogo82148/hi/tuple"
 )
 
 //go:generate ./generate-zip.pl
@@ -146,6 +147,18 @@ func DropWhile[S ~[]T, T any](a S, predicate func(int, T) bool) S {
 		}
 	}
 	return make(S, 0)
+}
+
+// Pairwise makes a slice of all adjacent pairs of elements.
+func Pairwise[S ~[]T, T any](a S) []tuple.Tuple2[T, T] {
+	if len(a) < 2 {
+		return nil
+	}
+	ret := make([]tuple.Tuple2[T, T], len(a)-1)
+	for i := 1; i < len(a); i++ {
+		ret[i-1] = tuple.New2(a[i-1], a[i])
+	}
+	return ret
 }
 
 // TakeWhile returns a slice of the longest prefix of elements that satisfy predicate f.

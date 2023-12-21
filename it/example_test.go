@@ -282,6 +282,30 @@ func ExampleFilterFalse2() {
 	// 2: 6
 }
 
+func ExamplePairwise() {
+	seq := it.Pairwise(it.Range(5))
+	for v := range seq {
+		fmt.Println(v)
+	}
+
+	// Output:
+	// (0, 1)
+	// (1, 2)
+	// (2, 3)
+	// (3, 4)
+}
+
+func ExamplePairwise2() {
+	seq := it.Pairwise2(it.SliceIter([]string{"zero", "one", "two"}))
+	for k, v := range seq {
+		fmt.Printf("%s: %s\n", k, v)
+	}
+
+	// Output:
+	// (0, 1): (zero, one)
+	// (1, 2): (one, two)
+}
+
 func ExampleTakeWhile() {
 	seq := it.TakeWhile(
 		it.SliceValues([]int{1, 4, 6, 4, 1}),
