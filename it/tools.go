@@ -9,6 +9,7 @@ import (
 
 	"github.com/shogo82148/hi/optional"
 	"github.com/shogo82148/hi/tuple"
+	"github.com/shogo82148/hi"
 )
 
 //go:generate ./generate-zip.pl
@@ -244,6 +245,36 @@ func Zip[K, V any](keys iter.Seq[K], values iter.Seq[V]) func(func(K, V) bool) {
 	}
 }
 
+// ZipLongest make an iterator that aggregates elements from each of the iterables.
+// If the iterables are of uneven length, missing values are filled-in with zero-values.
+// Iteration continues until the longest iterable is exhausted.
+func ZipLongest[K, V any](keys iter.Seq[K], values iter.Seq[V]) func(func(K, V) bool) {
+	return func(yield func(K, V) bool) {
+		nextK, stopK := iter.Pull(keys)
+		defer stopK()
+		nextV, stopV := iter.Pull(values)
+		defer stopV()
+
+		for {
+			k, ok1 := nextK()
+			v, ok2 := nextV()
+			if !ok1 && !ok2 {
+				break
+			}
+			if !ok1 {
+				k = hi.Zero[K]()
+			}
+			if !ok2 {
+				v = hi.Zero[V]()
+			}
+			if !yield(k, v) {
+				break
+			}
+		}
+	}
+}
+
+// Unzip is similar to Unzip2, but it accepts [iter.Seq2].
 func Unzip[K, V any](seq iter.Seq2[K, V]) (func(func(K) bool), func(func(V) bool)) {
 	s := Tee2(seq, 2)
 

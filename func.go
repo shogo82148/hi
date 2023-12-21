@@ -1,5 +1,11 @@
 package hi
 
+// Zero returns a zero value of the type.
+func Zero[T any]() T {
+	var zero T
+	return zero
+}
+
 // Negate returns a function that negates the result of f.
 func Negate[F ~func(T) bool, T any](f F) F {
 	return func(v T) bool {
