@@ -539,6 +539,25 @@ it.Min(it.SliceValues([]int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}))
 // optional.New(1)
 ```
 
+### Shuffle
+
+[Shuffle](https://pkg.go.dev/github.com/shogo82148/hi#Shuffle) returns a shuffled copy of a.
+
+```go
+s := hi.Shuffle([]int{1, 2, 3, 4, 5})
+// []int{2, 3, 1, 5, 4}
+```
+
+Experimental: `Shuffle` on iterators
+
+```go
+s := it.Shuffle(it.Range(5))
+// it.SliceValues([]int{1, 2, 0, 4, 3})
+
+s := it.Shuffle(it.SliceIter([]string{"zero", "one", "two"}))
+// it.SliceValues([]tuple.Tuple2{tuple.New(1, "one"), tuple.New(0, "zero"), tuple.New(2, "two")})
+```
+
 ### Ptr
 
 ```go

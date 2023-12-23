@@ -5,11 +5,12 @@ package it
 import (
 	"cmp"
 	"iter"
+	"math/rand/v2"
 	"runtime"
 
+	"github.com/shogo82148/hi"
 	"github.com/shogo82148/hi/optional"
 	"github.com/shogo82148/hi/tuple"
-	"github.com/shogo82148/hi"
 )
 
 //go:generate ./generate-zip.pl
@@ -460,4 +461,28 @@ func Min[T cmp.Ordered](seq iter.Seq[T]) optional.Optional[T] {
 		return optional.None[T]()
 	}
 	return optional.New(m)
+}
+
+// Shuffle returns a shuffled copy of seq.
+func Shuffle[T any](seq iter.Seq[T]) []T {
+	var s []T
+	for v := range seq {
+		s = append(s, v)
+	}
+	rand.Shuffle(len(s), func(i, j int) {
+		s[i], s[j] = s[j], s[i]
+	})
+	return s
+}
+
+// Shuffle2 returns a shuffled copy of seq.
+func Shuffle2[K, V any](seq iter.Seq2[K, V]) []tuple.Tuple2[K, V] {
+	var s []tuple.Tuple2[K, V]
+	for k, v := range seq {
+		s = append(s, tuple.New2(k, v))
+	}
+	rand.Shuffle(len(s), func(i, j int) {
+		s[i], s[j] = s[j], s[i]
+	})
+	return s
 }
