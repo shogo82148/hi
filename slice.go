@@ -2,6 +2,7 @@ package hi
 
 import (
 	"cmp"
+	"math/rand"
 	"slices"
 
 	"github.com/shogo82148/hi/optional"
@@ -259,4 +260,13 @@ func Min[S ~[]T, T cmp.Ordered](a S) optional.Optional[T] {
 		return optional.None[T]()
 	}
 	return optional.New(slices.Min(a))
+}
+
+// Shuffle returns a shuffled copy of a.
+func Shuffle[S ~[]T, T any](a S) S {
+	ret := slices.Clone(a)
+	rand.Shuffle(len(ret), func(i, j int) {
+		ret[i], ret[j] = ret[j], ret[i]
+	})
+	return ret
 }

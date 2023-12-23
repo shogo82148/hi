@@ -286,3 +286,17 @@ func ExampleMin() {
 	// Output:
 	// 1
 }
+
+func ExampleShuffle() {
+	input := []int{1, 2, 3, 4, 5}
+	output := hi.Shuffle(input)
+	for _, v := range output {
+		fmt.Println(v)
+	}
+	// Unordered output:
+	// 1
+	// 2
+	// 3
+	// 4
+	// 5
+}

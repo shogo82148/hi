@@ -714,3 +714,27 @@ func ExampleMin() {
 	// Output:
 	// 1
 }
+
+func ExampleShuffle() {
+	slice := it.Shuffle(it.Range(5))
+	for _, v := range slice {
+		fmt.Println(v)
+	}
+	// Unordered output:
+	// 0
+	// 1
+	// 2
+	// 3
+	// 4
+}
+
+func ExampleShuffle2() {
+	slice := it.Shuffle2(it.SliceIter([]string{"zero", "one", "two"}))
+	for _, v := range slice {
+		fmt.Println(v)
+	}
+	// Unordered output:
+	// (0, zero)
+	// (1, one)
+	// (2, two)
+}
