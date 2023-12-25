@@ -270,3 +270,29 @@ func Shuffle[S ~[]T, T any](a S) S {
 	})
 	return ret
 }
+
+// Sample returns a random element from a.
+func Sample[S ~[]T, T any](a S) optional.Optional[T] {
+	if len(a) == 0 {
+		return optional.None[T]()
+	}
+	return optional.New(a[rand.Intn(len(a))])
+}
+
+// SampleN returns n random elements from a.
+func SampleN[S ~[]T, T any](a S, n int) S {
+	if n < 0 {
+		panic("n must be positive")
+	}
+	ret := make([]T, 0, n)
+	for i := 0; i < len(a); i++ {
+		j := rand.Intn(i + 1)
+		if i < n {
+			ret = append(ret, a[i])
+			ret[i], ret[j] = ret[j], ret[i]
+		} else if j < n {
+			ret[j] = a[i]
+		}
+	}
+	return ret
+}

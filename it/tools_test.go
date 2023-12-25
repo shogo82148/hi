@@ -121,3 +121,80 @@ func TestMax_Nan(t *testing.T) {
 		t.Errorf("Max(%v) = %f, want NaN", input, got)
 	}
 }
+
+func TestSample(t *testing.T) {
+	seq := SliceValues([]int{1, 2, 3, 4, 5})
+	count := make([]int, 6)
+	for i := 0; i < 100; i++ {
+		ret := Sample(seq)
+		if !ret.Valid() {
+			t.Errorf("Sample() = %t, want %t", ret.Valid(), true)
+		}
+		got := ret.Get()
+		if got < 1 || got > 5 {
+			t.Errorf("Sample() = %d, want 1 <= x <= 5", got)
+		}
+		count[got]++
+	}
+	for i := 1; i <= 5; i++ {
+		t.Logf("count[%d] = %d", i, count[i])
+	}
+}
+
+func TestSample2(t *testing.T) {
+	slice := []string{"zero", "one", "two", "three", "four"}
+	seq := SliceIter(slice)
+	count := make([]int, 5)
+	for i := 0; i < 100; i++ {
+		ret := Sample2(seq)
+		if !ret.Valid() {
+			t.Errorf("Sample2() = %t, want %t", ret.Valid(), true)
+		}
+		got := ret.Get()
+		if got.V1 < 0 || got.V1 > 4 {
+			t.Errorf("Sample2() = %d, want 0 <= x <= 4", got.V1)
+		}
+		if got.V2 != slice[got.V1] {
+			t.Errorf("Sample2() = %s, want %s", got.V2, slice[got.V1])
+		}
+		count[got.V1]++
+	}
+
+	for i := 0; i < 5; i++ {
+		t.Logf("count[%d] = %d", i, count[i])
+	}
+}
+
+func TestSampleN(t *testing.T) {
+	seq := SliceValues([]int{1, 2, 3, 4, 5})
+	for i := 0; i < 100; i++ {
+		ret := SampleN(seq, 3)
+		if len(ret) != 3 {
+			t.Errorf("SampleN() = %d, want 3", len(ret))
+		}
+		for _, v := range ret {
+			if v < 1 || v > 5 {
+				t.Errorf("SampleN() = %d, want 1 <= x <= 5", v)
+			}
+		}
+	}
+}
+
+func TestSampleN2(t *testing.T) {
+	slice := []string{"zero", "one", "two", "three", "four"}
+	seq := SliceIter(slice)
+	for i := 0; i < 100; i++ {
+		ret := SampleN2(seq, 3)
+		if len(ret) != 3 {
+			t.Errorf("SampleN2() = %d, want 3", len(ret))
+		}
+		for _, v := range ret {
+			if v.V1 < 0 || v.V1 > 4 {
+				t.Errorf("SampleN2() = %d, want 0 <= x <= 4", v.V1)
+			}
+			if v.V2 != slice[v.V1] {
+				t.Errorf("SampleN2() = %s, want %s", v.V2, slice[v.V1])
+			}
+		}
+	}
+}

@@ -3,6 +3,8 @@ package hi
 import (
 	"math"
 	"testing"
+
+	"github.com/shogo82148/hi/tuple"
 )
 
 func TestMax(t *testing.T) {
@@ -59,5 +61,39 @@ func TestMax_Nan(t *testing.T) {
 	got := result.Get()
 	if !math.IsNaN(got) {
 		t.Errorf("Max(%v) = %f, want NaN", input, got)
+	}
+}
+
+func TestSample(t *testing.T) {
+	input := []int{1, 2, 3, 4, 5}
+	count := make([]int, 6)
+	for i := 0; i < 100; i++ {
+		ret := Sample(input)
+		if !ret.Valid() {
+			t.Errorf("Sample(%v) = %t, want %t", input, ret.Valid(), true)
+		}
+		got := ret.Get()
+		if got < 1 || got > 5 {
+			t.Errorf("Sample(%v) = %d, want 1 <= x <= 5", input, got)
+		}
+		count[got]++
+	}
+	for i := 1; i <= 5; i++ {
+		t.Logf("count[%d] = %d", i, count[i])
+	}
+}
+
+func TestSampleN(t *testing.T) {
+	input := []int{1, 2, 3, 4, 5}
+	count := make(map[tuple.Tuple3[int, int, int]]int)
+	for i := 0; i < 10000; i++ {
+		ret := SampleN(input, 3)
+		if len(ret) != 3 {
+			t.Errorf("SampleN(%v, 3) = %d, want 3", input, len(ret))
+		}
+		count[tuple.New3(ret[0], ret[1], ret[2])]++
+	}
+	for k, v := range count {
+		t.Logf("count[%v] = %d", k, v)
 	}
 }
