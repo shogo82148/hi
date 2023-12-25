@@ -486,3 +486,35 @@ func Shuffle2[K, V any](seq iter.Seq2[K, V]) []tuple.Tuple2[K, V] {
 	})
 	return s
 }
+
+// Sample returns a random element from seq.
+func Sample[T any](seq iter.Seq[T]) optional.Optional[T] {
+	var i int
+	var ret T
+	for v := range seq {
+		i++
+		if rand.IntN(i) == 0 {
+			ret = v
+		}
+	}
+	if i == 0 {
+		return optional.None[T]()
+	}
+	return optional.New(ret)
+}
+
+// Sample2 returns a random element from seq.
+func Sample2[K, V any](seq iter.Seq2[K, V]) optional.Optional[tuple.Tuple2[K, V]] {
+	var i int
+	var ret tuple.Tuple2[K, V]
+	for k, v := range seq {
+		i++
+		if rand.IntN(i) == 0 {
+			ret = tuple.New2(k, v)
+		}
+	}
+	if i == 0 {
+		return optional.None[tuple.Tuple2[K, V]]()
+	}
+	return optional.New(ret)
+}

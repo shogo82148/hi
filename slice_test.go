@@ -61,3 +61,22 @@ func TestMax_Nan(t *testing.T) {
 		t.Errorf("Max(%v) = %f, want NaN", input, got)
 	}
 }
+
+func TestSample(t *testing.T) {
+	input := []int{1, 2, 3, 4, 5}
+	count := make([]int, 6)
+	for i := 0; i < 100; i++ {
+		ret := Sample(input)
+		if !ret.Valid() {
+			t.Errorf("Sample(%v) = %t, want %t", input, ret.Valid(), true)
+		}
+		got := ret.Get()
+		if got < 1 || got > 5 {
+			t.Errorf("Sample(%v) = %d, want 1 <= x <= 5", input, got)
+		}
+		count[got]++
+	}
+	for i := 1; i <= 5; i++ {
+		t.Logf("count[%d] = %d", i, count[i])
+	}
+}

@@ -270,3 +270,11 @@ func Shuffle[S ~[]T, T any](a S) S {
 	})
 	return ret
 }
+
+// Sample returns a random element from a.
+func Sample[S ~[]T, T any](a S) optional.Optional[T] {
+	if len(a) == 0 {
+		return optional.None[T]()
+	}
+	return optional.New(a[rand.Intn(len(a))])
+}
