@@ -558,6 +558,40 @@ s := it.Shuffle(it.SliceIter([]string{"zero", "one", "two"}))
 // it.SliceValues([]tuple.Tuple2{tuple.New(1, "one"), tuple.New(0, "zero"), tuple.New(2, "two")})
 ```
 
+### Sample
+
+```go
+v := hi.Sample([]int{1, 2, 3, 4, 5})
+// optional.New(2)
+```
+
+Experimental: `Shuffle` on iterators
+
+```go
+v := it.Sample(it.Range(5))
+// optional.New(5)
+
+v := it.Sample2(it.SliceIter([]string{"zero", "one", "two", "three", "four"}))
+// optional.New(tuple.New2(2, "two"))
+```
+
+### SampleN
+
+```go
+s := hi.Sample([]int{1, 2, 3, 4, 5}, 3)
+// []int{4, 5, 2}
+```
+
+Experimental: `ShuffleN` on iterators
+
+```go
+s := it.SampleN(it.Range(5))
+// []int{3, 4, 1}
+
+s := it.SampleN2(it.SliceIter([]string{"zero", "one", "two", "three", "four"}), 3)
+// []tuple.Tuple2{tuple.New2(3, "three"), tuple.New2(4, "four"), tuple.New2(1, "one")}
+```
+
 ### Ptr
 
 ```go
