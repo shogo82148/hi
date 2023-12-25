@@ -518,3 +518,43 @@ func Sample2[K, V any](seq iter.Seq2[K, V]) optional.Optional[tuple.Tuple2[K, V]
 	}
 	return optional.New(ret)
 }
+
+// SampleN returns a random element from seq.
+func SampleN[T any](seq iter.Seq[T], n int) []T {
+	if n < 0 {
+		panic("n must be positive")
+	}
+	ret := make([]T, 0, n)
+	i := 0
+	for v := range seq {
+		j := rand.IntN(i + 1)
+		if i < n {
+			ret = append(ret, v)
+			ret[i], ret[j] = ret[j], ret[i]
+		} else if j < n {
+			ret[j] = v
+		}
+		i++
+	}
+	return ret
+}
+
+// SampleN2 returns a random element from seq.
+func SampleN2[K, V any](seq iter.Seq2[K, V], n int) []tuple.Tuple2[K, V] {
+	if n < 0 {
+		panic("n must be positive")
+	}
+	ret := make([]tuple.Tuple2[K, V], 0, n)
+	i := 0
+	for k, v := range seq {
+		j := rand.IntN(i + 1)
+		if i < n {
+			ret = append(ret, tuple.New2(k, v))
+			ret[i], ret[j] = ret[j], ret[i]
+		} else if j < n {
+			ret[j] = tuple.New2(k, v)
+		}
+		i++
+	}
+	return ret
+}

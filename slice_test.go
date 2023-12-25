@@ -3,6 +3,8 @@ package hi
 import (
 	"math"
 	"testing"
+
+	"github.com/shogo82148/hi/tuple"
 )
 
 func TestMax(t *testing.T) {
@@ -78,5 +80,20 @@ func TestSample(t *testing.T) {
 	}
 	for i := 1; i <= 5; i++ {
 		t.Logf("count[%d] = %d", i, count[i])
+	}
+}
+
+func TestSampleN(t *testing.T) {
+	input := []int{1, 2, 3, 4, 5}
+	count := make(map[tuple.Tuple3[int, int, int]]int)
+	for i := 0; i < 10000; i++ {
+		ret := SampleN(input, 3)
+		if len(ret) != 3 {
+			t.Errorf("SampleN(%v, 3) = %d, want 3", input, len(ret))
+		}
+		count[tuple.New3(ret[0], ret[1], ret[2])]++
+	}
+	for k, v := range count {
+		t.Logf("count[%v] = %d", k, v)
 	}
 }

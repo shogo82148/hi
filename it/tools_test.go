@@ -164,3 +164,37 @@ func TestSample2(t *testing.T) {
 		t.Logf("count[%d] = %d", i, count[i])
 	}
 }
+
+func TestSampleN(t *testing.T) {
+	seq := SliceValues([]int{1, 2, 3, 4, 5})
+	for i := 0; i < 100; i++ {
+		ret := SampleN(seq, 3)
+		if len(ret) != 3 {
+			t.Errorf("SampleN() = %d, want 3", len(ret))
+		}
+		for _, v := range ret {
+			if v < 1 || v > 5 {
+				t.Errorf("SampleN() = %d, want 1 <= x <= 5", v)
+			}
+		}
+	}
+}
+
+func TestSampleN2(t *testing.T) {
+	slice := []string{"zero", "one", "two", "three", "four"}
+	seq := SliceIter(slice)
+	for i := 0; i < 100; i++ {
+		ret := SampleN2(seq, 3)
+		if len(ret) != 3 {
+			t.Errorf("SampleN2() = %d, want 3", len(ret))
+		}
+		for _, v := range ret {
+			if v.V1 < 0 || v.V1 > 4 {
+				t.Errorf("SampleN2() = %d, want 0 <= x <= 4", v.V1)
+			}
+			if v.V2 != slice[v.V1] {
+				t.Errorf("SampleN2() = %s, want %s", v.V2, slice[v.V1])
+			}
+		}
+	}
+}
