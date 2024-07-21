@@ -126,7 +126,7 @@ func ExampleSlice() {
 	// [2 3]
 }
 
-func ExampleSlice_NegativeIndex() {
+func ExampleSlice_negativeIndex() {
 	input := []int{1, 2, 3, 4, 5}
 
 	// slices last 2 elements
@@ -137,7 +137,7 @@ func ExampleSlice_NegativeIndex() {
 	// [4 5]
 }
 
-func ExampleSlice_NegativeStep() {
+func ExampleSlice_negativeStep() {
 	input := []int{1, 2, 3, 4, 5}
 	output := hi.Slice(input, 3, 1, -1)
 	fmt.Println(output)
