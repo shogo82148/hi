@@ -72,7 +72,7 @@ func ExampleRange() {
 	// 4
 }
 
-func ExampleSlice_StartEnd() {
+func ExampleSlice_startEnd() {
 	seq := it.SliceValues([]string{"a", "b", "c", "d", "e", "f", "g"})
 	seq = it.Slice(seq, 2, 4, 1)
 	for v := range seq {
@@ -84,7 +84,7 @@ func ExampleSlice_StartEnd() {
 	// d
 }
 
-func ExampleSlice_Step() {
+func ExampleSlice_step() {
 	seq := it.SliceValues([]string{"a", "b", "c", "d", "e", "f", "g"})
 	seq = it.Slice(seq, 0, -1, 2)
 	for v := range seq {
@@ -98,7 +98,7 @@ func ExampleSlice_Step() {
 	// g
 }
 
-func ExampleSlice2_StartEnd() {
+func ExampleSlice2_startEnd() {
 	seq := it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"})
 	seq = it.Slice2(seq, 2, 4, 1)
 	for i, v := range seq {
@@ -110,7 +110,7 @@ func ExampleSlice2_StartEnd() {
 	// 3: d
 }
 
-func ExampleSlice2_Step() {
+func ExampleSlice2_step() {
 	seq := it.SliceIter([]string{"a", "b", "c", "d", "e", "f", "g"})
 	seq = it.Slice2(seq, 0, -1, 2)
 	for i, v := range seq {
