@@ -161,7 +161,7 @@ func (set Set[T]) For(f func(v T) error) error {
 }
 
 // Filter returns a new subset where f returns true for.
-func (set Set[T]) Filter(f func(v T) bool) Set[T] {
+func Filter[T comparable](set Set[T], f func(v T) bool) Set[T] {
 	ret := make(Set[T], len(set))
 	for v := range set {
 		if f(v) {
@@ -172,7 +172,7 @@ func (set Set[T]) Filter(f func(v T) bool) Set[T] {
 }
 
 // FilterFalse returns a new subset where f returns false for.
-func (set Set[T]) FilterFalse(f func(v T) bool) Set[T] {
+func FilterFalse[T comparable](set Set[T], f func(v T) bool) Set[T] {
 	ret := make(Set[T], len(set))
 	for v := range set {
 		if !f(v) {
@@ -182,8 +182,16 @@ func (set Set[T]) FilterFalse(f func(v T) bool) Set[T] {
 	return ret
 }
 
-// Count returns the number of elements that f returns true.
-func (set Set[T]) Count(f func(v T) bool) int {
+// Count counts the number of elements in set that compare equal to value.
+func Count[T comparable](set Set[T], value T) int {
+	if set.Contains(value) {
+		return 1
+	}
+	return 0
+}
+
+// CountBy counts the number of elements that counter returns true.
+func CountBy[T comparable](set Set[T], f func(v T) bool) int {
 	var count int
 	for v := range set {
 		if f(v) {
@@ -193,7 +201,13 @@ func (set Set[T]) Count(f func(v T) bool) int {
 	return count
 }
 
-func (set Set[T]) Any(f func(v T) bool) bool {
+// Any returns whether set has value.
+func Any[T comparable](set Set[T], value T) bool {
+	return set.Contains(value)
+}
+
+// AnyBy returns whether set has an element for that f returns true.
+func AnyBy[T comparable](set Set[T], f func(v T) bool) bool {
 	for v := range set {
 		if f(v) {
 			return true
@@ -202,7 +216,13 @@ func (set Set[T]) Any(f func(v T) bool) bool {
 	return false
 }
 
-func (set Set[T]) All(f func(v T) bool) bool {
+// All returns whether all elements in set are value.
+func All[T comparable](set Set[T], value T) bool {
+	return len(set) == 1 && set.Contains(value)
+}
+
+// AllBy returns whether f returns true for all elements in set.
+func AllBy[T comparable](set Set[T], f func(v T) bool) bool {
 	for v := range set {
 		if !f(v) {
 			return false

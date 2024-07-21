@@ -6,9 +6,9 @@ import (
 	"github.com/shogo82148/hi/sets"
 )
 
-func ExampleSet_Filter() {
+func ExampleFilter() {
 	s := sets.New(1, 2, 3, 4, 5)
-	u := s.Filter(func(v int) bool { return v > 3 })
+	u := sets.Filter(s, func(v int) bool { return v > 3 })
 
 	for v := range u {
 		fmt.Println(v)
@@ -18,9 +18,9 @@ func ExampleSet_Filter() {
 	// 5
 }
 
-func ExampleSet_FilterFalse() {
+func ExampleFilterFalse() {
 	s := sets.New(1, 2, 3, 4, 5)
-	u := s.FilterFalse(func(v int) bool { return v > 3 })
+	u := sets.FilterFalse(s, func(v int) bool { return v > 3 })
 
 	for v := range u {
 		fmt.Println(v)
@@ -31,30 +31,30 @@ func ExampleSet_FilterFalse() {
 	// 3
 }
 
-func ExampleSet_Count() {
+func ExampleCountBy() {
 	s := sets.New(1, 2, 3, 4, 5)
-	cnt := s.Count(func(v int) bool { return v > 3 })
+	cnt := sets.CountBy(s, func(v int) bool { return v > 3 })
 	fmt.Println(cnt)
 	// Output:
 	// 2
 }
 
-func ExampleSet_Any() {
+func ExampleAnyBy() {
 	s := sets.New(1, 2, 3, 4, 5)
-	fmt.Println(s.All(func(v int) bool { return v > 0 }))
-	fmt.Println(s.Any(func(v int) bool { return v > 3 }))
-	fmt.Println(s.Any(func(v int) bool { return v > 5 }))
+	fmt.Println(sets.AnyBy(s, func(v int) bool { return v > 0 }))
+	fmt.Println(sets.AnyBy(s, func(v int) bool { return v > 3 }))
+	fmt.Println(sets.AnyBy(s, func(v int) bool { return v > 5 }))
 	// Output:
 	// true
 	// true
 	// false
 }
 
-func ExampleSet_All() {
+func ExampleAllBy() {
 	s := sets.New(1, 2, 3, 4, 5)
-	fmt.Println(s.All(func(v int) bool { return v > 0 }))
-	fmt.Println(s.All(func(v int) bool { return v > 3 }))
-	fmt.Println(s.Any(func(v int) bool { return v > 5 }))
+	fmt.Println(sets.AllBy(s, func(v int) bool { return v > 0 }))
+	fmt.Println(sets.AllBy(s, func(v int) bool { return v > 3 }))
+	fmt.Println(sets.AllBy(s, func(v int) bool { return v > 5 }))
 	// Output:
 	// true
 	// false
