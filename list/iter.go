@@ -1,5 +1,3 @@
-//go:build goexperiment.rangefunc
-
 package list
 
 // Forward returns an iterator of l.
