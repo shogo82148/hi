@@ -34,7 +34,7 @@ import (
 
 ### SliceValues, MapKeys, MapValues, ChanValues
 
-[SliceValues](https://pkg.go.dev/github.com/shogo82148/hi/it#SliceValues), [MapKeys](https://pkg.go.dev/github.com/shogo82148/hi/it#MapKeys), [MapValues](https://pkg.go.dev/github.com/shogo82148/hi/it#MapValues) and [ChanValues](https://pkg.go.dev/github.com/shogo82148/hi/it#ChanValues) creates
+[SliceValues](https://pkg.go.dev/github.com/shogo82148/hi/it#SliceValues), [MapKeys](https://pkg.go.dev/github.com/shogo82148/hi/it#MapKeys), [MapValues](https://pkg.go.dev/github.com/shogo82148/hi/it#MapValues) and [ChanValues](https://pkg.go.dev/github.com/shogo82148/hi/it#ChanValues) create
 iterators from slices, maps and channels.
 
 ```go
@@ -133,7 +133,7 @@ it.Zip(it.Range(5), it.SliceValues([]string{"zero", "one", "two"}))
 
 ### ZipLongest
 
-[ZipLongest](https://pkg.go.dev/github.com/shogo82148/hi/it#ZipLongest) is same as Zip, but the returned iterator continues until the longest iterator is exhausted.
+[ZipLongest](https://pkg.go.dev/github.com/shogo82148/hi/it#ZipLongest) is the same as Zip, but the returned iterator continues until the longest iterator is exhausted.
 If a shorter iterator is exhausted, it is filled with zero values.
 
 ```go
@@ -366,7 +366,7 @@ it.TakeWhile2(it.SliceIter([]int{1, 4, 6, 4, 1}), func(_, v int) bool { return v
 
 ### Repeat
 
-[it.Repeat](https://pkg.go.dev/github.com/shogo82148/hi/it#Repeat) returns an an infinitely continuing iterator.
+[it.Repeat](https://pkg.go.dev/github.com/shogo82148/hi/it#Repeat) returns an infinitely continuing iterator.
 
 ```go
 for v := range it.Repeat("hello") {
