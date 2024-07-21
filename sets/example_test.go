@@ -39,6 +39,15 @@ func ExampleCountBy() {
 	// 2
 }
 
+func ExampleAny() {
+	s := sets.New(1, 2, 3, 4, 5)
+	fmt.Println(sets.Any(s, 0))
+	fmt.Println(sets.Any(s, 1))
+	// Output:
+	// false
+	// true
+}
+
 func ExampleAnyBy() {
 	s := sets.New(1, 2, 3, 4, 5)
 	fmt.Println(sets.AnyBy(s, func(v int) bool { return v > 0 }))
@@ -48,6 +57,15 @@ func ExampleAnyBy() {
 	// true
 	// true
 	// false
+}
+
+func ExampleAll() {
+	s := sets.New(1)
+	fmt.Println(sets.Any(s, 0))
+	fmt.Println(sets.Any(s, 1))
+	// Output:
+	// false
+	// true
 }
 
 func ExampleAllBy() {

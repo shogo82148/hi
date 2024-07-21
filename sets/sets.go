@@ -218,7 +218,7 @@ func AnyBy[T comparable](set Set[T], f func(v T) bool) bool {
 
 // All returns whether all elements in set are value.
 func All[T comparable](set Set[T], value T) bool {
-	return len(set) == 1 && set.Contains(value)
+	return len(set) == 0 || len(set) == 1 && set.Contains(value)
 }
 
 // AllBy returns whether f returns true for all elements in set.
