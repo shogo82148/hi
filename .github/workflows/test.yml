@@ -11,7 +11,8 @@ jobs:
       fail-fast: false
       matrix:
         go:
-          - "1.23.0-rc.2"
+          - "stable"
+          - "1.23"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
