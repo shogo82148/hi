@@ -480,17 +480,16 @@ func Tee[T any](seq iter.Seq[T], n int) []func(func(T) bool) {
 	first := que.last
 
 	life := n
-	pull := newPullSeq(seq)
+	next, stop := iter.Pull(seq)
 
 	ret := make([]func(func(T) bool), n)
-	for i := 0; i < n; i++ {
-		i := i
+	for i := range n {
 		ret[i] = func(yield func(T) bool) {
 			defer func() {
 				life--
 				if life == 0 {
 					// all iterators are stopped.
-					pull.stop()
+					stop()
 				}
 			}()
 
@@ -506,7 +505,7 @@ func Tee[T any](seq iter.Seq[T], n int) []func(func(T) bool) {
 					}
 				}
 				if e == que.last {
-					v, ok := pull.next()
+					v, ok := next()
 					if !ok {
 						break
 					}
@@ -545,17 +544,16 @@ func Tee2[K, V any](seq iter.Seq2[K, V], n int) []func(func(K, V) bool) {
 	first := que.last
 
 	life := n
-	pull := newPullSeq2(seq)
+	next, stop := iter.Pull2(seq)
 
 	ret := make([]func(func(K, V) bool), n)
-	for i := 0; i < n; i++ {
-		i := i
+	for i := range n {
 		ret[i] = func(yield func(K, V) bool) {
 			defer func() {
 				life--
 				if life == 0 {
 					// all iterators are stopped.
-					pull.stop()
+					stop()
 				}
 			}()
 
@@ -571,7 +569,7 @@ func Tee2[K, V any](seq iter.Seq2[K, V], n int) []func(func(K, V) bool) {
 					}
 				}
 				if e == que.last {
-					k, v, ok := pull.next()
+					k, v, ok := next()
 					if !ok {
 						break
 					}

@@ -4,7 +4,6 @@ import (
 	"cmp"
 	"iter"
 	"math/rand/v2"
-	"runtime"
 
 	"github.com/shogo82148/hi"
 	"github.com/shogo82148/hi/optional"
@@ -13,37 +12,6 @@ import (
 
 //go:generate ./generate-zip.pl
 //go:generate ./generate-unzip.pl
-
-// pullSeq is a pull-based iterator.
-type pullSeq[T any] struct {
-	next func() (T, bool)
-	stop func()
-}
-
-func newPullSeq[T any](seq iter.Seq[T]) *pullSeq[T] {
-	next, stop := iter.Pull(seq)
-	pull := &pullSeq[T]{next, stop}
-
-	runtime.SetFinalizer(pull, func(pull *pullSeq[T]) {
-		pull.stop()
-	})
-	return pull
-}
-
-type pullSeq2[K, V any] struct {
-	next func() (K, V, bool)
-	stop func()
-}
-
-func newPullSeq2[K, V any](seq iter.Seq2[K, V]) *pullSeq2[K, V] {
-	next, stop := iter.Pull2(seq)
-	pull := &pullSeq2[K, V]{next, stop}
-
-	runtime.SetFinalizer(pull, func(pull *pullSeq2[K, V]) {
-		pull.stop()
-	})
-	return pull
-}
 
 // SliceIter returns an iterator for the slice.
 func SliceIter[S ~[]E, E any](x S) func(func(int, E) bool) {
