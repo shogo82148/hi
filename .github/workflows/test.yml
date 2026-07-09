@@ -12,7 +12,7 @@ jobs:
       matrix:
         go:
           - "stable"
-          - "1.27-rc2"
+          - "1.27.0-rc.2"
           - "1.26"
     steps:
       - uses: actions/checkout@v7
