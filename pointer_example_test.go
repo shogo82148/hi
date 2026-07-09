@@ -2,10 +2,12 @@ package hi_test
 
 import (
 	"fmt"
+
+	"github.com/shogo82148/hi"
 )
 
 func ExamplePtr() {
-	p := new("hello")
+	p := hi.Ptr("hello")
 	fmt.Println(*p)
 
 	// Output:
