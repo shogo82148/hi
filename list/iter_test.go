@@ -8,7 +8,7 @@ import (
 
 func TestForward(t *testing.T) {
 	l := New[string]()
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		l.PushBack(fmt.Sprintf("%d", i))
 	}
 
@@ -24,7 +24,7 @@ func TestForward(t *testing.T) {
 
 func TestBackward(t *testing.T) {
 	l := New[string]()
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		l.PushBack(fmt.Sprintf("%d", i))
 	}
 

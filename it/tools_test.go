@@ -10,7 +10,7 @@ import (
 
 func TestAppend(t *testing.T) {
 	seq := func(yield func(int) bool) {
-		for i := 0; i < 10; i++ {
+		for i := range 10 {
 			if !yield(i) {
 				break
 			}
@@ -123,7 +123,7 @@ func TestMax_Nan(t *testing.T) {
 func TestSample(t *testing.T) {
 	seq := SliceValues([]int{1, 2, 3, 4, 5})
 	count := make([]int, 6)
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		ret := Sample(seq)
 		if !ret.Valid() {
 			t.Errorf("Sample() = %t, want %t", ret.Valid(), true)
@@ -143,7 +143,7 @@ func TestSample2(t *testing.T) {
 	slice := []string{"zero", "one", "two", "three", "four"}
 	seq := SliceIter(slice)
 	count := make([]int, 5)
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		ret := Sample2(seq)
 		if !ret.Valid() {
 			t.Errorf("Sample2() = %t, want %t", ret.Valid(), true)
@@ -158,14 +158,14 @@ func TestSample2(t *testing.T) {
 		count[got.V1]++
 	}
 
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		t.Logf("count[%d] = %d", i, count[i])
 	}
 }
 
 func TestSampleN(t *testing.T) {
 	seq := SliceValues([]int{1, 2, 3, 4, 5})
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		ret := SampleN(seq, 3)
 		if len(ret) != 3 {
 			t.Errorf("SampleN() = %d, want 3", len(ret))
@@ -181,7 +181,7 @@ func TestSampleN(t *testing.T) {
 func TestSampleN2(t *testing.T) {
 	slice := []string{"zero", "one", "two", "three", "four"}
 	seq := SliceIter(slice)
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		ret := SampleN2(seq, 3)
 		if len(ret) != 3 {
 			t.Errorf("SampleN2() = %d, want 3", len(ret))

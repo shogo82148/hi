@@ -82,7 +82,7 @@ func ChanValues[T any](x <-chan T) func(func(T) bool) {
 // Range returns an iterator for the range.
 func Range(n int) func(func(int) bool) {
 	return func(yield func(int) bool) {
-		for i := 0; i < n; i++ {
+		for i := range n {
 			if !yield(i) {
 				break
 			}
