@@ -68,10 +68,7 @@ func Chunk[S ~[]T, T any](a S, size int) []S {
 	}
 	ret := make([]S, 0, (len(a)+size-1)/size)
 	for i := 0; i < len(a); i += size {
-		end := i + size
-		if end > len(a) {
-			end = len(a)
-		}
+		end := min(i+size, len(a))
 		ret = append(ret, a[i:end])
 	}
 	return ret
@@ -132,7 +129,7 @@ func Chain[S ~[]T, T any](a ...S) []T {
 func Compress[S ~[]T, T any](a S, selectors []bool) S {
 	l := min(len(a), len(selectors))
 	ret := make(S, 0, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		if selectors[i] {
 			ret = append(ret, a[i])
 		}
@@ -208,12 +205,7 @@ func CountBy[T any](a []T, counter func(int, T) bool) int {
 
 // Any returns whether a has value at least one.
 func Any[T comparable](a []T, value T) bool {
-	for _, v := range a {
-		if v == value {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(a, value)
 }
 
 // AnyBy returns whether a has an element for that f returns true.

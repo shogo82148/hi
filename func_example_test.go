@@ -10,7 +10,7 @@ func ExampleNegate() {
 	f := func(v int) bool { return v > 3 }
 	g := hi.Negate(f)
 
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		fmt.Printf("%d: %t, %t\n", i, f(i), g(i))
 	}
 
@@ -26,7 +26,7 @@ func ExampleNegate2() {
 	f := func(a, b int) bool { return a > b }
 	g := hi.Negate2(f)
 
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		fmt.Printf("%d: %t, %t\n", i, f(i, 3), g(i, 3))
 	}
 

@@ -67,7 +67,7 @@ func TestMax_Nan(t *testing.T) {
 func TestSample(t *testing.T) {
 	input := []int{1, 2, 3, 4, 5}
 	count := make([]int, 6)
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		ret := Sample(input)
 		if !ret.Valid() {
 			t.Errorf("Sample(%v) = %t, want %t", input, ret.Valid(), true)
@@ -86,7 +86,7 @@ func TestSample(t *testing.T) {
 func TestSampleN(t *testing.T) {
 	input := []int{1, 2, 3, 4, 5}
 	count := make(map[tuple.Tuple3[int, int, int]]int)
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		ret := SampleN(input, 3)
 		if len(ret) != 3 {
 			t.Errorf("SampleN(%v, 3) = %d, want 3", input, len(ret))

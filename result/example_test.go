@@ -17,7 +17,7 @@ func ExampleUnzip2() {
 	// one
 }
 
-func ExampleFilter() {
+func ExampleResult_Filter() {
 	filter := func(v int) bool { return v > 20 }
 
 	v := result.OK(10).Filter(filter)
@@ -31,7 +31,7 @@ func ExampleFilter() {
 	// <nil>
 }
 
-func ExampleFilterFalse() {
+func ExampleResult_FilterFalse() {
 	filter := func(v int) bool { return v > 20 }
 
 	v := result.OK(10).FilterFalse(filter)
