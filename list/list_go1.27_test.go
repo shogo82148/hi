@@ -63,6 +63,56 @@ func TestList_CountBy(t *testing.T) {
 	}
 }
 
+func TestList_AnyBy(t *testing.T) {
+	l := New[int]()
+	for i := range 5 {
+		l.PushBack(i)
+	}
+
+	if !l.AnyBy(func(index int, value int) bool {
+		return value%2 == 0
+	}) {
+		t.Errorf("got false, want true")
+	}
+
+	if l.AnyBy(func(index int, value int) bool {
+		return value > 5
+	}) {
+		t.Errorf("got true, want false")
+	}
+
+	if !l.AllBy(func(index int, value int) bool {
+		return value < 5
+	}) {
+		t.Errorf("got false, want true")
+	}
+
+	if l.AllBy(func(index int, value int) bool {
+		return value%2 == 0
+	}) {
+		t.Errorf("got true, want false")
+	}
+}
+
+func TestList_AllBy(t *testing.T) {
+	l := New[int]()
+	for i := range 5 {
+		l.PushBack(i)
+	}
+
+	if !l.AllBy(func(index int, value int) bool {
+		return value < 5
+	}) {
+		t.Errorf("got false, want true")
+	}
+
+	if l.AllBy(func(index int, value int) bool {
+		return value%2 == 0
+	}) {
+		t.Errorf("got true, want false")
+	}
+}
+
 func TestList_Map(t *testing.T) {
 	l := New[int]()
 	for i := range 5 {

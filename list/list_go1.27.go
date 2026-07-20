@@ -35,6 +35,26 @@ func (l *List[T]) CountBy(f func(index int, value T) bool) int {
 	return count
 }
 
+// AnyBy returns whether l has an element for that f returns true.
+func (l *List[T]) AnyBy(f func(index int, value T) bool) bool {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if f(i, e.Value) {
+			return true
+		}
+	}
+	return false
+}
+
+// AllBy returns whether f returns true for all elements in l.
+func (l *List[T]) AllBy(f func(int, T) bool) bool {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		if !f(i, e.Value) {
+			return false
+		}
+	}
+	return true
+}
+
 // Map returns a list of the results of applying f to each element of l.
 func (l *List[T]) Map[U any](f func(index int, value T) U) *List[U] {
 	var ret List[U]
