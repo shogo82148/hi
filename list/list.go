@@ -317,7 +317,7 @@ func AllBy[T any](l *List[T], f func(int, T) bool) bool {
 	return true
 }
 
-// Map
+// Map returns a list of the results of applying f to each element of l.
 func Map[T, U any](l *List[T], f func(int, T) U) *List[U] {
 	var ret List[U]
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
