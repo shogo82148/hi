@@ -2,7 +2,7 @@
 
 package list
 
-// Filter iterates over elements of collection, returning a list of all elements predicate returns true for.
+// Filter returns the elements of l for which f returns true.
 func (l *List[T]) Filter(f func(index int, value T) bool) *List[T] {
 	var ret List[T]
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
@@ -13,7 +13,7 @@ func (l *List[T]) Filter(f func(index int, value T) bool) *List[T] {
 	return &ret
 }
 
-// FilterFalse iterates over elements of collection, returning a list of all elements predicate returns false for.
+// FilterFalse returns the elements of l for which f returns false.
 func (l *List[T]) FilterFalse(f func(index int, value T) bool) *List[T] {
 	var ret List[T]
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
@@ -24,7 +24,7 @@ func (l *List[T]) FilterFalse(f func(index int, value T) bool) *List[T] {
 	return &ret
 }
 
-// CountBy counts the number of elements that counter returns true.
+// CountBy returns the number of elements of l for which f returns true.
 func (l *List[T]) CountBy(f func(index int, value T) bool) int {
 	var count int
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
@@ -35,7 +35,7 @@ func (l *List[T]) CountBy(f func(index int, value T) bool) int {
 	return count
 }
 
-// AnyBy returns whether l has an element for that f returns true.
+// AnyBy reports whether any element of l makes f return true.
 func (l *List[T]) AnyBy(f func(index int, value T) bool) bool {
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if f(i, e.Value) {
@@ -45,7 +45,7 @@ func (l *List[T]) AnyBy(f func(index int, value T) bool) bool {
 	return false
 }
 
-// AllBy returns whether f returns true for all elements in l.
+// AllBy reports whether all elements of l make f return true.
 func (l *List[T]) AllBy(f func(int, T) bool) bool {
 	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
 		if !f(i, e.Value) {
