@@ -28,6 +28,26 @@ func TestList_Filter(t *testing.T) {
 	}
 }
 
+func TestList_FilterFalse(t *testing.T) {
+	l := New[int]()
+	for i := range 5 {
+		l.PushBack(i)
+	}
+
+	filtered := l.FilterFalse(func(index int, value int) bool {
+		return value%2 == 0
+	})
+
+	got := make([]int, 0, filtered.Len())
+	for _, v := range filtered.Forward() {
+		got = append(got, v)
+	}
+	want := []int{1, 3}
+	if !slices.Equal(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
 func TestList_Map(t *testing.T) {
 	l := New[int]()
 	for i := range 5 {
