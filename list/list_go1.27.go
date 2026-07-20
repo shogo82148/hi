@@ -64,3 +64,11 @@ func (l *List[T]) Map[U any](f func(index int, value T) U) *List[U] {
 	}
 	return &ret
 }
+
+// Reduce reduces l to a single value which is the accumulated result of running each element in l through the reducer function.
+func (l *List[T]) Reduce[U any](f func(i int, acc U, item T) U, init U) U {
+	for i, e := 0, l.Front(); e != nil; i, e = i+1, e.Next() {
+		init = f(i, init, e.Value)
+	}
+	return init
+}

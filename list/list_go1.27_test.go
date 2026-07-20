@@ -132,3 +132,18 @@ func TestList_Map(t *testing.T) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
+
+func TestList_Reduce(t *testing.T) {
+	l := New[int]()
+	for i := range 5 {
+		l.PushBack(i)
+	}
+
+	sum := l.Reduce(func(index int, acc int, value int) int {
+		return acc + value
+	}, 0)
+
+	if sum != 10 {
+		t.Errorf("got %d, want %d", sum, 10)
+	}
+}
