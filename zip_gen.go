@@ -9,12 +9,9 @@ import (
 // Zip2 returns a slice of 2-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip2[S []tuple.Tuple2[T1, T2], S1 ~[]T1, S2 ~[]T2, T1, T2 any](s1 S1, s2 S2) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
+	l := min(len(s1), len(s2))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New2(s1[i], s2[i])
 	}
 	return ret
@@ -23,15 +20,9 @@ func Zip2[S []tuple.Tuple2[T1, T2], S1 ~[]T1, S2 ~[]T2, T1, T2 any](s1 S1, s2 S2
 // Zip3 returns a slice of 3-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip3[S []tuple.Tuple3[T1, T2, T3], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, T1, T2, T3 any](s1 S1, s2 S2, s3 S3) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
+	l := min(len(s1), len(s2), len(s3))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New3(s1[i], s2[i], s3[i])
 	}
 	return ret
@@ -40,18 +31,9 @@ func Zip3[S []tuple.Tuple3[T1, T2, T3], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, T1, T2, T3
 // Zip4 returns a slice of 4-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip4[S []tuple.Tuple4[T1, T2, T3, T4], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, T1, T2, T3, T4 any](s1 S1, s2 S2, s3 S3, s4 S4) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New4(s1[i], s2[i], s3[i], s4[i])
 	}
 	return ret
@@ -60,21 +42,9 @@ func Zip4[S []tuple.Tuple4[T1, T2, T3, T4], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]
 // Zip5 returns a slice of 5-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip5[S []tuple.Tuple5[T1, T2, T3, T4, T5], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, T1, T2, T3, T4, T5 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New5(s1[i], s2[i], s3[i], s4[i], s5[i])
 	}
 	return ret
@@ -83,24 +53,9 @@ func Zip5[S []tuple.Tuple5[T1, T2, T3, T4, T5], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4
 // Zip6 returns a slice of 6-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip6[S []tuple.Tuple6[T1, T2, T3, T4, T5, T6], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, T1, T2, T3, T4, T5, T6 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New6(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i])
 	}
 	return ret
@@ -109,27 +64,9 @@ func Zip6[S []tuple.Tuple6[T1, T2, T3, T4, T5, T6], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3
 // Zip7 returns a slice of 7-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip7[S []tuple.Tuple7[T1, T2, T3, T4, T5, T6, T7], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, T1, T2, T3, T4, T5, T6, T7 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New7(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i])
 	}
 	return ret
@@ -138,30 +75,9 @@ func Zip7[S []tuple.Tuple7[T1, T2, T3, T4, T5, T6, T7], S1 ~[]T1, S2 ~[]T2, S3 ~
 // Zip8 returns a slice of 8-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip8[S []tuple.Tuple8[T1, T2, T3, T4, T5, T6, T7, T8], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, T1, T2, T3, T4, T5, T6, T7, T8 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New8(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i])
 	}
 	return ret
@@ -170,33 +86,9 @@ func Zip8[S []tuple.Tuple8[T1, T2, T3, T4, T5, T6, T7, T8], S1 ~[]T1, S2 ~[]T2, 
 // Zip9 returns a slice of 9-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip9[S []tuple.Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, T1, T2, T3, T4, T5, T6, T7, T8, T9 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New9(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i])
 	}
 	return ret
@@ -205,36 +97,9 @@ func Zip9[S []tuple.Tuple9[T1, T2, T3, T4, T5, T6, T7, T8, T9], S1 ~[]T1, S2 ~[]
 // Zip10 returns a slice of 10-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip10[S []tuple.Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, S10 ~[]T10, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9, s10 S10) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
-	if len(s10) < l {
-		l = len(s10)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9), len(s10))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New10(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i], s10[i])
 	}
 	return ret
@@ -243,39 +108,9 @@ func Zip10[S []tuple.Tuple10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10], S1 ~[]T1,
 // Zip11 returns a slice of 11-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip11[S []tuple.Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, S10 ~[]T10, S11 ~[]T11, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9, s10 S10, s11 S11) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
-	if len(s10) < l {
-		l = len(s10)
-	}
-	if len(s11) < l {
-		l = len(s11)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9), len(s10), len(s11))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New11(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i], s10[i], s11[i])
 	}
 	return ret
@@ -284,42 +119,9 @@ func Zip11[S []tuple.Tuple11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11], S1 ~
 // Zip12 returns a slice of 12-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip12[S []tuple.Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, S10 ~[]T10, S11 ~[]T11, S12 ~[]T12, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9, s10 S10, s11 S11, s12 S12) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
-	if len(s10) < l {
-		l = len(s10)
-	}
-	if len(s11) < l {
-		l = len(s11)
-	}
-	if len(s12) < l {
-		l = len(s12)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9), len(s10), len(s11), len(s12))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New12(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i], s10[i], s11[i], s12[i])
 	}
 	return ret
@@ -328,45 +130,9 @@ func Zip12[S []tuple.Tuple12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12],
 // Zip13 returns a slice of 13-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip13[S []tuple.Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, S10 ~[]T10, S11 ~[]T11, S12 ~[]T12, S13 ~[]T13, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9, s10 S10, s11 S11, s12 S12, s13 S13) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
-	if len(s10) < l {
-		l = len(s10)
-	}
-	if len(s11) < l {
-		l = len(s11)
-	}
-	if len(s12) < l {
-		l = len(s12)
-	}
-	if len(s13) < l {
-		l = len(s13)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9), len(s10), len(s11), len(s12), len(s13))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New13(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i], s10[i], s11[i], s12[i], s13[i])
 	}
 	return ret
@@ -375,48 +141,9 @@ func Zip13[S []tuple.Tuple13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, 
 // Zip14 returns a slice of 14-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip14[S []tuple.Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, S10 ~[]T10, S11 ~[]T11, S12 ~[]T12, S13 ~[]T13, S14 ~[]T14, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9, s10 S10, s11 S11, s12 S12, s13 S13, s14 S14) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
-	if len(s10) < l {
-		l = len(s10)
-	}
-	if len(s11) < l {
-		l = len(s11)
-	}
-	if len(s12) < l {
-		l = len(s12)
-	}
-	if len(s13) < l {
-		l = len(s13)
-	}
-	if len(s14) < l {
-		l = len(s14)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9), len(s10), len(s11), len(s12), len(s13), len(s14))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New14(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i], s10[i], s11[i], s12[i], s13[i], s14[i])
 	}
 	return ret
@@ -425,51 +152,9 @@ func Zip14[S []tuple.Tuple14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, 
 // Zip15 returns a slice of 15-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip15[S []tuple.Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, S10 ~[]T10, S11 ~[]T11, S12 ~[]T12, S13 ~[]T13, S14 ~[]T14, S15 ~[]T15, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9, s10 S10, s11 S11, s12 S12, s13 S13, s14 S14, s15 S15) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
-	if len(s10) < l {
-		l = len(s10)
-	}
-	if len(s11) < l {
-		l = len(s11)
-	}
-	if len(s12) < l {
-		l = len(s12)
-	}
-	if len(s13) < l {
-		l = len(s13)
-	}
-	if len(s14) < l {
-		l = len(s14)
-	}
-	if len(s15) < l {
-		l = len(s15)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9), len(s10), len(s11), len(s12), len(s13), len(s14), len(s15))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New15(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i], s10[i], s11[i], s12[i], s13[i], s14[i], s15[i])
 	}
 	return ret
@@ -478,54 +163,9 @@ func Zip15[S []tuple.Tuple15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, 
 // Zip16 returns a slice of 16-tuples.
 // The returned slice have the length of the shortest slice.
 func Zip16[S []tuple.Tuple16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16], S1 ~[]T1, S2 ~[]T2, S3 ~[]T3, S4 ~[]T4, S5 ~[]T5, S6 ~[]T6, S7 ~[]T7, S8 ~[]T8, S9 ~[]T9, S10 ~[]T10, S11 ~[]T11, S12 ~[]T12, S13 ~[]T13, S14 ~[]T14, S15 ~[]T15, S16 ~[]T16, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16 any](s1 S1, s2 S2, s3 S3, s4 S4, s5 S5, s6 S6, s7 S7, s8 S8, s9 S9, s10 S10, s11 S11, s12 S12, s13 S13, s14 S14, s15 S15, s16 S16) S {
-	l := len(s1)
-	if len(s2) < l {
-		l = len(s2)
-	}
-	if len(s3) < l {
-		l = len(s3)
-	}
-	if len(s4) < l {
-		l = len(s4)
-	}
-	if len(s5) < l {
-		l = len(s5)
-	}
-	if len(s6) < l {
-		l = len(s6)
-	}
-	if len(s7) < l {
-		l = len(s7)
-	}
-	if len(s8) < l {
-		l = len(s8)
-	}
-	if len(s9) < l {
-		l = len(s9)
-	}
-	if len(s10) < l {
-		l = len(s10)
-	}
-	if len(s11) < l {
-		l = len(s11)
-	}
-	if len(s12) < l {
-		l = len(s12)
-	}
-	if len(s13) < l {
-		l = len(s13)
-	}
-	if len(s14) < l {
-		l = len(s14)
-	}
-	if len(s15) < l {
-		l = len(s15)
-	}
-	if len(s16) < l {
-		l = len(s16)
-	}
+	l := min(len(s1), len(s2), len(s3), len(s4), len(s5), len(s6), len(s7), len(s8), len(s9), len(s10), len(s11), len(s12), len(s13), len(s14), len(s15), len(s16))
 	ret := make(S, l)
-	for i := 0; i < l; i++ {
+	for i := range l {
 		ret[i] = tuple.New16(s1[i], s2[i], s3[i], s4[i], s5[i], s6[i], s7[i], s8[i], s9[i], s10[i], s11[i], s12[i], s13[i], s14[i], s15[i], s16[i])
 	}
 	return ret
