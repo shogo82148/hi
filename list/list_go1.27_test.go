@@ -48,6 +48,21 @@ func TestList_FilterFalse(t *testing.T) {
 	}
 }
 
+func TestList_CountBy(t *testing.T) {
+	l := New[int]()
+	for i := range 5 {
+		l.PushBack(i)
+	}
+
+	count := l.CountBy(func(index int, value int) bool {
+		return value%2 == 0
+	})
+
+	if count != 3 {
+		t.Errorf("got %d, want %d", count, 3)
+	}
+}
+
 func TestList_Map(t *testing.T) {
 	l := New[int]()
 	for i := range 5 {
